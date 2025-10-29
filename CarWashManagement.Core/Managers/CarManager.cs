@@ -63,7 +63,7 @@ namespace CarWashManagement.Core.Managers
         }
 
         // Method to get the list of vehicles.
-        public List<Vehicle> GetVehicles()
+        public List<Vehicle> GetVehicleTypes()
         {
             return vehicleFileHandler.Load();
         }
