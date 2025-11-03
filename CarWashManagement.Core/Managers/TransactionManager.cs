@@ -83,6 +83,7 @@ namespace CarWashManagement.Core.Managers
             return txn;
         }
 
+        // Method to get all transactions made today, ordered by most recent first.
         public List<Transaction> GetTodaysTransactions()
         {
             return transactions
@@ -90,5 +91,18 @@ namespace CarWashManagement.Core.Managers
                 .OrderByDescending(txn => txn.Timestamp)
                 .ToList();
         }
+
+        // Method to get a transaction by its ID.
+        public Transaction GetTransactionByID(string id)
+        {
+            return transactions.FirstOrDefault(txn => txn.ID == id);
+        }
+
+        // Method to save the entire in-memory list of transactions to the transactions.txt file.
+        // This method assumes the transaction object was already updated in memory before this was called.
+        public void UpdateTransaction()
+        {
+            txnFileHandler.SaveAllTransactions(transactions);
+        }      
     }
 }

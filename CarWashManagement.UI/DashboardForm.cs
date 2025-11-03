@@ -60,6 +60,10 @@ namespace CarWashManagement.UI
         private TextBox txtTotalAmount;
         private List<Control> serviceControls = new List<Control>(); // To hold created service checkboxes and fee textboxes.
 
+        // Declaration of Today's Entries Controls.
+        private ListView lsvTodayEntries;
+        private ContextMenuStrip lsvContextMenu;
+
         public DashboardForm(User loggedInUser)
         {
             this.loggedInUser = loggedInUser;
@@ -81,6 +85,7 @@ namespace CarWashManagement.UI
             SetUpControls();
             LoadVehicleComboBox();
             LoadServiceControls();
+            RefreshTodaysEntries();
         }
 
         private void SetUpControls()
@@ -354,8 +359,29 @@ namespace CarWashManagement.UI
             todaysEntriesPanel.Location = new Point(320, 50);
             todaysEntriesPanel.Size = new Size(450, 250);
             todaysEntriesPanel.BorderStyle = BorderStyle.FixedSingle;
-            todaysEntriesPanel.Controls.Add(new Label { Text = "Today's Entries Area", Location = new Point(10, 10) });
             this.Controls.Add(todaysEntriesPanel);
+
+            // --- ListView for Today's Entries ---
+            lsvTodayEntries = new ListView
+            {
+                Dock = DockStyle.Fill, // Fill the entire panel
+                View = View.Details, // Set view to show columns
+                FullRowSelect = true, // Select the entire row
+                GridLines = true
+            };
+            lsvTodayEntries.Columns.Add("Time", 50, HorizontalAlignment.Left);
+            lsvTodayEntries.Columns.Add("Vehicle", 80, HorizontalAlignment.Left);
+            lsvTodayEntries.Columns.Add("Employee", 90, HorizontalAlignment.Left);
+            lsvTodayEntries.Columns.Add("Total", 70, HorizontalAlignment.Right);
+            lsvTodayEntries.Columns.Add("Paid", 50, HorizontalAlignment.Center);
+            lsvTodayEntries.Columns.Add("Wash Status", 85, HorizontalAlignment.Left);
+            todaysEntriesPanel.Controls.Add(lsvTodayEntries);
+
+            // --- Context Menu for ListView ---
+            lsvContextMenu = new ContextMenuStrip();
+            lsvContextMenu.Items.Add("Toggle Paid Status", null, TogglePaidStatus_Click);
+            lsvContextMenu.Items.Add("Toggle Wash Status", null, ToggleWashStatus_Click);
+            lsvTodayEntries.ContextMenuStrip = lsvContextMenu;
 
             // - - - - - Daily Summary Panel - - - - -
             dailySummaryPanel = new Panel();
@@ -501,6 +527,34 @@ namespace CarWashManagement.UI
             txtTotalAmount.Text = totalAmount.ToString("N2");
         }
 
+        private void RefreshTodaysEntries()
+        {
+            // Clear existing items.
+            lsvTodayEntries.Items.Clear();
+
+            // Get today's transactions from the manager.
+            List<Transaction> todaysTransactions = transactionManager.GetTodaysTransactions();
+
+            foreach (Transaction txn in todaysTransactions)
+            {
+                // Create a new row (ListViewItem)
+                ListViewItem row = new ListViewItem(txn.Timestamp.ToString("HH:mm"));
+
+                // Store transaction ID in the Tag for reference when updating the Paid and Status properties.
+                row.Tag = txn.ID; 
+
+                // Add the other columns (sub-items).
+                row.SubItems.Add(txn.VehicleType);
+                row.SubItems.Add(txn.EmployeeName);
+                row.SubItems.Add(txn.TotalAmount.ToString("N2"));
+                row.SubItems.Add(txn.IsPaid ? "Yes" : "No");
+                row.SubItems.Add(txn.WashStatus);
+
+                // Add the completed row to the list view.
+                lsvTodayEntries.Items.Add(row);
+            }
+        }
+
         // Method to reset the wash entry form after adding a transaction.
         private void ResetWashEntryForm()
         {
@@ -548,6 +602,56 @@ namespace CarWashManagement.UI
                     Application.Exit();
                 }
             }
+        }
+
+        // Method to handle toggling paid status of a transaction from the context menu.
+        private void TogglePaidStatus_Click(object sender, EventArgs e)
+        {
+            // Check if any item is selected in the ListView.
+            if (lsvTodayEntries.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a transaction row to toggle its Paid Status.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Get the selected row and its ID in the Tag property.
+            ListViewItem selectedRow = lsvTodayEntries.SelectedItems[0];
+            string transactionID = selectedRow.Tag as string;
+
+            // Access the original transaction object from the manager using the ID.
+            Transaction txnToUpdate = transactionManager.GetTransactionByID(transactionID);
+
+            if (txnToUpdate == null) return;
+
+            // Modify the IsPaid property of the object by toggling its current value.
+            txnToUpdate.IsPaid = !txnToUpdate.IsPaid;
+
+            // Save the modified list of transactions back to the file. 
+            transactionManager.UpdateTransaction();
+
+            RefreshTodaysEntries();
+
+        }
+
+        // Method to handle toggling wash status of a transaction from the context menu.
+        private void ToggleWashStatus_Click(object sender, EventArgs e)
+        {
+            if (lsvTodayEntries.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a transaction row to toggle its Wash Status.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            ListViewItem selectedRow = lsvTodayEntries.SelectedItems[0];
+            string transactionID = selectedRow.Tag as string;
+
+            Transaction txnToUpdate = transactionManager.GetTransactionByID(transactionID);
+            if (txnToUpdate == null) return;
+
+            // Toggle the wash status between "Ongoing" and "Completed".
+            txnToUpdate.WashStatus = (txnToUpdate.WashStatus == "Ongoing") ? "Completed" : "Ongoing";
+            transactionManager.UpdateTransaction();
+            RefreshTodaysEntries();
         }
 
         // Method to handle when the "Add Entry" button is clicked.
@@ -634,7 +738,7 @@ namespace CarWashManagement.UI
                 MessageBox.Show($"Transaction {newTransaction.ID} added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ResetWashEntryForm();
-                // TODO: Refresh the Today's Entries panel (in a later step)
+                RefreshTodaysEntries();
             }
             catch (Exception ex)
             {

@@ -14,7 +14,7 @@ namespace CarWashManagement.Core.FileHandlers
     {
         private readonly string filePath = FilePathManager.TransactionsFilePath;
 
-        // Method to save a single transaction by appending it to the transactions.txt file.
+        // Method to save a SINGLE transaction by appending it to the transactions.txt file.
         public void SaveTransaction(Transaction txn)
         {
             try
@@ -45,7 +45,43 @@ namespace CarWashManagement.Core.FileHandlers
                 Console.WriteLine($"Could not write to transactions file. Error: {ex.Message}");
             }
         }
-        
+
+        // Method to save ALL transactions by overwriting the transactions.txt file.
+        public void SaveAllTransactions(List<Transaction> transactions)
+        {
+            try
+            {
+                List<string> lines = new List<string>();
+                foreach (Transaction txn in transactions)
+                {
+                    string servicesString = string.Join(",",
+                        txn.AdditionalServices.Select(s => $"{s.Name} ({s.Fee:F2}) [{s.PricingType}] {{{s.Multiplier}}}"));
+
+                    string line = string.Join("|",
+                        txn.ID,
+                        txn.Timestamp.ToString("O"),
+                        txn.VehicleType,
+                        txn.EmployeeName,
+                        txn.BaseFee.ToString("F2"),
+                        txn.ServiceTotal.ToString("F2"),
+                        txn.OwnerShare.ToString("F2"),
+                        txn.EmployeeShare.ToString("F2"),
+                        txn.TotalAmount.ToString("F2"),
+                        txn.IsPaid.ToString(),
+                        txn.WashStatus,
+                        txn.DiscountPercentage.ToString(),
+                        servicesString);
+                    lines.Add(line);
+                }
+
+                File.WriteAllLines(filePath, lines);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not overwrite transactions file. Error: {ex.Message}");
+            }
+        }
+
         public List<Transaction> LoadAllTransactions()
         {
             List<Transaction> transactions = new List<Transaction>();
