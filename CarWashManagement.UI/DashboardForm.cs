@@ -27,6 +27,8 @@ namespace CarWashManagement.UI
         // Declaration of header controls.
         private Label welcomeLabel;
         private Button logoutButton;
+        private MenuStrip mainMenu;
+        private ToolStripMenuItem adminMenuItem;
 
         // Declaration of panels for layout.
         private Panel washEntryPanel;
@@ -64,6 +66,18 @@ namespace CarWashManagement.UI
         private ListView lsvTodayEntries;
         private ContextMenuStrip lsvContextMenu;
 
+        // Declaration of Daily Summary Controls.
+        private Label lblSummaryTotalRevenue;
+        private TextBox txtSummaryTotalRevenue;
+        private Label lblSummaryTotalOwnerShare;
+        private TextBox txtSummaryTotalOwnerShare;
+        private Label lblSummaryTotalEmpShare;
+        private TextBox txtSummaryTotalEmpShare;
+        private Label lblSummaryTotalWashes;
+        private TextBox txtSummaryTotalWashes;
+        private Label lblSummaryMostWashedVehicle;
+        private TextBox txtSummaryMostWashedVehicle;
+
         public DashboardForm(User loggedInUser)
         {
             this.loggedInUser = loggedInUser;
@@ -86,6 +100,11 @@ namespace CarWashManagement.UI
             LoadVehicleComboBox();
             LoadServiceControls();
             RefreshTodaysEntries();
+
+            if (loggedInUser.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+            {
+                adminMenuItem.Visible = true;
+            }
         }
 
         private void SetUpControls()
@@ -94,20 +113,39 @@ namespace CarWashManagement.UI
             Text = "Car Wash Management - Daily Dashboard";
             Size = new Size(800, 600);
 
-            // - - - - - Welcome Label - - - - -
+            // --- Main Menu ---
+            mainMenu = new MenuStrip();
+            mainMenu.Dock = DockStyle.Top; // Dock to the top of the form
+
+            // - Admin Menu Item -
+            adminMenuItem = new ToolStripMenuItem("Admin");
+            adminMenuItem.Visible = false; // Hidden by default
+
+            adminMenuItem.DropDownItems.Add("Manage Users", null, ManageUsers_Click);
+            adminMenuItem.DropDownItems.Add("Manage Vehicles", null, ManageVehicles_Click);
+            adminMenuItem.DropDownItems.Add("Manage Services", null, ManageServices_Click);
+            adminMenuItem.DropDownItems.Add("Manage Expenses", null, ManageExpenses_Click);
+
+            mainMenu.Items.Add(adminMenuItem);
+            Controls.Add(mainMenu);
+            this.MainMenuStrip = mainMenu;
+
+            int labelY = mainMenu.Height + 5;
+
+            // --- Welcome Label ---
             welcomeLabel = new Label
             {
                 Text = $"Welcome, {loggedInUser.FullName} ({loggedInUser.Role})",
-                Location = new Point(10, 10),
+                Location = new Point(10, labelY),
                 AutoSize = true // Makes label resize to fit text
             };
             Controls.Add(welcomeLabel);
 
-            // - - - - - Logout Button - - - - -
+            // --- Logout Button ---
             logoutButton = new Button
             {
                 Text = "Logout",
-                Location = new Point(ClientSize.Width - 85, 10),
+                Location = new Point(ClientSize.Width - 85, labelY - 15),
                 Size = new Size(75, 30),
             };
             logoutButton.Click += LogoutButton_Click;
@@ -388,8 +426,110 @@ namespace CarWashManagement.UI
             dailySummaryPanel.Location = new Point(320, 310);
             dailySummaryPanel.Size = new Size(450, 240);
             dailySummaryPanel.BorderStyle = BorderStyle.FixedSingle;
-            dailySummaryPanel.Controls.Add(new Label { Text = "Daily Summary Area", Location = new Point(10, 10) });
             this.Controls.Add(dailySummaryPanel);
+
+            int col1X = 15;
+            int col2X = 240;
+            int currentSummaryY = 20;
+
+            // --- Total Revenue ---
+            lblSummaryTotalRevenue = new Label
+            {
+                Text = "Total Revenue:",
+                Location = new Point(col1X, currentSummaryY),
+                Font = new Font(Font, FontStyle.Bold),
+                AutoSize = true
+            };
+            dailySummaryPanel.Controls.Add(lblSummaryTotalRevenue);
+
+            txtSummaryTotalRevenue = new TextBox
+            {
+                Location = new Point(col1X, currentSummaryY + 20),
+                Size = new Size(180, 23),
+                ReadOnly = true,
+                Font = new Font(Font, FontStyle.Bold),
+                TextAlign = HorizontalAlignment.Right
+            };
+            dailySummaryPanel.Controls.Add(txtSummaryTotalRevenue);
+
+            currentSummaryY += 60;
+
+            // --- Total Owner Share ---
+            lblSummaryTotalOwnerShare = new Label
+            {
+                Text = "Total Owner Share:",
+                Location = new Point(col1X, currentSummaryY),
+                AutoSize = true
+            };
+            dailySummaryPanel.Controls.Add(lblSummaryTotalOwnerShare);
+
+            txtSummaryTotalOwnerShare = new TextBox
+            {
+                Location = new Point(col1X, currentSummaryY + 20),
+                Size = new Size(180, 23),
+                ReadOnly = true,
+                TextAlign = HorizontalAlignment.Right
+            };
+            dailySummaryPanel.Controls.Add(txtSummaryTotalOwnerShare);
+
+            // --- Total Employee Share ---
+            lblSummaryTotalEmpShare = new Label
+            {
+                Text = "Total Employee Share:",
+                Location = new Point(col2X, currentSummaryY),
+                AutoSize = true
+            };
+            dailySummaryPanel.Controls.Add(lblSummaryTotalEmpShare);
+
+            txtSummaryTotalEmpShare = new TextBox
+            {
+                Location = new Point(col2X, currentSummaryY + 20),
+                Size = new Size(180, 23),
+                ReadOnly = true,
+                TextAlign = HorizontalAlignment.Right
+            };
+            dailySummaryPanel.Controls.Add(txtSummaryTotalEmpShare);
+
+            currentSummaryY += 60;
+
+            // --- Total Washes ---
+            lblSummaryTotalWashes = new Label
+            {
+                Text = "Total Washes (Today):",
+                Location = new Point(col1X, currentSummaryY),
+                Font = new Font(Font, FontStyle.Bold),
+                AutoSize = true
+            };
+            dailySummaryPanel.Controls.Add(lblSummaryTotalWashes);
+
+            txtSummaryTotalWashes = new TextBox
+            {
+                Location = new Point(col1X, currentSummaryY + 20),
+                Size = new Size(180, 23),
+                ReadOnly = true,
+                TextAlign = HorizontalAlignment.Right
+            };
+            dailySummaryPanel.Controls.Add(txtSummaryTotalWashes);
+
+            // --- Most Washed Vehicle ---
+            lblSummaryMostWashedVehicle = new Label
+            {
+                Text = "Most Washed Vehicle:",
+                Location = new Point(col2X, currentSummaryY),
+                Font = new Font(Font, FontStyle.Bold),
+                AutoSize = true
+            };
+            dailySummaryPanel.Controls.Add(lblSummaryMostWashedVehicle);
+
+            txtSummaryMostWashedVehicle = new TextBox
+            {
+                Location = new Point(col2X, currentSummaryY + 20),
+                Size = new Size(180, 23),
+                ReadOnly = true,
+                TextAlign = HorizontalAlignment.Right
+            };
+            dailySummaryPanel.Controls.Add(txtSummaryMostWashedVehicle);
+
         }
 
         // Method to load the vehicle types in the dropdown combo box.
@@ -527,6 +667,36 @@ namespace CarWashManagement.UI
             txtTotalAmount.Text = totalAmount.ToString("N2");
         }
 
+        private void UpdateDailySummary()
+        {
+            List<Transaction> todaysTransaction = transactionManager.GetTodaysTransactions()
+                .Where(txn => txn.WashStatus == "Completed")
+                .ToList();
+
+            decimal totalRevenue = todaysTransaction.Sum(txn => txn.TotalAmount);
+            decimal totalOwnerShare = todaysTransaction.Sum (txn => txn.OwnerShare);
+            decimal totalEmpShare = todaysTransaction.Sum(txn => txn.EmployeeShare);
+            int totalWashes = todaysTransaction.Count();
+
+            string mostWashedVehicle = "N/A";
+
+            if (totalWashes > 0)
+            {
+                mostWashedVehicle = todaysTransaction
+                    .GroupBy(txn => txn.VehicleType) // Group by vehicle type.
+                    .OrderByDescending(group => group.Count()) // Order groups by count (descending).
+                    .Select(group => group.Key) // Select the vehicle type (key) of the group.
+                    .FirstOrDefault(); // Get the first element in the ordered list.
+            }
+
+            txtSummaryTotalRevenue.Text = totalRevenue.ToString("N2");
+            txtSummaryTotalOwnerShare.Text = totalOwnerShare.ToString("N2");
+            txtSummaryTotalEmpShare.Text = totalEmpShare.ToString("N2");
+            txtSummaryTotalWashes.Text = totalWashes.ToString();
+            txtSummaryMostWashedVehicle.Text = mostWashedVehicle;
+        }
+
+        // Method to refresh today's entries in the ListView.
         private void RefreshTodaysEntries()
         {
             // Clear existing items.
@@ -553,6 +723,9 @@ namespace CarWashManagement.UI
                 // Add the completed row to the list view.
                 lsvTodayEntries.Items.Add(row);
             }
+
+            // Update the summary panel when the transaction list is refreshed.
+            UpdateDailySummary();
         }
 
         // Method to reset the wash entry form after adding a transaction.
@@ -578,6 +751,34 @@ namespace CarWashManagement.UI
             txtServiceOwnerShare.Clear();
             txtServiceEmpShare.Clear();
             txtTotalAmount.Text = "0.00";
+        }
+
+        // Method that opens the Manage Users form (Admin Only).
+        private void ManageUsers_Click(object sender, EventArgs e)
+        {
+            // TODO: Build User Management Form.
+            MessageBox.Show("User Management form will open here.", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Method that opens the Manage Vehicles form (Admin Only).
+        private void ManageVehicles_Click(object sender, EventArgs e)
+        {
+            // TODO: Build Vehicle Management Form.
+            MessageBox.Show("Vehicle & Price Management form will open here.", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Method that opens the Manage Services form (Admin Only).
+        private void ManageServices_Click(object sender, EventArgs e)
+        {
+            // TODO: Build Service Management Form.
+            MessageBox.Show("Service Management form will open here.", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Method that opens the Manage Expenses form (Admin Only).
+        private void ManageExpenses_Click(object sender, EventArgs e)
+        {
+            // TODO: Build Expense Management Form.
+            MessageBox.Show("Expense Management form will open here.", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Method that allow users to logout from the main dashboard.
@@ -614,23 +815,29 @@ namespace CarWashManagement.UI
                 return;
             }
 
-            // Get the selected row and its ID in the Tag property.
-            ListViewItem selectedRow = lsvTodayEntries.SelectedItems[0];
-            string transactionID = selectedRow.Tag as string;
+            // Get all the selected items from the ListView.
+            ListView.SelectedListViewItemCollection selectedRows = lsvTodayEntries.SelectedItems;
 
-            // Access the original transaction object from the manager using the ID.
-            Transaction txnToUpdate = transactionManager.GetTransactionByID(transactionID);
+            // Iterate through each selected row to toggle the IsPaid property.
+            foreach (ListViewItem selectedRow in selectedRows)
+            {
+                string transactionID = selectedRow.Tag as string;
 
-            if (txnToUpdate == null) return;
+                Transaction txnToUpdate = transactionManager.GetTransactionByID(transactionID);
 
-            // Modify the IsPaid property of the object by toggling its current value.
-            txnToUpdate.IsPaid = !txnToUpdate.IsPaid;
+                if (txnToUpdate == null)
+                {
+                    MessageBox.Show("Transaction not found. Please refresh the list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                txnToUpdate.IsPaid = !txnToUpdate.IsPaid; // Toggle the IsPaid property.
+            }
 
             // Save the modified list of transactions back to the file. 
             transactionManager.UpdateTransaction();
 
             RefreshTodaysEntries();
-
         }
 
         // Method to handle toggling wash status of a transaction from the context menu.
@@ -642,14 +849,23 @@ namespace CarWashManagement.UI
                 return;
             }
 
-            ListViewItem selectedRow = lsvTodayEntries.SelectedItems[0];
-            string transactionID = selectedRow.Tag as string;
+            ListView.SelectedListViewItemCollection selectedRows = lsvTodayEntries.SelectedItems;
 
-            Transaction txnToUpdate = transactionManager.GetTransactionByID(transactionID);
-            if (txnToUpdate == null) return;
+            foreach (ListViewItem row in selectedRows)
+            {
+                string transactionID = row.Tag as string;
 
-            // Toggle the wash status between "Ongoing" and "Completed".
-            txnToUpdate.WashStatus = (txnToUpdate.WashStatus == "Ongoing") ? "Completed" : "Ongoing";
+                Transaction txnToUpdate = transactionManager.GetTransactionByID(transactionID);
+
+                if (txnToUpdate == null)
+                {
+                    MessageBox.Show("Transaction not found. Please refresh the list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                txnToUpdate.WashStatus = (txnToUpdate.WashStatus == "Ongoing") ? "Completed" : "Ongoing"; // Toggle the wash status.
+            }
+
             transactionManager.UpdateTransaction();
             RefreshTodaysEntries();
         }

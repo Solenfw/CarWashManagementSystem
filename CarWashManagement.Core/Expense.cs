@@ -9,8 +9,15 @@ namespace CarWashManagement.Core
     public class Expense
     {
         // Declaration of the expense properties.
+        public Guid Id { get; set; }
         public DateTime Date { get; set; }
-        public string ItemName { get; set; }
-        public double Amount { get; set; }
+        public string Description { get; set; }
+        public decimal Amount { get; set; }
+
+        public Expense()
+        {
+            Id = Guid.NewGuid();
+            Date = DateTime.Now;
+        }
     }
 }
