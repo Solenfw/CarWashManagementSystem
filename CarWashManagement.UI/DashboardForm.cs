@@ -149,6 +149,7 @@ namespace CarWashManagement.UI
                 Size = new Size(75, 30),
             };
             logoutButton.Click += LogoutButton_Click;
+            logoutButton.BringToFront();
             Controls.Add(logoutButton);
 
             // - - - - - Wash Entry Panel - - - - -
@@ -395,7 +396,7 @@ namespace CarWashManagement.UI
             // - - - - - Today's Entry Panel - - - - -
             todaysEntriesPanel = new Panel();
             todaysEntriesPanel.Location = new Point(320, 50);
-            todaysEntriesPanel.Size = new Size(450, 250);
+            todaysEntriesPanel.Size = new Size(450, 290);
             todaysEntriesPanel.BorderStyle = BorderStyle.FixedSingle;
             this.Controls.Add(todaysEntriesPanel);
 
@@ -423,8 +424,8 @@ namespace CarWashManagement.UI
 
             // - - - - - Daily Summary Panel - - - - -
             dailySummaryPanel = new Panel();
-            dailySummaryPanel.Location = new Point(320, 310);
-            dailySummaryPanel.Size = new Size(450, 240);
+            dailySummaryPanel.Location = new Point(320, 350);
+            dailySummaryPanel.Size = new Size(450, 200);
             dailySummaryPanel.BorderStyle = BorderStyle.FixedSingle;
             this.Controls.Add(dailySummaryPanel);
 
@@ -756,8 +757,10 @@ namespace CarWashManagement.UI
         // Method that opens the Manage Users form (Admin Only).
         private void ManageUsers_Click(object sender, EventArgs e)
         {
-            // TODO: Build User Management Form.
-            MessageBox.Show("User Management form will open here.", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            UserManagementForm userManagementForm = new UserManagementForm();
+
+            // Show the form as a modal dialog.
+            userManagementForm.ShowDialog();
         }
 
         // Method that opens the Manage Vehicles form (Admin Only).

@@ -162,5 +162,11 @@ namespace CarWashManagement.Core.Managers
             }
         }
 
+        // Method to get the list of all users from the user.txt file.
+        public List<User> GetAllUsers()
+        {
+            return userFileHandler.Load();
+        }
+
     }
 }
