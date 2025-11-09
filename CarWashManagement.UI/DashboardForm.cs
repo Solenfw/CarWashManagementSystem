@@ -26,6 +26,7 @@ namespace CarWashManagement.UI
 
         // Declaration of header controls.
         private Label welcomeLabel;
+        private LinkLabel lnkChangePassword;
         private Button logoutButton;
         private MenuStrip mainMenu;
         private ToolStripMenuItem adminMenuItem;
@@ -114,6 +115,17 @@ namespace CarWashManagement.UI
             Text = "Car Wash Management - Daily Dashboard";
             Size = new Size(800, 600);
 
+            // --- Logout Button ---
+            logoutButton = new Button
+            {
+                Text = "Logout",
+                Location = new Point(ClientSize.Width - 85, 15),
+                Size = new Size(75, 30),
+            };
+            logoutButton.Click += LogoutButton_Click;
+            logoutButton.BringToFront();
+            Controls.Add(logoutButton);
+
             // --- Main Menu ---
             mainMenu = new MenuStrip();
             mainMenu.Dock = DockStyle.Top; // Dock to the top of the form
@@ -126,6 +138,7 @@ namespace CarWashManagement.UI
             adminMenuItem.DropDownItems.Add("Manage Vehicles", null, ManageVehicles_Click);
             adminMenuItem.DropDownItems.Add("Manage Services", null, ManageServices_Click);
             adminMenuItem.DropDownItems.Add("Manage Expenses", null, ManageExpenses_Click);
+            adminMenuItem.DropDownItems.Add("Monthly Report", null, ShowMonthlyReport_Click);
 
             mainMenu.Items.Add(adminMenuItem);
             Controls.Add(mainMenu);
@@ -142,16 +155,16 @@ namespace CarWashManagement.UI
             };
             Controls.Add(welcomeLabel);
 
-            // --- Logout Button ---
-            logoutButton = new Button
+            // --- Change Password Link ---
+            lnkChangePassword = new LinkLabel
             {
-                Text = "Logout",
-                Location = new Point(ClientSize.Width - 85, labelY - 15),
-                Size = new Size(75, 30),
+                Text = "Change Password",
+                Location = new Point(580, labelY),
+                AutoSize = true
             };
-            logoutButton.Click += LogoutButton_Click;
-            logoutButton.BringToFront();
-            Controls.Add(logoutButton);
+            lnkChangePassword.Click += lnkChangePassword_Click;
+            Controls.Add(lnkChangePassword);
+
 
             // - - - - - Wash Entry Panel - - - - -
             washEntryPanel = new Panel
@@ -768,6 +781,13 @@ namespace CarWashManagement.UI
             LoadServiceControls();
         }
 
+        // Method that opens the change password form.
+        private void lnkChangePassword_Click(object sender, EventArgs e)
+        {
+            ChangePasswordForm changePasswordForm = new ChangePasswordForm(loggedInUser);
+            changePasswordForm.ShowDialog();
+        }
+        
         // Method that opens the Manage Users form (Admin Only).
         private void ManageUsers_Click(object sender, EventArgs e)
         {
@@ -803,6 +823,13 @@ namespace CarWashManagement.UI
 
             // Refresh daily summary to reflect any changes in expenses (in case I add the expenses in the daily summary in the future).
             UpdateDailySummary();
+        }
+
+        // Method that opens the Monthly Report dashboard form (Admin Only)
+        private void ShowMonthlyReport_Click(object sender, EventArgs e)
+        {
+            MonthlyReportForm reportForm = new MonthlyReportForm();
+            reportForm.ShowDialog();
         }
 
         // Method that allow users to logout from the main dashboard.

@@ -16,9 +16,13 @@ namespace CarWashManagement.Core.Managers
         // The maximum number of failed login attempts.
         private const int MaxLoginAttempts = 3;
 
+        private List<User> users;
+
         // Initialize file handlers when AccountManager is created.
         public AccountManager(IFileHandler<User> userFileHandler, AuditFileHandler auditFileHandler)
         {
+            users = userFileHandler.Load(); 
+
             this.userFileHandler = userFileHandler;
             this.auditFileHandler = auditFileHandler;
 
@@ -37,7 +41,7 @@ namespace CarWashManagement.Core.Managers
             loggedInUser = null; // Initializes the user to null.
 
             // Get all users from the users.txt file.
-            List<User> users = userFileHandler.Load();
+            users = GetAllUsers();
 
             // Gets the first matching username from the users list, ignoring case; otherwise, sets to null.
             User user = users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
@@ -95,7 +99,6 @@ namespace CarWashManagement.Core.Managers
         // Method to activate a user account.
         public bool ActivateUser(string username)
         {
-            List<User> users = userFileHandler.Load();
             User user = users.FirstOrDefault(u => u.Username == username);
 
             if (user != null && user.Status != "ACTIVE")
@@ -115,7 +118,6 @@ namespace CarWashManagement.Core.Managers
         // Method to deactivate a user account.
         public bool DeactivateUser(string username)
         {
-            List<User> users = userFileHandler.Load();
             User user = users.FirstOrDefault(u => u.Username == username);
 
             if (user != null && user.Status != "INACTIVE")
@@ -132,11 +134,33 @@ namespace CarWashManagement.Core.Managers
             }
         }
 
+        // Method to allow users to change their password.
+        public bool ChangePassword(string loggedInUsername, string oldPassword, string newPassword)
+        {
+            User user = GetUser(loggedInUsername);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            // Verify the old password.
+            if (user.Password != oldPassword)
+            {
+                auditFileHandler.LogEvent($"SECURITY: User '{loggedInUsername}' failed to change their password. (Incorrect old password).");
+                return false;
+            }
+
+            user.Password = newPassword;
+
+            userFileHandler.Save(users);
+            auditFileHandler.LogEvent($"SECURITY: User '{loggedInUsername}' successfully changed their password.");
+            return true;
+        }
+
         // Method to create a new user.
         public bool CreateUser(string username, string password, string role, string fullName)
         {
-            List<User> users = userFileHandler.Load();
-
             // Check if user already exists.
             if (users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
             {
@@ -160,6 +184,12 @@ namespace CarWashManagement.Core.Managers
                 auditFileHandler.LogEvent($"INFO: New user '{username}' created with role '{role}'.");
                 return true;
             }
+        }
+
+        // Method to get the user object from user list using the username.
+        public User GetUser(string username)
+        {
+            return users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
         // Method to get the list of all users from the user.txt file.

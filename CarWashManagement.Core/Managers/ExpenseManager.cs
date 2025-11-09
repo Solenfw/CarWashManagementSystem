@@ -36,11 +36,19 @@ namespace CarWashManagement.Core.Managers
             auditFileHandler.LogEvent($"EXPENSE: User '{loggedInUsername}' added expense '{description}' for {amount:N2} (Date: {date:yyyy-MM-dd}).");
         }
 
-        // Method to get all expenses for a specific month and year
+        // Method to get all expenses for a specific month.
         public List<Expense> GetExpensesForMonth(int year, int month)
         {
             return expenses
                 .Where(e => e.Date.Year == year && e.Date.Month == month)
+                .ToList();
+        }
+
+        // Method to get all expenses for a specific year.
+        public List<Expense> GetExpensesForYear(int year)
+        {
+            return expenses
+                .Where(e => e.Date.Year == year)
                 .ToList();
         }
 

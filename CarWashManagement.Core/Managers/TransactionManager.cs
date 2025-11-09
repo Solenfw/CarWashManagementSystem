@@ -92,6 +92,22 @@ namespace CarWashManagement.Core.Managers
                 .ToList();
         }
 
+        // Method to get all transactions for a specific month.
+        public List<Transaction> GetTransactionsForMonth(int year, int month)
+        {
+            return transactions
+                .Where(txn => txn.Timestamp.Year == year && txn.Timestamp.Month == month)
+                .ToList();
+        }
+
+        // Method to get all transactions for a specific year.
+        public List<Transaction> GetTransactionsForYear(int year)
+        {
+            return transactions
+                .Where(txn => txn.Timestamp.Year == year)
+                .ToList();
+        }
+
         // Method to get a transaction by its ID.
         public Transaction GetTransactionByID(string id)
         {
