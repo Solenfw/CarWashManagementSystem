@@ -612,7 +612,7 @@ namespace CarWashManagement.UI
                 loginForm.Show();
             }
             
-            Console.WriteLine("Car Wash Management System\nMiccael Jasper Tayas\nFinal Project Requirement\nCIS202 - Object Oriented Programming\nNovember 2025\n\nThank you for using the system!");
+            Console.WriteLine("Car Wash Management System\nCNTTVA2-K64 - GROUP PROJECT\nLAP TRINH TRUC QUAN\nNovember 2025\n\nThank you for using the system!");
             base.OnFormClosed(e);
         }
     }
