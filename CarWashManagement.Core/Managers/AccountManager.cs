@@ -14,7 +14,7 @@ namespace CarWashManagement.Core.Managers
         private readonly AuditFileHandler auditFileHandler;
 
         // The maximum number of failed login attempts.
-        private const int MaxLoginAttempts = 3;
+        private const int MaxLoginAttempts = 5;
 
         private List<User> users;
 
