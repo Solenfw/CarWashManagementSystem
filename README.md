@@ -7,10 +7,10 @@ This is a robust, feature-complete management system designed to handle the dail
 ### Key Features Implemented:
 
   * **Secure User Authentication:** Login with user roles, and account lockout after 3 failed attempts.
-  * **Role-Based Access:** Distinct functionality and dashboard views for `ADMIN` and `EMPLOYEE` roles.
+  * **Role-Based Access:** Distinct functionality and dashboard views for `ADMIN` and `RECORDER` roles.
   * **Transaction Management:** Full CRUD (Create, Read, Update, Delete) capability for recording customer washes, services, vehicle types, and payment status.
-  * **Inventory & Services Management:** Admin panels to manage available services and vehicle types.
-  * **Financial Management:** Dedicated module for tracking monthly business expenses.
+  * **Vehicle & Services Management:** Admin panels to manage available services and vehicle types.
+  * **Expense Management:** Dedicated module for tracking monthly business expenses.
   * **Automated Reporting:** Calculation and display of real-time daily stats and comprehensive monthly/yearly financial reports (Revenue, Expenses, Net Profit, Employee Share, Most Popular Services/Vehicles, etc.).
   * **Auditing:** System logging of all critical actions (login, logout, user creation/status changes, CRUD operations).
 
@@ -60,11 +60,14 @@ The system automatically initializes the default administrative account if no us
 
 ## 📂 System File Structure
 
-The system uses flat text files stored in a dedicated directory (relative to the executable) for all persistent data.
+The system uses flat text files stored in a dedicated Application Data folder (AppData) for all persistent data. This ensures that user and business records are kept separate from the executable, following Windows best practices for application storage.
+
+By default, files are saved under the user’s profile directory:
+'C:\Users\<Username>\AppData\Roaming\CarWashManagementSystem\'
 
 | File | Purpose | Manager |
 | :--- | :--- | :--- |
-| `users.txt` | Stores all user accounts, roles, statuses, and password hashes. | `AccountManager` |
+| `users.txt` | Stores all user accounts, roles, statuses, passwords, and number of failed login attempts. | `AccountManager` |
 | `transactions.txt` | Stores all records of completed and ongoing car wash services. | `TransactionManager` |
 | `expenses.txt` | Stores all financial expenditures/business costs. | `ExpenseManager` |
 | `services.txt` | Stores the list of available services and their prices. | `CarManager` |
