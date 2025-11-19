@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 using CarWashManagement.Core;
 using CarWashManagement.Core.Managers;
-using CarWashManagement.Core.Enums; // For ServicePricingType.
+using CarWashManagement.Core.Enums;
 
 namespace CarWashManagement.UI
 {
@@ -22,11 +19,18 @@ namespace CarWashManagement.UI
             this.carManager = carManager;
 
             InitializeComponent();
+            LoadServiceList();
+            InitializePricingTypeComboBox();
+        }
+
+        // Initialize the pricing type combo box with enum values
+        private void InitializePricingTypeComboBox()
+        {
+            cmbPricingType.Items.Clear();
             cmbPricingType.Items.Add(ServicePricingType.FixedPrice);
             cmbPricingType.Items.Add(ServicePricingType.ManualInput);
             cmbPricingType.Items.Add(ServicePricingType.VehicleBaseFeeMultiplier);
-            ClearForm();
-            LoadServiceList();
+            cmbPricingType.SelectedIndex = 0;
         }
 
         // Method to load services into the ListView.
@@ -68,6 +72,8 @@ namespace CarWashManagement.UI
         // Method to show/hide Fee or Multiplier fields based on PricingType.
         private void UpdateFieldVisibility()
         {
+            if (cmbPricingType.SelectedItem == null) return;
+
             ServicePricingType selectedType = (ServicePricingType)cmbPricingType.SelectedItem;
 
             lblFee.Visible = (selectedType == ServicePricingType.FixedPrice);
@@ -82,6 +88,13 @@ namespace CarWashManagement.UI
         {
             service = null;
             string name = txtName.Text.Trim();
+
+            if (cmbPricingType.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a pricing type.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
             ServicePricingType type = (ServicePricingType)cmbPricingType.SelectedItem;
             decimal fee = 0m;
             int multiplier = 1;
@@ -131,7 +144,7 @@ namespace CarWashManagement.UI
             // Unselects an item in the ListView.
             if (lsvServices.SelectedItems.Count == 0)
             {
-                ClearForm(); 
+                ClearForm();
                 return;
             }
 
@@ -164,10 +177,11 @@ namespace CarWashManagement.UI
         // Event handler when the Add Button is clicked.
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (!ValidateInput(out Service newService)) 
+            if (!ValidateInput(out Service newService))
             {
                 return; // Invalid inputs.
-            }; 
+            }
+            ;
 
             bool success = carManager.AddService(newService, loggedInUser.Username);
 

@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CarWashManagement.UI
@@ -24,7 +21,7 @@ namespace CarWashManagement.UI
 
             InitializeComponent();
             LoadVehicleList();
-        } 
+        }
 
         // Method to load all the vehicles from the vehicles.txt file into the ListView.
         private void LoadVehicleList()
@@ -148,12 +145,14 @@ namespace CarWashManagement.UI
             {
                 MessageBox.Show("Vehicle added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadVehicleList();
-            } else
+            }
+            else
             {
                 MessageBox.Show("A vehicle with this type already exists.", "Creation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // Event handler when the Update Button is clicked.
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (!ValidateInput(out Vehicle updatedVehicle))
@@ -166,6 +165,7 @@ namespace CarWashManagement.UI
             LoadVehicleList();
         }
 
+        // Event handler when the Delete Button is clicked.
         private void btnDelete_Click(object sender, EventArgs e)
         {
             string vehicleType = txtType.Text;

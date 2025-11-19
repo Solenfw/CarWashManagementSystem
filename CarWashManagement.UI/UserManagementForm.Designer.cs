@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace CarWashManagement.UI
 {
@@ -35,11 +32,11 @@ namespace CarWashManagement.UI
         private void InitializeComponent()
         {
             this.lsvUsers = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUsername = new System.Windows.Forms.ColumnHeader();
+            this.columnFullName = new System.Windows.Forms.ColumnHeader();
+            this.columnRole = new System.Windows.Forms.ColumnHeader();
+            this.columnStatus = new System.Windows.Forms.ColumnHeader();
+            this.columnFailedAttempts = new System.Windows.Forms.ColumnHeader();
             this.lblUsername = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
@@ -55,11 +52,11 @@ namespace CarWashManagement.UI
             // lsvUsers
             // 
             this.lsvUsers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5});
+            this.columnUsername,
+            this.columnFullName,
+            this.columnRole,
+            this.columnStatus,
+            this.columnFailedAttempts});
             this.lsvUsers.FullRowSelect = true;
             this.lsvUsers.Location = new System.Drawing.Point(15, 15);
             this.lsvUsers.Name = "lsvUsers";
@@ -68,30 +65,30 @@ namespace CarWashManagement.UI
             this.lsvUsers.UseCompatibleStateImageBehavior = false;
             this.lsvUsers.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader1
+            // columnUsername
             // 
-            this.columnHeader1.Text = "Username";
-            this.columnHeader1.Width = 100;
+            this.columnUsername.Text = "Username";
+            this.columnUsername.Width = 100;
             // 
-            // columnHeader2
+            // columnFullName
             // 
-            this.columnHeader2.Text = "Full Name";
-            this.columnHeader2.Width = 150;
+            this.columnFullName.Text = "Full Name";
+            this.columnFullName.Width = 150;
             // 
-            // columnHeader3
+            // columnRole
             // 
-            this.columnHeader3.Text = "Role";
-            this.columnHeader3.Width = 80;
+            this.columnRole.Text = "Role";
+            this.columnRole.Width = 80;
             // 
-            // columnHeader4
+            // columnStatus
             // 
-            this.columnHeader4.Text = "Status";
-            this.columnHeader4.Width = 80;
+            this.columnStatus.Text = "Status";
+            this.columnStatus.Width = 80;
             // 
-            // columnHeader5
+            // columnFailedAttempts
             // 
-            this.columnHeader5.Text = "Failed Attempts";
-            this.columnHeader5.Width = 110;
+            this.columnFailedAttempts.Text = "Failed Attempts";
+            this.columnFailedAttempts.Width = 110;
             // 
             // lblUsername
             // 
@@ -107,7 +104,7 @@ namespace CarWashManagement.UI
             this.txtUsername.Location = new System.Drawing.Point(80, 227);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(120, 20);
-            this.txtUsername.TabIndex = 2;
+            this.txtUsername.TabIndex = 1;
             // 
             // lblPassword
             // 
@@ -124,7 +121,7 @@ namespace CarWashManagement.UI
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(120, 20);
-            this.txtPassword.TabIndex = 4;
+            this.txtPassword.TabIndex = 2;
             // 
             // lblFullName
             // 
@@ -140,7 +137,7 @@ namespace CarWashManagement.UI
             this.txtFullName.Location = new System.Drawing.Point(80, 257);
             this.txtFullName.Name = "txtFullName";
             this.txtFullName.Size = new System.Drawing.Size(120, 20);
-            this.txtFullName.TabIndex = 6;
+            this.txtFullName.TabIndex = 3;
             // 
             // lblRole
             // 
@@ -161,17 +158,18 @@ namespace CarWashManagement.UI
             this.cmbRole.Location = new System.Drawing.Point(280, 257);
             this.cmbRole.Name = "cmbRole";
             this.cmbRole.Size = new System.Drawing.Size(120, 21);
-            this.cmbRole.TabIndex = 8;
+            this.cmbRole.TabIndex = 4;
             // 
             // btnCreateUser
             // 
             this.btnCreateUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnCreateUser.FlatAppearance.BorderSize = 0;
             this.btnCreateUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateUser.ForeColor = System.Drawing.Color.White;
-            this.btnCreateUser.Location = new System.Drawing.Point(420, 230);
+            this.btnCreateUser.Location = new System.Drawing.Point(420, 227);
             this.btnCreateUser.Name = "btnCreateUser";
             this.btnCreateUser.Size = new System.Drawing.Size(140, 30);
-            this.btnCreateUser.TabIndex = 9;
+            this.btnCreateUser.TabIndex = 5;
             this.btnCreateUser.Text = "Create User";
             this.btnCreateUser.UseVisualStyleBackColor = false;
             this.btnCreateUser.Click += new System.EventHandler(this.btnCreateUser_Click);
@@ -179,12 +177,13 @@ namespace CarWashManagement.UI
             // btnToggleStatus
             // 
             this.btnToggleStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnToggleStatus.FlatAppearance.BorderSize = 0;
             this.btnToggleStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToggleStatus.ForeColor = System.Drawing.Color.White;
-            this.btnToggleStatus.Location = new System.Drawing.Point(420, 260);
+            this.btnToggleStatus.Location = new System.Drawing.Point(420, 257);
             this.btnToggleStatus.Name = "btnToggleStatus";
             this.btnToggleStatus.Size = new System.Drawing.Size(140, 30);
-            this.btnToggleStatus.TabIndex = 10;
+            this.btnToggleStatus.TabIndex = 6;
             this.btnToggleStatus.Text = "Activate / Deactivate Selected";
             this.btnToggleStatus.UseVisualStyleBackColor = false;
             this.btnToggleStatus.Click += new System.EventHandler(this.btnToggleStatus_Click);
@@ -193,7 +192,7 @@ namespace CarWashManagement.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 331);
+            this.ClientSize = new System.Drawing.Size(584, 311);
             this.Controls.Add(this.btnToggleStatus);
             this.Controls.Add(this.btnCreateUser);
             this.Controls.Add(this.cmbRole);
@@ -209,25 +208,26 @@ namespace CarWashManagement.UI
             this.Text = "User Management";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView lsvUsers;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.Label lblUsername;
-        private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label lblFullName;
-        private System.Windows.Forms.TextBox txtFullName;
-        private System.Windows.Forms.Label lblRole;
-        private System.Windows.Forms.ComboBox cmbRole;
-        private System.Windows.Forms.Button btnCreateUser;
-        private System.Windows.Forms.Button btnToggleStatus;
+        private ListView lsvUsers;
+        private ColumnHeader columnUsername;
+        private ColumnHeader columnFullName;
+        private ColumnHeader columnRole;
+        private ColumnHeader columnStatus;
+        private ColumnHeader columnFailedAttempts;
+        private Label lblUsername;
+        private TextBox txtUsername;
+        private Label lblPassword;
+        private TextBox txtPassword;
+        private Label lblFullName;
+        private TextBox txtFullName;
+        private Label lblRole;
+        private ComboBox cmbRole;
+        private Button btnCreateUser;
+        private Button btnToggleStatus;
     }
 }

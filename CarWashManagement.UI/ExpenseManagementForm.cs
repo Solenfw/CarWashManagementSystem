@@ -1,13 +1,9 @@
 ﻿using CarWashManagement.Core;
-using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
 using CarWashManagement.Core.Managers;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CarWashManagement.UI
@@ -15,9 +11,7 @@ namespace CarWashManagement.UI
     // Form that allows admin to manage expenses.
     public partial class ExpenseManagementForm : BaseForm
     {
-
         private readonly User loggedInUser;
-
         private readonly ExpenseManager expenseManager;
 
         public ExpenseManagementForm(User loggedInUser)
@@ -25,8 +19,8 @@ namespace CarWashManagement.UI
             this.loggedInUser = loggedInUser;
 
             expenseManager = new ExpenseManager(
-                new ExpenseFileHandler(),
-                new AuditFileHandler()
+                new ExpenseSqlHandler(),
+                new AuditSqlHandler()
                 );
 
             InitializeComponent();

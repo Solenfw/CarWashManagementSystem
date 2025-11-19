@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
+using CarWashManagement.Core.Database;
 
 namespace CarWashManagement.Core.Managers
 {
     public class TransactionManager
     {
-        private readonly TransactionFileHandler txnFileHandler;
-        private readonly AuditFileHandler auditFileHandler;
+        private readonly TransactionSqlHandler txnSqlHandler;
+        private readonly AuditSqlHandler auditSqlHandler;
         private List<Transaction> transactions;
         private int nextTransactionNumber;
 
-        public TransactionManager(TransactionFileHandler txnFileHandler, AuditFileHandler auditFileHandler)
+        public TransactionManager(TransactionSqlHandler txnSqlHandler, AuditSqlHandler auditSqlHandler)
         {
-            this.txnFileHandler = txnFileHandler;
-            this.auditFileHandler = auditFileHandler;
-            transactions = txnFileHandler.LoadAllTransactions();
+            // Ensure database exists
+            DatabaseConnection.EnsureDatabaseExists();
+            
+            this.txnSqlHandler = txnSqlHandler;
+            this.auditSqlHandler = auditSqlHandler;
+            transactions = txnSqlHandler.LoadAllTransactions();
 
             // Determine the next transaction number based on existing transactions.
             if (transactions.Count == 0)
@@ -32,11 +36,9 @@ namespace CarWashManagement.Core.Managers
                 int lastNumber = int.Parse(lastID.Substring(3));
                 nextTransactionNumber = lastNumber + 1;
             }
-
-            this.auditFileHandler = auditFileHandler;
         }
 
-        // Method to create a new transaction object and saves it to the transactions.txt file.
+        // Method to create a new transaction object and saves it to the database.
         public Transaction CreateTransaction(string employeeName, Vehicle vehicle, List<Service> services, bool isPaid, string washStatus, decimal discountPercentage, string loggedInUsername)
         {
             Transaction txn = new Transaction
@@ -70,10 +72,10 @@ namespace CarWashManagement.Core.Managers
 
             txn.TotalAmount = subTotal - discountAmount;  
 
-            // Save transaction to file.
-            txnFileHandler.SaveTransaction(txn);
+            // Save transaction to database.
+            txnSqlHandler.SaveTransaction(txn);
 
-            auditFileHandler.LogEvent($"TRANSACTION: {txn.ID} created by user '{loggedInUsername}' for Employee: {txn.EmployeeName}. Amount: {txn.TotalAmount:N2}.");
+            auditSqlHandler.LogEvent($"TRANSACTION: {txn.ID} created by user '{loggedInUsername}' for Employee: {txn.EmployeeName}. Amount: {txn.TotalAmount:N2}.");
 
             // Add to in-memory list.
             transactions.Add(txn);
@@ -114,11 +116,11 @@ namespace CarWashManagement.Core.Managers
             return transactions.FirstOrDefault(txn => txn.ID == id);
         }
 
-        // Method to save the entire in-memory list of transactions to the transactions.txt file.
+        // Method to save the entire in-memory list of transactions to the database.
         // This method assumes the transaction object was already updated in memory before this was called.
         public void UpdateTransaction()
         {
-            txnFileHandler.SaveAllTransactions(transactions);
+            txnSqlHandler.SaveAllTransactions(transactions);
         }      
     }
 }

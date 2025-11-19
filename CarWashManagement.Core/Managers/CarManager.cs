@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
+using CarWashManagement.Core.Database;
 using CarWashManagement.Core.Enums;
 
 namespace CarWashManagement.Core.Managers
@@ -11,23 +12,26 @@ namespace CarWashManagement.Core.Managers
     // This manager handles all business logic related to vehicles and services
     public class CarManager
     {
-        private readonly IFileHandler<Vehicle> vehicleFileHandler;
-        private readonly IFileHandler<Service> serviceFileHandler;
-        private readonly AuditFileHandler auditFileHandler;
+        private readonly ISqlHandler<Vehicle> vehicleSqlHandler;
+        private readonly ISqlHandler<Service> serviceSqlHandler;
+        private readonly AuditSqlHandler auditSqlHandler;
 
         private List<Vehicle> vehicles;
         private List<Service> services;
 
-        public CarManager(IFileHandler<Vehicle> vehicleFileHandler, IFileHandler<Service> serviceFileHandler, AuditFileHandler auditFileHandler)
+        public CarManager(ISqlHandler<Vehicle> vehicleSqlHandler, ISqlHandler<Service> serviceSqlHandler, AuditSqlHandler auditSqlHandler)
         {
-            this.vehicleFileHandler = vehicleFileHandler;
-            this.serviceFileHandler = serviceFileHandler;
-            this.auditFileHandler = auditFileHandler;
+            // Ensure database exists
+            DatabaseConnection.EnsureDatabaseExists();
+            
+            this.vehicleSqlHandler = vehicleSqlHandler;
+            this.serviceSqlHandler = serviceSqlHandler;
+            this.auditSqlHandler = auditSqlHandler;
 
-            vehicles = vehicleFileHandler.Load();
-            services = serviceFileHandler.Load();
+            vehicles = vehicleSqlHandler.Load();
+            services = serviceSqlHandler.Load();
 
-            // Create default data if the vehicles.txt and services.txt is empty.
+            // Create default data if the database is empty.
             InitializeDefaultVehicles();
             InitializeDefaultServices();
         }
@@ -45,7 +49,7 @@ namespace CarWashManagement.Core.Managers
                     new Vehicle("Truck", 350.00m, 200.00m, 150.00m)
                 };
 
-                vehicleFileHandler.Save(defaults);
+                vehicleSqlHandler.Save(defaults);
                 vehicles = defaults;
             }
         }
@@ -63,7 +67,7 @@ namespace CarWashManagement.Core.Managers
                     new Service("Back to Zero", 0.00m, ServicePricingType.ManualInput)
                 };
 
-                serviceFileHandler.Save(defaults);
+                serviceSqlHandler.Save(defaults);
                 services = defaults;
             }
         }
@@ -86,7 +90,7 @@ namespace CarWashManagement.Core.Managers
             return vehicles.FirstOrDefault(v => v.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Method to add a new vehicle type and save to the vehicles.txt file.
+        // Method to add a new vehicle type and save to the database.
         public bool AddVehicle(Vehicle newVehicle, string loggedInUsername)
         {
             if (GetVehicleByType(newVehicle.Type) != null)
@@ -95,12 +99,12 @@ namespace CarWashManagement.Core.Managers
             }
 
             vehicles.Add(newVehicle);
-            vehicleFileHandler.Save(vehicles);
-            auditFileHandler.LogEvent($"VEHICLE: User '{loggedInUsername}' created new vehicle type '{newVehicle.Type}'.");
+            vehicleSqlHandler.Save(vehicles);
+            auditSqlHandler.LogEvent($"VEHICLE: User '{loggedInUsername}' created new vehicle type '{newVehicle.Type}'.");
             return true;
         }
 
-        // Method to update an existing vehicle type and save to the vehicles.txt file.
+        // Method to update an existing vehicle type and save to the database.
         public void UpdateVehicle(Vehicle updatedVehicle, string loggedInUsername)
         {
             Vehicle originalVehicle = GetVehicleByType(updatedVehicle.Type);
@@ -111,12 +115,12 @@ namespace CarWashManagement.Core.Managers
                 originalVehicle.OwnerShare = updatedVehicle.OwnerShare;
                 originalVehicle.EmployeeShare = updatedVehicle.EmployeeShare;
 
-                vehicleFileHandler.Save(vehicles);
-                auditFileHandler.LogEvent($"VEHICLE: User '{loggedInUsername}' updated vehicle type '{updatedVehicle.Type}'.");
+                vehicleSqlHandler.Save(vehicles);
+                auditSqlHandler.LogEvent($"VEHICLE: User '{loggedInUsername}' updated vehicle type '{updatedVehicle.Type}'.");
             }
         }
 
-        // Method to delete a vehicle type and save the list to the vehicles.txt file.
+        // Method to delete a vehicle type and save the list to the database.
         public void DeleteVehicle(string vehicleType, string loggedInUsername)
         {
             Vehicle vehicleToDelete = GetVehicleByType(vehicleType);
@@ -124,8 +128,8 @@ namespace CarWashManagement.Core.Managers
             if (vehicleToDelete != null)
             {
                 vehicles.Remove(vehicleToDelete);
-                vehicleFileHandler.Save(vehicles);
-                auditFileHandler.LogEvent($"VEHICLE: User '{loggedInUsername}' deleted vehicle type '{vehicleType}'.");
+                vehicleSqlHandler.Save(vehicles);
+                auditSqlHandler.LogEvent($"VEHICLE: User '{loggedInUsername}' deleted vehicle type '{vehicleType}'.");
             }
         }
 
@@ -135,7 +139,7 @@ namespace CarWashManagement.Core.Managers
             return services.FirstOrDefault(s => s.Name.Equals(name,StringComparison.OrdinalIgnoreCase));
         }
 
-        // Method to add a new service and save it to the services.txt file.
+        // Method to add a new service and save it to the database.
         public bool AddService(Service newService, string loggedInUsername)
         {
             if (GetServiceByName(newService.Name) != null)
@@ -144,12 +148,12 @@ namespace CarWashManagement.Core.Managers
             }
 
             services.Add(newService);
-            serviceFileHandler.Save(services);
-            auditFileHandler.LogEvent($"SERVICE: User '{loggedInUsername}' created new service '{newService.Name}'.");
+            serviceSqlHandler.Save(services);
+            auditSqlHandler.LogEvent($"SERVICE: User '{loggedInUsername}' created new service '{newService.Name}'.");
             return true;        
         }
 
-        // Method to update an existing service and save the to the services.txt file.
+        // Method to update an existing service and save to the database.
         public void UpdateService(Service updatedService, string loggedInUsername)
         {
             Service originalService = GetServiceByName(updatedService.Name);
@@ -161,12 +165,12 @@ namespace CarWashManagement.Core.Managers
                 originalService.Name = updatedService.Name;
                 originalService.Multiplier = updatedService.Multiplier;
 
-                serviceFileHandler.Save(services);
-                auditFileHandler.LogEvent($"SERVICE: User '{loggedInUsername}' updated service '{updatedService.Name}'.");
+                serviceSqlHandler.Save(services);
+                auditSqlHandler.LogEvent($"SERVICE: User '{loggedInUsername}' updated service '{updatedService.Name}'.");
             }
         }
 
-        // Method to delete a service and save the new list into the services.txt to the file.
+        // Method to delete a service and save the new list to the database.
         public void DeleteService(string serviceName, string loggedInUsername)
         {
             Service serviceToRemove = GetServiceByName(serviceName);
@@ -174,8 +178,8 @@ namespace CarWashManagement.Core.Managers
             if (serviceToRemove != null)
             {
                 services.Remove(serviceToRemove);
-                serviceFileHandler.Save(services);
-                auditFileHandler.LogEvent($"SERVICE: User '{loggedInUsername}' deleted service '{serviceName}'.");
+                serviceSqlHandler.Save(services);
+                auditSqlHandler.LogEvent($"SERVICE: User '{loggedInUsername}' deleted service '{serviceName}'.");
             }
         }
 

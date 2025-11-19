@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace CarWashManagement.UI
 {
@@ -35,10 +32,10 @@ namespace CarWashManagement.UI
         private void InitializeComponent()
         {
             this.lsvServices = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnServiceName = new System.Windows.Forms.ColumnHeader();
+            this.columnPricingType = new System.Windows.Forms.ColumnHeader();
+            this.columnFee = new System.Windows.Forms.ColumnHeader();
+            this.columnMultiplier = new System.Windows.Forms.ColumnHeader();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblPricingType = new System.Windows.Forms.Label();
@@ -56,10 +53,10 @@ namespace CarWashManagement.UI
             // lsvServices
             // 
             this.lsvServices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
+            this.columnServiceName,
+            this.columnPricingType,
+            this.columnFee,
+            this.columnMultiplier});
             this.lsvServices.FullRowSelect = true;
             this.lsvServices.GridLines = true;
             this.lsvServices.Location = new System.Drawing.Point(15, 15);
@@ -70,34 +67,34 @@ namespace CarWashManagement.UI
             this.lsvServices.View = System.Windows.Forms.View.Details;
             this.lsvServices.SelectedIndexChanged += new System.EventHandler(this.lsvServices_SelectedIndexChanged);
             // 
-            // columnHeader1
+            // columnServiceName
             // 
-            this.columnHeader1.Text = "Service Name";
-            this.columnHeader1.Width = 150;
+            this.columnServiceName.Text = "Service Name";
+            this.columnServiceName.Width = 150;
             // 
-            // columnHeader2
+            // columnPricingType
             // 
-            this.columnHeader2.Text = "Pricing Type";
-            this.columnHeader2.Width = 140;
+            this.columnPricingType.Text = "Pricing Type";
+            this.columnPricingType.Width = 140;
             // 
-            // columnHeader3
+            // columnFee
             // 
-            this.columnHeader3.Text = "Fee";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader3.Width = 120;
+            this.columnFee.Text = "Fee";
+            this.columnFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnFee.Width = 120;
             // 
-            // columnHeader4
+            // columnMultiplier
             // 
-            this.columnHeader4.Text = "Multiplier";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader4.Width = 120;
+            this.columnMultiplier.Text = "Multiplier";
+            this.columnMultiplier.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnMultiplier.Width = 120;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
             this.lblName.Location = new System.Drawing.Point(15, 240);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(77, 13);
+            this.lblName.Size = new System.Drawing.Size(79, 13);
             this.lblName.TabIndex = 1;
             this.lblName.Text = "Service Name:";
             // 
@@ -106,7 +103,7 @@ namespace CarWashManagement.UI
             this.txtName.Location = new System.Drawing.Point(120, 237);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(150, 20);
-            this.txtName.TabIndex = 2;
+            this.txtName.TabIndex = 1;
             // 
             // lblPricingType
             // 
@@ -124,7 +121,7 @@ namespace CarWashManagement.UI
             this.cmbPricingType.Location = new System.Drawing.Point(120, 272);
             this.cmbPricingType.Name = "cmbPricingType";
             this.cmbPricingType.Size = new System.Drawing.Size(150, 21);
-            this.cmbPricingType.TabIndex = 4;
+            this.cmbPricingType.TabIndex = 2;
             this.cmbPricingType.SelectedIndexChanged += new System.EventHandler(this.cmbPricingType_SelectedIndexChanged);
             // 
             // lblFee
@@ -132,7 +129,7 @@ namespace CarWashManagement.UI
             this.lblFee.AutoSize = true;
             this.lblFee.Location = new System.Drawing.Point(15, 310);
             this.lblFee.Name = "lblFee";
-            this.lblFee.Size = new System.Drawing.Size(27, 13);
+            this.lblFee.Size = new System.Drawing.Size(28, 13);
             this.lblFee.TabIndex = 5;
             this.lblFee.Text = "Fee:";
             // 
@@ -141,7 +138,7 @@ namespace CarWashManagement.UI
             this.txtFee.Location = new System.Drawing.Point(120, 307);
             this.txtFee.Name = "txtFee";
             this.txtFee.Size = new System.Drawing.Size(150, 20);
-            this.txtFee.TabIndex = 6;
+            this.txtFee.TabIndex = 3;
             this.txtFee.Text = "0.00";
             // 
             // lblMultiplier
@@ -149,7 +146,7 @@ namespace CarWashManagement.UI
             this.lblMultiplier.AutoSize = true;
             this.lblMultiplier.Location = new System.Drawing.Point(15, 345);
             this.lblMultiplier.Name = "lblMultiplier";
-            this.lblMultiplier.Size = new System.Drawing.Size(51, 13);
+            this.lblMultiplier.Size = new System.Drawing.Size(54, 13);
             this.lblMultiplier.TabIndex = 7;
             this.lblMultiplier.Text = "Multiplier:";
             // 
@@ -158,18 +155,19 @@ namespace CarWashManagement.UI
             this.txtMultiplier.Location = new System.Drawing.Point(120, 342);
             this.txtMultiplier.Name = "txtMultiplier";
             this.txtMultiplier.Size = new System.Drawing.Size(150, 20);
-            this.txtMultiplier.TabIndex = 8;
+            this.txtMultiplier.TabIndex = 4;
             this.txtMultiplier.Text = "1";
             // 
             // btnAdd
             // 
             this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.ForeColor = System.Drawing.Color.White;
             this.btnAdd.Location = new System.Drawing.Point(300, 237);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(120, 30);
-            this.btnAdd.TabIndex = 9;
+            this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Add New";
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -177,12 +175,13 @@ namespace CarWashManagement.UI
             // btnUpdate
             // 
             this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.ForeColor = System.Drawing.Color.White;
             this.btnUpdate.Location = new System.Drawing.Point(435, 237);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(120, 30);
-            this.btnUpdate.TabIndex = 10;
+            this.btnUpdate.TabIndex = 6;
             this.btnUpdate.Text = "Update Selected";
             this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -190,12 +189,13 @@ namespace CarWashManagement.UI
             // btnDelete
             // 
             this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.Color.White;
             this.btnDelete.Location = new System.Drawing.Point(435, 317);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(120, 30);
-            this.btnDelete.TabIndex = 11;
+            this.btnDelete.TabIndex = 8;
             this.btnDelete.Text = "Delete Selected";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -203,12 +203,13 @@ namespace CarWashManagement.UI
             // btnClear
             // 
             this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnClear.FlatAppearance.BorderSize = 0;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.ForeColor = System.Drawing.Color.White;
             this.btnClear.Location = new System.Drawing.Point(300, 277);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(120, 30);
-            this.btnClear.TabIndex = 12;
+            this.btnClear.TabIndex = 7;
             this.btnClear.Text = "Clear Form";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -217,7 +218,7 @@ namespace CarWashManagement.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 401);
+            this.ClientSize = new System.Drawing.Size(584, 411);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
@@ -235,26 +236,27 @@ namespace CarWashManagement.UI
             this.Text = "Service Management";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView lsvServices;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Label lblPricingType;
-        private System.Windows.Forms.ComboBox cmbPricingType;
-        private System.Windows.Forms.Label lblFee;
-        private System.Windows.Forms.TextBox txtFee;
-        private System.Windows.Forms.Label lblMultiplier;
-        private System.Windows.Forms.TextBox txtMultiplier;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnClear;
+        private ListView lsvServices;
+        private ColumnHeader columnServiceName;
+        private ColumnHeader columnPricingType;
+        private ColumnHeader columnFee;
+        private ColumnHeader columnMultiplier;
+        private Label lblName;
+        private TextBox txtName;
+        private Label lblPricingType;
+        private ComboBox cmbPricingType;
+        private Label lblFee;
+        private TextBox txtFee;
+        private Label lblMultiplier;
+        private TextBox txtMultiplier;
+        private Button btnAdd;
+        private Button btnUpdate;
+        private Button btnDelete;
+        private Button btnClear;
     }
 }

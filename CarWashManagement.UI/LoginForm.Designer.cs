@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace CarWashManagement.UI
 {
@@ -34,18 +31,28 @@ namespace CarWashManagement.UI
         /// </summary>
         private void InitializeComponent()
         {
+            this.loginPicture = new System.Windows.Forms.PictureBox();
             this.lblLogin = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.eyeIcon = new System.Windows.Forms.PictureBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.eyeIcon = new System.Windows.Forms.PictureBox();
-            this.loginPicture = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.eyeIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eyeIcon)).BeginInit();
             this.SuspendLayout();
+            // 
+            // loginPicture
+            // 
+            this.loginPicture.Image = global::CarWashManagement.UI.Properties.Resources.login_image;
+            this.loginPicture.Location = new System.Drawing.Point(0, 0);
+            this.loginPicture.Name = "loginPicture";
+            this.loginPicture.Size = new System.Drawing.Size(300, 530);
+            this.loginPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.loginPicture.TabIndex = 0;
+            this.loginPicture.TabStop = false;
             // 
             // lblLogin
             // 
@@ -54,7 +61,7 @@ namespace CarWashManagement.UI
             this.lblLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.lblLogin.Location = new System.Drawing.Point(340, 100);
             this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(210, 25);
+            this.lblLogin.Size = new System.Drawing.Size(189, 25);
             this.lblLogin.TabIndex = 1;
             this.lblLogin.Text = "Login to your account";
             // 
@@ -76,7 +83,7 @@ namespace CarWashManagement.UI
             this.txtUsername.Multiline = true;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(270, 30);
-            this.txtUsername.TabIndex = 3;
+            this.txtUsername.TabIndex = 1;
             // 
             // lblPassword
             // 
@@ -97,7 +104,18 @@ namespace CarWashManagement.UI
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '•';
             this.txtPassword.Size = new System.Drawing.Size(270, 30);
-            this.txtPassword.TabIndex = 5;
+            this.txtPassword.TabIndex = 2;
+            // 
+            // eyeIcon
+            // 
+            this.eyeIcon.Image = global::CarWashManagement.UI.Properties.Resources.eye_hide;
+            this.eyeIcon.Location = new System.Drawing.Point(620, 260);
+            this.eyeIcon.Name = "eyeIcon";
+            this.eyeIcon.Size = new System.Drawing.Size(30, 30);
+            this.eyeIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.eyeIcon.TabIndex = 6;
+            this.eyeIcon.TabStop = false;
+            this.eyeIcon.Click += new System.EventHandler(this.eyeIcon_Click);
             // 
             // btnLogin
             // 
@@ -109,7 +127,7 @@ namespace CarWashManagement.UI
             this.btnLogin.Location = new System.Drawing.Point(340, 320);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(100, 40);
-            this.btnLogin.TabIndex = 7;
+            this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "LOGIN";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -125,32 +143,11 @@ namespace CarWashManagement.UI
             this.lblInfo.Text = "No account yet? Ask an administrator to create an account for you.";
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // eyeIcon
-            // 
-            this.eyeIcon.Image = global::CarWashManagement.UI.Properties.Resources.eye_hide;
-            this.eyeIcon.Location = new System.Drawing.Point(620, 260);
-            this.eyeIcon.Name = "eyeIcon";
-            this.eyeIcon.Size = new System.Drawing.Size(30, 30);
-            this.eyeIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.eyeIcon.TabIndex = 6;
-            this.eyeIcon.TabStop = false;
-            this.eyeIcon.Click += new System.EventHandler(this.eyeIcon_Click);
-            // 
-            // loginPicture
-            // 
-            this.loginPicture.Image = global::CarWashManagement.UI.Properties.Resources.login_image;
-            this.loginPicture.Location = new System.Drawing.Point(0, 0);
-            this.loginPicture.Name = "loginPicture";
-            this.loginPicture.Size = new System.Drawing.Size(300, 530);
-            this.loginPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.loginPicture.TabIndex = 0;
-            this.loginPicture.TabStop = false;
-            // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 521);
+            this.ClientSize = new System.Drawing.Size(700, 560);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.eyeIcon);
@@ -160,10 +157,12 @@ namespace CarWashManagement.UI
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblLogin);
             this.Controls.Add(this.loginPicture);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LoginForm";
             this.Text = "Car Wash Management - Login";
-            ((System.ComponentModel.ISupportInitialize)(this.eyeIcon)).EndInit();
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.loginPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eyeIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,14 +170,14 @@ namespace CarWashManagement.UI
 
         #endregion
 
-        private System.Windows.Forms.PictureBox loginPicture;
-        private System.Windows.Forms.Label lblLogin;
-        private System.Windows.Forms.Label lblUsername;
-        private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.PictureBox eyeIcon;
-        private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.Label lblInfo;
+        private PictureBox loginPicture;
+        private Label lblLogin;
+        private Label lblUsername;
+        private TextBox txtUsername;
+        private Label lblPassword;
+        private TextBox txtPassword;
+        private PictureBox eyeIcon;
+        private Button btnLogin;
+        private Label lblInfo;
     }
 }

@@ -1,32 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 using CarWashManagement.Core;
 using CarWashManagement.Core.Managers;
-using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
 
 namespace CarWashManagement.UI
 {
     // Form that allows admin to create, unlock, activate, and deactivate accounts.
     public partial class UserManagementForm : BaseForm
     {
-
         private readonly AccountManager accountManager;
 
         public UserManagementForm()
         {
             accountManager = new AccountManager(
-                new UserFileHandler(),
-                new AuditFileHandler()
-            );
+                new UserSqlHandler(),
+                new AuditSqlHandler()
+                );
 
             InitializeComponent();
-            cmbRole.SelectedIndex = 1; // Default to Recorder
             LoadUserList();
+            InitializeRoleComboBox();
+        }
+
+        // Initialize the role combo box with default selection
+        private void InitializeRoleComboBox()
+        {
+            cmbRole.SelectedIndex = 1; // Default to Recorder
         }
 
         // Method to load all users using the account manager into the ListView.
@@ -55,6 +57,13 @@ namespace CarWashManagement.UI
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
             string fullName = txtFullName.Text.Trim();
+
+            if (cmbRole.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a role.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string role = cmbRole.SelectedItem.ToString().ToUpper();
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrEmpty(fullName))
@@ -113,7 +122,8 @@ namespace CarWashManagement.UI
                 if (originalStatus == "LOCKED")
                 {
                     MessageBox.Show($"User '{selectedUser.Username}' has been unlocked and activated.", "User Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else
+                }
+                else
                 {
                     MessageBox.Show($"User '{selectedUser.Username}' has been activated.", "User Activated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
