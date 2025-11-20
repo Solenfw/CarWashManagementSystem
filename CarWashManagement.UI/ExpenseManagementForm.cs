@@ -38,7 +38,7 @@ namespace CarWashManagement.UI
             {
                 ListViewItem row = new ListViewItem(expense.Date.ToString("dd-MM-yyyy"));
                 row.SubItems.Add(expense.Description);
-                row.SubItems.Add(expense.Amount.ToString("C", CultureInfo.GetCultureInfo("en-PH"))); // Format as currency (PHP)
+                row.SubItems.Add(expense.Amount.ToString("C", CultureInfo.GetCultureInfo("en-US"))); // Format as currency (PHP)
                 lsvExpenses.Items.Add(row);
             }
         }

@@ -33,9 +33,9 @@ namespace CarWashManagement.UI
             foreach (Vehicle vehicle in vehicles)
             {
                 ListViewItem row = new ListViewItem(vehicle.Type);
-                row.SubItems.Add(vehicle.BaseFee.ToString("C", CultureInfo.GetCultureInfo("en-PH")));
-                row.SubItems.Add(vehicle.OwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-PH")));
-                row.SubItems.Add(vehicle.EmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-PH")));
+                row.SubItems.Add(vehicle.BaseFee.ToString("C", CultureInfo.GetCultureInfo("en-US")));
+                row.SubItems.Add(vehicle.OwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-US")));
+                row.SubItems.Add(vehicle.EmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-US")));
 
                 // Store the type in the tag property of each rows.
                 // This is use to know which vehicle type to perform an operation to.

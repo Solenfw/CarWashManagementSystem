@@ -152,16 +152,16 @@ namespace CarWashManagement.UI
                 }
             }
 
-            txtReportTotalRevenue.Text = totalRevenue.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
-            txtReportOwnerShare.Text = totalOwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
-            txtReportEmpShare.Text = totalEmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
+            txtReportTotalRevenue.Text = totalRevenue.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+            txtReportOwnerShare.Text = totalOwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+            txtReportEmpShare.Text = totalEmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-US"));
             txtReportTotalWashes.Text = totalWashes.ToString();
             txtReportMostWashed.Text = mostWashed;
             txtReportMostService.Text = mostService;
             lblReportHighestDay.Text = "Highest Revenue Day:";
             txtReportHighestDay.Text = highestDay;
-            txtReportTotalExpenses.Text = totalExpenses.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
-            txtReportNetProfit.Text = netProfit.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
+            txtReportTotalExpenses.Text = totalExpenses.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+            txtReportNetProfit.Text = netProfit.ToString("C", CultureInfo.GetCultureInfo("en-US"));
 
             lblEntries.Enabled = true;
             lsvMonthlyEntries.Enabled = true;
@@ -184,8 +184,8 @@ namespace CarWashManagement.UI
                     ListViewItem row = new ListViewItem(txn.Timestamp.ToString("HH:mm"));
                     row.SubItems.Add(txn.VehicleType);
                     row.SubItems.Add(txn.EmployeeName);
-                    row.SubItems.Add(txn.OwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-PH")));
-                    row.SubItems.Add(txn.EmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-PH")));
+                    row.SubItems.Add(txn.OwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-US")));
+                    row.SubItems.Add(txn.EmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-US")));
                     row.SubItems.Add(txn.IsPaid ? "Paid" : "Unpaid");
                     row.Group = group; // Assign the item to the day's group.
 
@@ -258,16 +258,16 @@ namespace CarWashManagement.UI
                 }
             }
 
-            txtReportTotalRevenue.Text = totalRevenue.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
-            txtReportOwnerShare.Text = totalOwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
-            txtReportEmpShare.Text = totalEmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
+            txtReportTotalRevenue.Text = totalRevenue.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+            txtReportOwnerShare.Text = totalOwnerShare.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+            txtReportEmpShare.Text = totalEmployeeShare.ToString("C", CultureInfo.GetCultureInfo("en-US"));
             txtReportTotalWashes.Text = totalWashes.ToString();
             txtReportMostWashed.Text = mostWashed;
             txtReportMostService.Text = mostService;
             lblReportHighestDay.Text = "Highest Revenue Month:";
             txtReportHighestDay.Text = highestMonth;
-            txtReportTotalExpenses.Text = totalExpenses.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
-            txtReportNetProfit.Text = netProfit.ToString("C", CultureInfo.GetCultureInfo("en-PH"));
+            txtReportTotalExpenses.Text = totalExpenses.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+            txtReportNetProfit.Text = netProfit.ToString("C", CultureInfo.GetCultureInfo("en-US"));
 
             lblEntries.Enabled = false;
             lsvMonthlyEntries.Enabled = false;
