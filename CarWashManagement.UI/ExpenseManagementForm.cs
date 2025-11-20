@@ -1,13 +1,9 @@
 ﻿using CarWashManagement.Core;
-using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
 using CarWashManagement.Core.Managers;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CarWashManagement.UI
@@ -15,9 +11,7 @@ namespace CarWashManagement.UI
     // Form that allows admin to manage expenses.
     public partial class ExpenseManagementForm : BaseForm
     {
-
         private readonly User loggedInUser;
-
         private readonly ExpenseManager expenseManager;
 
         public ExpenseManagementForm(User loggedInUser)
@@ -25,8 +19,8 @@ namespace CarWashManagement.UI
             this.loggedInUser = loggedInUser;
 
             expenseManager = new ExpenseManager(
-                new ExpenseFileHandler(),
-                new AuditFileHandler()
+                new ExpenseSqlHandler(),
+                new AuditSqlHandler()
                 );
 
             InitializeComponent();
@@ -42,7 +36,7 @@ namespace CarWashManagement.UI
 
             foreach (Expense expense in expenses)
             {
-                ListViewItem row = new ListViewItem(expense.Date.ToString("yyyy-MM-dd"));
+                ListViewItem row = new ListViewItem(expense.Date.ToString("dd-MM-yyyy"));
                 row.SubItems.Add(expense.Description);
                 row.SubItems.Add(expense.Amount.ToString("C", CultureInfo.GetCultureInfo("en-PH"))); // Format as currency (PHP)
                 lsvExpenses.Items.Add(row);
@@ -58,20 +52,20 @@ namespace CarWashManagement.UI
 
             if (string.IsNullOrWhiteSpace(description))
             {
-                MessageBox.Show("Please enter a description for the expense.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Chưa nhập mô tả.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (!decimal.TryParse(amountStr, out decimal amount) || amount <= 0)
             {
-                MessageBox.Show("Please enter a valid positive amount for the expense.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Chưa nhập số lượng.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // Call the manager to create and save the expense.
             expenseManager.CreateExpense(date, description, amount, loggedInUser.Username);
 
-            MessageBox.Show("Expense added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Thêm chi phí thành công.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadExpenseList();
 
             // Clear input fields.

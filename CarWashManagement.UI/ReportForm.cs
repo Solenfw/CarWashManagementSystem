@@ -1,30 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows.Forms;
-using CarWashManagement.Core;
+﻿using CarWashManagement.Core;
+using CarWashManagement.Core.Database.SqlHandlers;
 using CarWashManagement.Core.Managers;
-using CarWashManagement.Core.FileHandlers;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CarWashManagement.UI
 {
     public enum ReportMode { Monthly, Yearly }
-    
+
     // Form to generate report based on the inputted month-year.
     public partial class ReportForm : BaseForm
     {
-        private ReportMode currentReportMode = ReportMode.Monthly;
+        private ReportMode currentReportMode = ReportMode.Monthly; // Default report mode.
+
         private readonly TransactionManager transactionManager;
         private readonly ExpenseManager expenseManager;
 
         public ReportForm()
         {
-            transactionManager = new TransactionManager(new TransactionFileHandler(), new AuditFileHandler());
-            expenseManager = new ExpenseManager(new ExpenseFileHandler(), new AuditFileHandler());
+            transactionManager = new TransactionManager(new TransactionSqlHandler(), new AuditSqlHandler());
+            expenseManager = new ExpenseManager(new ExpenseSqlHandler(), new AuditSqlHandler());
 
             InitializeComponent();
         }
@@ -33,7 +32,7 @@ namespace CarWashManagement.UI
         private void btnMonthlyToggle_Click(object sender, EventArgs e)
         {
             currentReportMode = ReportMode.Monthly;
-            lblSelectMonth.Text = "Select Month:";
+            lblSelectMonth.Text = "Chọn Tháng:";
             dtpReportDate.CustomFormat = "MMMM yyyy";
 
             btnMonthlyToggle.BackColor = Color.FromArgb(41, 128, 185);
@@ -51,15 +50,15 @@ namespace CarWashManagement.UI
             lsvMonthlyEntries.Groups.Clear();
         }
 
-        // Event handler when the monthly toggle button is clicked.
+        // Event handler when the yearly toggle button is clicked.
         private void btnYearlyToggle_Click(object sender, EventArgs e)
         {
             currentReportMode = ReportMode.Yearly;
-            lblSelectMonth.Text = "Select Year:";
+            lblSelectMonth.Text = "Chọn Năm:";
             dtpReportDate.CustomFormat = "yyyy";
 
             btnYearlyToggle.BackColor = Color.FromArgb(41, 128, 185);
-            btnYearlyToggle.ForeColor= Color.White;
+            btnYearlyToggle.ForeColor = Color.White;
             btnMonthlyToggle.BackColor = Color.White;
             btnMonthlyToggle.ForeColor = Color.FromArgb(41, 128, 185);
 
@@ -244,9 +243,9 @@ namespace CarWashManagement.UI
             {
                 var monthlyRevenue = paidTransactions
                     .GroupBy(txn => txn.Timestamp.Month)
-                    .Select(g => new { 
-                        Month = g.Key, 
-                        Total = g.Sum(txn => txn.TotalAmount) 
+                    .Select(g => new {
+                        Month = g.Key,
+                        Total = g.Sum(txn => txn.TotalAmount)
                     })
                     .OrderByDescending(m => m.Total)
                     .FirstOrDefault();

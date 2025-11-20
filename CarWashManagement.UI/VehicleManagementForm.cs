@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CarWashManagement.UI
@@ -24,7 +21,7 @@ namespace CarWashManagement.UI
 
             InitializeComponent();
             LoadVehicleList();
-        } 
+        }
 
         // Method to load all the vehicles from the vehicles.txt file into the ListView.
         private void LoadVehicleList()
@@ -73,7 +70,7 @@ namespace CarWashManagement.UI
                string.IsNullOrWhiteSpace(txtOwnerShare.Text) ||
                string.IsNullOrWhiteSpace(txtEmployeeShare.Text))
             {
-                MessageBox.Show("All fields are required", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Phải nhập tất cả các trường", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -81,13 +78,13 @@ namespace CarWashManagement.UI
                 !decimal.TryParse(txtOwnerShare.Text, out decimal ownerShare) || ownerShare < 0 ||
                 !decimal.TryParse(txtEmployeeShare.Text, out decimal employeeShare) || employeeShare <= 0)
             {
-                MessageBox.Show("Fees and shares must be valid positive numbers.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Giá và phần trăm chia phải là số nguyên dương.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
             if (baseFee != (ownerShare + employeeShare))
             {
-                MessageBox.Show("The sum of Owner Share and Employee Share must equal the Base Fee.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Tổng công ty và nhân viên thực nhận phải bằng giá cơ bản.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -146,14 +143,16 @@ namespace CarWashManagement.UI
 
             if (success)
             {
-                MessageBox.Show("Vehicle added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đã thêm phương tiện.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadVehicleList();
-            } else
+            }
+            else
             {
-                MessageBox.Show("A vehicle with this type already exists.", "Creation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loại phương tiện đã tồn tại.", "Creation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // Event handler when the Update Button is clicked.
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (!ValidateInput(out Vehicle updatedVehicle))
@@ -162,19 +161,20 @@ namespace CarWashManagement.UI
             }
 
             carManager.UpdateVehicle(updatedVehicle, loggedInUser.Username);
-            MessageBox.Show("Vehicle updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Đã cập nhật phương tiện.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadVehicleList();
         }
 
+        // Event handler when the Delete Button is clicked.
         private void btnDelete_Click(object sender, EventArgs e)
         {
             string vehicleType = txtType.Text;
-            DialogResult result = MessageBox.Show($"Are you sure you want to delete '{vehicleType}'? This action cannot be undone.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show($"Bạn muốn xóa '{vehicleType}'? This action cannot be undone.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
                 carManager.DeleteVehicle(vehicleType, loggedInUser.Username);
-                MessageBox.Show("Vehicle deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đã xóa phương tiện.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadVehicleList();
             }
         }

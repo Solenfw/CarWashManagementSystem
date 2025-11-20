@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
-using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
 using CarWashManagement.Core.Managers;
 using CarWashManagement.Core;
 using CarWashManagement.UI.Properties;
 
 namespace CarWashManagement.UI
 {
-    public partial class LoginForm : BaseForm 
+    public partial class LoginForm : BaseForm
     {
         private readonly AccountManager accountManager;
 
         public LoginForm()
         {
-            UserFileHandler userFileHandler = new UserFileHandler();
-            AuditFileHandler auditFileHandler = new AuditFileHandler();
+            UserSqlHandler userSqlHandler = new UserSqlHandler();
+            AuditSqlHandler auditSqlHandler = new AuditSqlHandler();
 
-            accountManager = new AccountManager(userFileHandler, auditFileHandler);
+            accountManager = new AccountManager(userSqlHandler, auditSqlHandler);
 
             InitializeComponent();
         }
@@ -32,11 +28,10 @@ namespace CarWashManagement.UI
             // Get the text from the text boxes.
             string username = txtUsername.Text;
             string password = txtPassword.Text;
-            
+
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Please fill in all required fields before proceeding.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                MessageBox.Show("Chưa điền đủ thông tin đăng nhập!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -54,12 +49,12 @@ namespace CarWashManagement.UI
 
                     // Hide the login form.
                     Hide();
-
-                } else
+                }
+                else
                 {
                     MessageBox.Show(loginResult, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            } 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"An unexpected error occured: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -81,8 +76,8 @@ namespace CarWashManagement.UI
             eyeIcon.Image = txtPassword.UseSystemPasswordChar ? Resources.eye_show : Resources.eye_hide;
         }
 
-        // Override method to manage the behaviour when closing the Login form.
-        protected override void OnFormClosed(FormClosedEventArgs e)
+        // Form closed event handler
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Check if the application is still running forms
             // Only exit the entire application if no other forms are running.
@@ -90,8 +85,6 @@ namespace CarWashManagement.UI
             {
                 Application.Exit();
             }
-
-            base.OnFormClosed(e);
         }
     }
 }

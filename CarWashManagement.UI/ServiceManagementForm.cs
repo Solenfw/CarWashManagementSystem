@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 using CarWashManagement.Core;
 using CarWashManagement.Core.Managers;
-using CarWashManagement.Core.Enums; // For ServicePricingType.
+using CarWashManagement.Core.Enums;
 
 namespace CarWashManagement.UI
 {
@@ -22,11 +19,18 @@ namespace CarWashManagement.UI
             this.carManager = carManager;
 
             InitializeComponent();
+            LoadServiceList();
+            InitializePricingTypeComboBox();
+        }
+
+        // Initialize the pricing type combo box with enum values
+        private void InitializePricingTypeComboBox()
+        {
+            cmbPricingType.Items.Clear();
             cmbPricingType.Items.Add(ServicePricingType.FixedPrice);
             cmbPricingType.Items.Add(ServicePricingType.ManualInput);
             cmbPricingType.Items.Add(ServicePricingType.VehicleBaseFeeMultiplier);
-            ClearForm();
-            LoadServiceList();
+            cmbPricingType.SelectedIndex = 0;
         }
 
         // Method to load services into the ListView.
@@ -53,7 +57,14 @@ namespace CarWashManagement.UI
         {
             lsvServices.SelectedItems.Clear();
             txtName.Clear();
-            cmbPricingType.SelectedIndex = 0;
+            if (cmbPricingType.Items.Count > 0)
+            {
+                cmbPricingType.SelectedIndex = 0;
+            }
+            else
+            {
+                cmbPricingType.SelectedIndex = -1;
+            }
             txtFee.Text = "0.00";
             txtMultiplier.Text = "1";
 
@@ -68,6 +79,8 @@ namespace CarWashManagement.UI
         // Method to show/hide Fee or Multiplier fields based on PricingType.
         private void UpdateFieldVisibility()
         {
+            if (cmbPricingType.SelectedItem == null) return;
+
             ServicePricingType selectedType = (ServicePricingType)cmbPricingType.SelectedItem;
 
             lblFee.Visible = (selectedType == ServicePricingType.FixedPrice);
@@ -82,13 +95,20 @@ namespace CarWashManagement.UI
         {
             service = null;
             string name = txtName.Text.Trim();
+
+            if (cmbPricingType.SelectedItem == null)
+            {
+                MessageBox.Show("Chưa chọn loại giá.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
             ServicePricingType type = (ServicePricingType)cmbPricingType.SelectedItem;
             decimal fee = 0m;
             int multiplier = 1;
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Service Name is required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Yêu cầu tên dịch vụ.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -96,7 +116,7 @@ namespace CarWashManagement.UI
             {
                 if (!decimal.TryParse(txtFee.Text, out fee) || fee <= 0)
                 {
-                    MessageBox.Show("Fee must be a valid number greater than 0.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Giá cả phải là 1 số lớn hơn 0.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
             }
@@ -104,7 +124,7 @@ namespace CarWashManagement.UI
             {
                 if (!int.TryParse(txtMultiplier.Text, out multiplier) || multiplier <= 0)
                 {
-                    MessageBox.Show("Multiplier must be a valid integer greater than 0.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Hệ số nhân phải là 1 số lớn hơn 0.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
             }
@@ -131,7 +151,7 @@ namespace CarWashManagement.UI
             // Unselects an item in the ListView.
             if (lsvServices.SelectedItems.Count == 0)
             {
-                ClearForm(); 
+                ClearForm();
                 return;
             }
 
@@ -164,21 +184,22 @@ namespace CarWashManagement.UI
         // Event handler when the Add Button is clicked.
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (!ValidateInput(out Service newService)) 
+            if (!ValidateInput(out Service newService))
             {
                 return; // Invalid inputs.
-            }; 
+            }
+            ;
 
             bool success = carManager.AddService(newService, loggedInUser.Username);
 
             if (success)
             {
-                MessageBox.Show("Service added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đã thêm dịch vụ.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadServiceList();
             }
             else
             {
-                MessageBox.Show("A service with this name already exists.", "Creation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loại dịch vụ này đã tồn tại.", "Creation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -191,7 +212,7 @@ namespace CarWashManagement.UI
             }
 
             carManager.UpdateService(updatedService, loggedInUser.Username);
-            MessageBox.Show("Service updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Cập nhật dịch vụ thành công.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadServiceList();
         }
 
@@ -199,12 +220,12 @@ namespace CarWashManagement.UI
         private void btnDelete_Click(object sender, EventArgs e)
         {
             string serviceName = txtName.Text;
-            var result = MessageBox.Show($"Are you sure you want to delete '{serviceName}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var result = MessageBox.Show($"Bạn muốn xóa '{serviceName}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
                 carManager.DeleteService(serviceName, loggedInUser.Username);
-                MessageBox.Show("Service deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Xóa dịch vụ thành công.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadServiceList();
             }
         }

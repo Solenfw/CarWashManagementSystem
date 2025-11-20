@@ -1,4 +1,7 @@
-﻿namespace CarWashManagement.UI
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace CarWashManagement.UI
 {
     partial class DashboardForm
     {
@@ -29,10 +32,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
             this.headerPanel = new System.Windows.Forms.Panel();
-            this.btnChangePassword = new System.Windows.Forms.Button();
-            this.logoutButton = new System.Windows.Forms.Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
+            this.logoutButton = new System.Windows.Forms.Button();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.adminMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +43,7 @@
             this.manageServicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageExpensesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyYearlyReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.washEntryPanel = new System.Windows.Forms.Panel();
             this.btnAddTransaction = new System.Windows.Forms.Button();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
@@ -68,12 +72,12 @@
             this.lblEmployee = new System.Windows.Forms.Label();
             this.todaysEntriesPanel = new System.Windows.Forms.Panel();
             this.lsvTodayEntries = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnVehicle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEmployee = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnPaid = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnWashStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lsvContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.togglePaidStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleWashStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,40 +104,15 @@
             // headerPanel
             // 
             this.headerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.headerPanel.Controls.Add(this.btnChangePassword);
-            this.headerPanel.Controls.Add(this.logoutButton);
             this.headerPanel.Controls.Add(this.welcomeLabel);
+            this.headerPanel.Controls.Add(this.logoutButton);
             this.headerPanel.Controls.Add(this.mainMenu);
+            this.headerPanel.Controls.Add(this.btnChangePassword);
             this.headerPanel.Location = new System.Drawing.Point(0, 0);
+            this.headerPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.headerPanel.Name = "headerPanel";
-            this.headerPanel.Size = new System.Drawing.Size(785, 40);
+            this.headerPanel.Size = new System.Drawing.Size(927, 48);
             this.headerPanel.TabIndex = 0;
-            // 
-            // btnChangePassword
-            // 
-            this.btnChangePassword.BackColor = System.Drawing.Color.White;
-            this.btnChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChangePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.btnChangePassword.Location = new System.Drawing.Point(535, 5);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(125, 30);
-            this.btnChangePassword.TabIndex = 3;
-            this.btnChangePassword.Text = "Change Password";
-            this.btnChangePassword.UseVisualStyleBackColor = false;
-            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
-            // 
-            // logoutButton
-            // 
-            this.logoutButton.BackColor = System.Drawing.Color.White;
-            this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.logoutButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.logoutButton.Location = new System.Drawing.Point(665, 5);
-            this.logoutButton.Name = "logoutButton";
-            this.logoutButton.Size = new System.Drawing.Size(75, 30);
-            this.logoutButton.TabIndex = 2;
-            this.logoutButton.Text = "Logout";
-            this.logoutButton.UseVisualStyleBackColor = false;
-            this.logoutButton.Click += new System.EventHandler(this.LogoutButton_Click);
             // 
             // welcomeLabel
             // 
@@ -141,24 +120,41 @@
             this.welcomeLabel.BackColor = System.Drawing.Color.White;
             this.welcomeLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.welcomeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.welcomeLabel.Location = new System.Drawing.Point(10, 10);
+            this.welcomeLabel.Location = new System.Drawing.Point(13, 12);
+            this.welcomeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(78, 20);
+            this.welcomeLabel.Size = new System.Drawing.Size(51, 20);
             this.welcomeLabel.TabIndex = 0;
-            this.welcomeLabel.Text = "Welcome,";
+            this.welcomeLabel.Text = "label1";
+            // 
+            // logoutButton
+            // 
+            this.logoutButton.BackColor = System.Drawing.Color.White;
+            this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.logoutButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.logoutButton.Location = new System.Drawing.Point(837, 6);
+            this.logoutButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(75, 35);
+            this.logoutButton.TabIndex = 2;
+            this.logoutButton.Text = "Đăng Xuất";
+            this.logoutButton.UseVisualStyleBackColor = false;
+            this.logoutButton.Click += new System.EventHandler(this.LogoutButton_Click);
             // 
             // mainMenu
             // 
-            this.mainMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.mainMenu.BackColor = System.Drawing.Color.White;
+            this.mainMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.mainMenu.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.mainMenu.ForeColor = System.Drawing.Color.White;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.adminMenuItem});
-            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Location = new System.Drawing.Point(373, 12);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(785, 24);
-            this.mainMenu.TabIndex = 1;
-            this.mainMenu.Text = "menuStrip1";
+            this.mainMenu.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.mainMenu.Size = new System.Drawing.Size(202, 24);
+            this.mainMenu.TabIndex = 3;
+            this.mainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mainMenu_ItemClicked);
             // 
             // adminMenuItem
             // 
@@ -169,45 +165,60 @@
             this.manageServicesToolStripMenuItem,
             this.manageExpensesToolStripMenuItem,
             this.monthlyYearlyReportToolStripMenuItem});
+            this.adminMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.adminMenuItem.Name = "adminMenuItem";
-            this.adminMenuItem.Size = new System.Drawing.Size(39, 24);
-            this.adminMenuItem.Text = "•••";
+            this.adminMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.adminMenuItem.Text = "Menu";
             this.adminMenuItem.Visible = false;
             // 
             // manageUsersToolStripMenuItem
             // 
             this.manageUsersToolStripMenuItem.Name = "manageUsersToolStripMenuItem";
-            this.manageUsersToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
-            this.manageUsersToolStripMenuItem.Text = "Manage Users";
+            this.manageUsersToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.manageUsersToolStripMenuItem.Text = "Quản lý Nhân Viên";
             this.manageUsersToolStripMenuItem.Click += new System.EventHandler(this.ManageUsers_Click);
             // 
             // manageVehiclesToolStripMenuItem
             // 
             this.manageVehiclesToolStripMenuItem.Name = "manageVehiclesToolStripMenuItem";
-            this.manageVehiclesToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
-            this.manageVehiclesToolStripMenuItem.Text = "Manage Vehicles";
+            this.manageVehiclesToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.manageVehiclesToolStripMenuItem.Text = "Quản lý Phương Tiện";
             this.manageVehiclesToolStripMenuItem.Click += new System.EventHandler(this.ManageVehicles_Click);
             // 
             // manageServicesToolStripMenuItem
             // 
             this.manageServicesToolStripMenuItem.Name = "manageServicesToolStripMenuItem";
-            this.manageServicesToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
-            this.manageServicesToolStripMenuItem.Text = "Manage Services";
+            this.manageServicesToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.manageServicesToolStripMenuItem.Text = "Quản lý Dịch Vụ";
             this.manageServicesToolStripMenuItem.Click += new System.EventHandler(this.ManageServices_Click);
             // 
             // manageExpensesToolStripMenuItem
             // 
             this.manageExpensesToolStripMenuItem.Name = "manageExpensesToolStripMenuItem";
-            this.manageExpensesToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
-            this.manageExpensesToolStripMenuItem.Text = "Manage Expenses";
+            this.manageExpensesToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.manageExpensesToolStripMenuItem.Text = "Quản lý Chi Phí";
             this.manageExpensesToolStripMenuItem.Click += new System.EventHandler(this.ManageExpenses_Click);
             // 
             // monthlyYearlyReportToolStripMenuItem
             // 
             this.monthlyYearlyReportToolStripMenuItem.Name = "monthlyYearlyReportToolStripMenuItem";
-            this.monthlyYearlyReportToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
-            this.monthlyYearlyReportToolStripMenuItem.Text = "Monthly/Yearly Report";
+            this.monthlyYearlyReportToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.monthlyYearlyReportToolStripMenuItem.Text = "Báo cáo Tháng/Năm";
             this.monthlyYearlyReportToolStripMenuItem.Click += new System.EventHandler(this.ShowMonthlyReport_Click);
+            // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.BackColor = System.Drawing.Color.White;
+            this.btnChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnChangePassword.Location = new System.Drawing.Point(741, 6);
+            this.btnChangePassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(88, 35);
+            this.btnChangePassword.TabIndex = 1;
+            this.btnChangePassword.Text = "Đổi mật khẩu";
+            this.btnChangePassword.UseVisualStyleBackColor = false;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // washEntryPanel
             // 
@@ -238,9 +249,10 @@
             this.washEntryPanel.Controls.Add(this.lblVehicleType);
             this.washEntryPanel.Controls.Add(this.txtEmployeeName);
             this.washEntryPanel.Controls.Add(this.lblEmployee);
-            this.washEntryPanel.Location = new System.Drawing.Point(10, 60);
+            this.washEntryPanel.Location = new System.Drawing.Point(12, 69);
+            this.washEntryPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.washEntryPanel.Name = "washEntryPanel";
-            this.washEntryPanel.Size = new System.Drawing.Size(300, 590);
+            this.washEntryPanel.Size = new System.Drawing.Size(350, 680);
             this.washEntryPanel.TabIndex = 1;
             // 
             // btnAddTransaction
@@ -249,11 +261,12 @@
             this.btnAddTransaction.FlatAppearance.BorderSize = 0;
             this.btnAddTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddTransaction.ForeColor = System.Drawing.Color.White;
-            this.btnAddTransaction.Location = new System.Drawing.Point(10, 548);
+            this.btnAddTransaction.Location = new System.Drawing.Point(12, 635);
+            this.btnAddTransaction.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddTransaction.Name = "btnAddTransaction";
-            this.btnAddTransaction.Size = new System.Drawing.Size(270, 30);
-            this.btnAddTransaction.TabIndex = 25;
-            this.btnAddTransaction.Text = "Add Entry";
+            this.btnAddTransaction.Size = new System.Drawing.Size(315, 35);
+            this.btnAddTransaction.TabIndex = 23;
+            this.btnAddTransaction.Text = "Lập phiếu";
             this.btnAddTransaction.UseVisualStyleBackColor = false;
             this.btnAddTransaction.Click += new System.EventHandler(this.btnAddTransaction_Click);
             // 
@@ -261,12 +274,14 @@
             // 
             this.txtTotalAmount.BackColor = System.Drawing.Color.White;
             this.txtTotalAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTotalAmount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.txtTotalAmount.Location = new System.Drawing.Point(120, 510);
+            this.txtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtTotalAmount.Location = new System.Drawing.Point(140, 591);
+            this.txtTotalAmount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
-            this.txtTotalAmount.Size = new System.Drawing.Size(160, 23);
-            this.txtTotalAmount.TabIndex = 24;
+            this.txtTotalAmount.Size = new System.Drawing.Size(186, 20);
+            this.txtTotalAmount.TabIndex = 22;
+            this.txtTotalAmount.Text = "0.00";
             this.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblTotalAmount
@@ -274,11 +289,12 @@
             this.lblTotalAmount.AutoSize = true;
             this.lblTotalAmount.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblTotalAmount.Location = new System.Drawing.Point(10, 513);
+            this.lblTotalAmount.Location = new System.Drawing.Point(8, 590);
+            this.lblTotalAmount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(103, 19);
-            this.lblTotalAmount.TabIndex = 23;
-            this.lblTotalAmount.Text = "Total Amount:";
+            this.lblTotalAmount.Size = new System.Drawing.Size(94, 19);
+            this.lblTotalAmount.TabIndex = 21;
+            this.lblTotalAmount.Text = "Chi phí tổng:";
             // 
             // cmbDiscount
             // 
@@ -289,275 +305,300 @@
             "N/A",
             "PWD",
             "Senior"});
-            this.cmbDiscount.Location = new System.Drawing.Point(220, 448);
+            this.cmbDiscount.Location = new System.Drawing.Point(257, 519);
+            this.cmbDiscount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbDiscount.Name = "cmbDiscount";
-            this.cmbDiscount.Size = new System.Drawing.Size(60, 23);
-            this.cmbDiscount.TabIndex = 22;
+            this.cmbDiscount.Size = new System.Drawing.Size(69, 23);
+            this.cmbDiscount.TabIndex = 20;
+            this.cmbDiscount.SelectedIndexChanged += new System.EventHandler(this.cmbDiscount_SelectedIndexChanged);
             // 
             // lblDiscount
             // 
             this.lblDiscount.AutoSize = true;
-            this.lblDiscount.Location = new System.Drawing.Point(160, 448);
+            this.lblDiscount.Location = new System.Drawing.Point(187, 523);
+            this.lblDiscount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDiscount.Name = "lblDiscount";
             this.lblDiscount.Size = new System.Drawing.Size(57, 15);
-            this.lblDiscount.TabIndex = 21;
+            this.lblDiscount.TabIndex = 19;
             this.lblDiscount.Text = "Discount:";
             // 
             // chkWashStatus
             // 
             this.chkWashStatus.AutoSize = true;
-            this.chkWashStatus.Location = new System.Drawing.Point(10, 478);
+            this.chkWashStatus.Location = new System.Drawing.Point(12, 554);
+            this.chkWashStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkWashStatus.Name = "chkWashStatus";
-            this.chkWashStatus.Size = new System.Drawing.Size(129, 19);
-            this.chkWashStatus.TabIndex = 20;
-            this.chkWashStatus.Text = "Mark as Completed";
+            this.chkWashStatus.Size = new System.Drawing.Size(89, 19);
+            this.chkWashStatus.TabIndex = 18;
+            this.chkWashStatus.Text = "Hoàn thành";
             this.chkWashStatus.UseVisualStyleBackColor = true;
             // 
             // chkIsPaid
             // 
             this.chkIsPaid.AutoSize = true;
-            this.chkIsPaid.Location = new System.Drawing.Point(10, 448);
+            this.chkIsPaid.Location = new System.Drawing.Point(12, 523);
+            this.chkIsPaid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkIsPaid.Name = "chkIsPaid";
-            this.chkIsPaid.Size = new System.Drawing.Size(120, 19);
-            this.chkIsPaid.TabIndex = 19;
-            this.chkIsPaid.Text = "Paid by Employee";
+            this.chkIsPaid.Size = new System.Drawing.Size(57, 19);
+            this.chkIsPaid.TabIndex = 17;
+            this.chkIsPaid.Text = "Đã trả";
             this.chkIsPaid.UseVisualStyleBackColor = true;
             // 
             // txtServiceEmpShare
             // 
             this.txtServiceEmpShare.BackColor = System.Drawing.Color.White;
             this.txtServiceEmpShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceEmpShare.Location = new System.Drawing.Point(190, 418);
+            this.txtServiceEmpShare.Location = new System.Drawing.Point(222, 485);
+            this.txtServiceEmpShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtServiceEmpShare.Name = "txtServiceEmpShare";
             this.txtServiceEmpShare.ReadOnly = true;
-            this.txtServiceEmpShare.Size = new System.Drawing.Size(80, 23);
-            this.txtServiceEmpShare.TabIndex = 18;
+            this.txtServiceEmpShare.Size = new System.Drawing.Size(93, 23);
+            this.txtServiceEmpShare.TabIndex = 16;
             this.txtServiceEmpShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblServiceEmpShare
             // 
             this.lblServiceEmpShare.AutoSize = true;
-            this.lblServiceEmpShare.Location = new System.Drawing.Point(190, 398);
+            this.lblServiceEmpShare.Location = new System.Drawing.Point(222, 462);
+            this.lblServiceEmpShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblServiceEmpShare.Name = "lblServiceEmpShare";
             this.lblServiceEmpShare.Size = new System.Drawing.Size(94, 15);
-            this.lblServiceEmpShare.TabIndex = 17;
-            this.lblServiceEmpShare.Text = "Employee Share:";
+            this.lblServiceEmpShare.TabIndex = 15;
+            this.lblServiceEmpShare.Text = "Nhân viên nhận:";
             // 
             // txtServiceOwnerShare
             // 
             this.txtServiceOwnerShare.BackColor = System.Drawing.Color.White;
             this.txtServiceOwnerShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceOwnerShare.Location = new System.Drawing.Point(100, 418);
+            this.txtServiceOwnerShare.Location = new System.Drawing.Point(117, 485);
+            this.txtServiceOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtServiceOwnerShare.Name = "txtServiceOwnerShare";
             this.txtServiceOwnerShare.ReadOnly = true;
-            this.txtServiceOwnerShare.Size = new System.Drawing.Size(80, 23);
-            this.txtServiceOwnerShare.TabIndex = 16;
+            this.txtServiceOwnerShare.Size = new System.Drawing.Size(93, 23);
+            this.txtServiceOwnerShare.TabIndex = 14;
             this.txtServiceOwnerShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblServiceOwnerShare
             // 
             this.lblServiceOwnerShare.AutoSize = true;
-            this.lblServiceOwnerShare.Location = new System.Drawing.Point(100, 398);
+            this.lblServiceOwnerShare.Location = new System.Drawing.Point(117, 462);
+            this.lblServiceOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblServiceOwnerShare.Name = "lblServiceOwnerShare";
-            this.lblServiceOwnerShare.Size = new System.Drawing.Size(77, 15);
-            this.lblServiceOwnerShare.TabIndex = 15;
-            this.lblServiceOwnerShare.Text = "Owner Share:";
+            this.lblServiceOwnerShare.Size = new System.Drawing.Size(82, 15);
+            this.lblServiceOwnerShare.TabIndex = 13;
+            this.lblServiceOwnerShare.Text = "Công ty nhận:";
             // 
             // txtTotalServiceFee
             // 
             this.txtTotalServiceFee.BackColor = System.Drawing.Color.White;
             this.txtTotalServiceFee.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTotalServiceFee.Location = new System.Drawing.Point(10, 418);
+            this.txtTotalServiceFee.Location = new System.Drawing.Point(12, 485);
+            this.txtTotalServiceFee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTotalServiceFee.Name = "txtTotalServiceFee";
             this.txtTotalServiceFee.ReadOnly = true;
-            this.txtTotalServiceFee.Size = new System.Drawing.Size(80, 23);
-            this.txtTotalServiceFee.TabIndex = 14;
+            this.txtTotalServiceFee.Size = new System.Drawing.Size(93, 23);
+            this.txtTotalServiceFee.TabIndex = 12;
             this.txtTotalServiceFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblTotalServiceFee
             // 
             this.lblTotalServiceFee.AutoSize = true;
-            this.lblTotalServiceFee.Location = new System.Drawing.Point(10, 398);
+            this.lblTotalServiceFee.Location = new System.Drawing.Point(12, 462);
+            this.lblTotalServiceFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalServiceFee.Name = "lblTotalServiceFee";
-            this.lblTotalServiceFee.Size = new System.Drawing.Size(78, 15);
-            this.lblTotalServiceFee.TabIndex = 13;
-            this.lblTotalServiceFee.Text = "Service/s Fee:";
+            this.lblTotalServiceFee.Size = new System.Drawing.Size(69, 15);
+            this.lblTotalServiceFee.TabIndex = 11;
+            this.lblTotalServiceFee.Text = "Phí dịch vụ:";
             // 
             // servicePanel
             // 
             this.servicePanel.AutoScroll = true;
-            this.servicePanel.Location = new System.Drawing.Point(10, 178);
+            this.servicePanel.Location = new System.Drawing.Point(12, 225);
+            this.servicePanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.servicePanel.Name = "servicePanel";
-            this.servicePanel.Size = new System.Drawing.Size(280, 200);
-            this.servicePanel.TabIndex = 12;
+            this.servicePanel.Size = new System.Drawing.Size(327, 231);
+            this.servicePanel.TabIndex = 10;
             // 
             // lblAdditionalServices
             // 
             this.lblAdditionalServices.AutoSize = true;
             this.lblAdditionalServices.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblAdditionalServices.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblAdditionalServices.Location = new System.Drawing.Point(10, 155);
+            this.lblAdditionalServices.Location = new System.Drawing.Point(12, 202);
+            this.lblAdditionalServices.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAdditionalServices.Name = "lblAdditionalServices";
-            this.lblAdditionalServices.Size = new System.Drawing.Size(147, 20);
-            this.lblAdditionalServices.TabIndex = 11;
-            this.lblAdditionalServices.Text = "Additional Services:";
+            this.lblAdditionalServices.Size = new System.Drawing.Size(132, 20);
+            this.lblAdditionalServices.TabIndex = 9;
+            this.lblAdditionalServices.Text = "Các dịch vụ thêm:";
             // 
             // txtEmployeeShare
             // 
             this.txtEmployeeShare.BackColor = System.Drawing.Color.White;
             this.txtEmployeeShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmployeeShare.Location = new System.Drawing.Point(190, 125);
+            this.txtEmployeeShare.Location = new System.Drawing.Point(222, 156);
+            this.txtEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmployeeShare.Name = "txtEmployeeShare";
             this.txtEmployeeShare.ReadOnly = true;
-            this.txtEmployeeShare.Size = new System.Drawing.Size(80, 23);
-            this.txtEmployeeShare.TabIndex = 10;
+            this.txtEmployeeShare.Size = new System.Drawing.Size(93, 23);
+            this.txtEmployeeShare.TabIndex = 8;
             this.txtEmployeeShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblEmployeeShare
             // 
             this.lblEmployeeShare.AutoSize = true;
-            this.lblEmployeeShare.Location = new System.Drawing.Point(190, 105);
+            this.lblEmployeeShare.Location = new System.Drawing.Point(222, 133);
+            this.lblEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployeeShare.Name = "lblEmployeeShare";
             this.lblEmployeeShare.Size = new System.Drawing.Size(94, 15);
-            this.lblEmployeeShare.TabIndex = 9;
-            this.lblEmployeeShare.Text = "Employee Share:";
+            this.lblEmployeeShare.TabIndex = 7;
+            this.lblEmployeeShare.Text = "Nhân viên nhận:";
             // 
             // txtOwnerShare
             // 
             this.txtOwnerShare.BackColor = System.Drawing.Color.White;
             this.txtOwnerShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOwnerShare.Location = new System.Drawing.Point(100, 125);
+            this.txtOwnerShare.Location = new System.Drawing.Point(117, 156);
+            this.txtOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtOwnerShare.Name = "txtOwnerShare";
             this.txtOwnerShare.ReadOnly = true;
-            this.txtOwnerShare.Size = new System.Drawing.Size(80, 23);
-            this.txtOwnerShare.TabIndex = 8;
+            this.txtOwnerShare.Size = new System.Drawing.Size(93, 23);
+            this.txtOwnerShare.TabIndex = 6;
             this.txtOwnerShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblOwnerShare
             // 
             this.lblOwnerShare.AutoSize = true;
-            this.lblOwnerShare.Location = new System.Drawing.Point(100, 105);
+            this.lblOwnerShare.Location = new System.Drawing.Point(117, 133);
+            this.lblOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOwnerShare.Name = "lblOwnerShare";
-            this.lblOwnerShare.Size = new System.Drawing.Size(77, 15);
-            this.lblOwnerShare.TabIndex = 7;
-            this.lblOwnerShare.Text = "Owner Share:";
+            this.lblOwnerShare.Size = new System.Drawing.Size(82, 15);
+            this.lblOwnerShare.TabIndex = 5;
+            this.lblOwnerShare.Text = "Công ty nhận:";
             // 
             // txtBaseFee
             // 
             this.txtBaseFee.BackColor = System.Drawing.Color.White;
             this.txtBaseFee.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBaseFee.Location = new System.Drawing.Point(10, 125);
+            this.txtBaseFee.Location = new System.Drawing.Point(12, 156);
+            this.txtBaseFee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBaseFee.Name = "txtBaseFee";
             this.txtBaseFee.ReadOnly = true;
-            this.txtBaseFee.Size = new System.Drawing.Size(80, 23);
-            this.txtBaseFee.TabIndex = 6;
+            this.txtBaseFee.Size = new System.Drawing.Size(93, 23);
+            this.txtBaseFee.TabIndex = 4;
             this.txtBaseFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblBaseFee
             // 
             this.lblBaseFee.AutoSize = true;
-            this.lblBaseFee.Location = new System.Drawing.Point(10, 105);
+            this.lblBaseFee.Location = new System.Drawing.Point(12, 133);
+            this.lblBaseFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBaseFee.Name = "lblBaseFee";
-            this.lblBaseFee.Size = new System.Drawing.Size(55, 15);
-            this.lblBaseFee.TabIndex = 5;
-            this.lblBaseFee.Text = "Base Fee:";
+            this.lblBaseFee.Size = new System.Drawing.Size(66, 15);
+            this.lblBaseFee.TabIndex = 3;
+            this.lblBaseFee.Text = "Giá cơ bản:";
             // 
             // cmbVehicleType
             // 
             this.cmbVehicleType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVehicleType.FormattingEnabled = true;
-            this.cmbVehicleType.Location = new System.Drawing.Point(110, 47);
+            this.cmbVehicleType.Location = new System.Drawing.Point(117, 82);
+            this.cmbVehicleType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbVehicleType.Name = "cmbVehicleType";
-            this.cmbVehicleType.Size = new System.Drawing.Size(170, 23);
-            this.cmbVehicleType.TabIndex = 4;
+            this.cmbVehicleType.Size = new System.Drawing.Size(198, 23);
+            this.cmbVehicleType.TabIndex = 2;
             this.cmbVehicleType.SelectedIndexChanged += new System.EventHandler(this.cmbVehicleType_SelectedIndexChanged);
             // 
             // lblVehicleType
             // 
             this.lblVehicleType.AutoSize = true;
-            this.lblVehicleType.Location = new System.Drawing.Point(10, 50);
+            this.lblVehicleType.Location = new System.Drawing.Point(12, 90);
+            this.lblVehicleType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVehicleType.Name = "lblVehicleType";
-            this.lblVehicleType.Size = new System.Drawing.Size(74, 15);
-            this.lblVehicleType.TabIndex = 3;
-            this.lblVehicleType.Text = "Vehicle Type:";
+            this.lblVehicleType.Size = new System.Drawing.Size(100, 15);
+            this.lblVehicleType.TabIndex = 1;
+            this.lblVehicleType.Text = "Loại phương tiện:";
             // 
             // txtEmployeeName
             // 
-            this.txtEmployeeName.Location = new System.Drawing.Point(110, 12);
+            this.txtEmployeeName.Location = new System.Drawing.Point(117, 9);
+            this.txtEmployeeName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmployeeName.Name = "txtEmployeeName";
-            this.txtEmployeeName.Size = new System.Drawing.Size(170, 23);
-            this.txtEmployeeName.TabIndex = 2;
+            this.txtEmployeeName.Size = new System.Drawing.Size(198, 23);
+            this.txtEmployeeName.TabIndex = 1;
             // 
             // lblEmployee
             // 
             this.lblEmployee.AutoSize = true;
-            this.lblEmployee.Location = new System.Drawing.Point(10, 15);
+            this.lblEmployee.Location = new System.Drawing.Point(12, 17);
+            this.lblEmployee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployee.Name = "lblEmployee";
-            this.lblEmployee.Size = new System.Drawing.Size(97, 15);
+            this.lblEmployee.Size = new System.Drawing.Size(83, 15);
             this.lblEmployee.TabIndex = 0;
-            this.lblEmployee.Text = "Employee Name:";
+            this.lblEmployee.Text = "Tên nhân viên:";
             // 
             // todaysEntriesPanel
             // 
             this.todaysEntriesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.todaysEntriesPanel.Controls.Add(this.lsvTodayEntries);
-            this.todaysEntriesPanel.Location = new System.Drawing.Point(320, 60);
+            this.todaysEntriesPanel.Location = new System.Drawing.Point(373, 69);
+            this.todaysEntriesPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.todaysEntriesPanel.Name = "todaysEntriesPanel";
-            this.todaysEntriesPanel.Size = new System.Drawing.Size(455, 380);
+            this.todaysEntriesPanel.Size = new System.Drawing.Size(530, 438);
             this.todaysEntriesPanel.TabIndex = 2;
             // 
             // lsvTodayEntries
             // 
             this.lsvTodayEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
+            this.columnTime,
+            this.columnVehicle,
+            this.columnEmployee,
+            this.columnTotal,
+            this.columnPaid,
+            this.columnWashStatus});
             this.lsvTodayEntries.ContextMenuStrip = this.lsvContextMenu;
             this.lsvTodayEntries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvTodayEntries.FullRowSelect = true;
             this.lsvTodayEntries.GridLines = true;
             this.lsvTodayEntries.HideSelection = false;
             this.lsvTodayEntries.Location = new System.Drawing.Point(0, 0);
+            this.lsvTodayEntries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvTodayEntries.Name = "lsvTodayEntries";
-            this.lsvTodayEntries.Size = new System.Drawing.Size(453, 378);
+            this.lsvTodayEntries.Size = new System.Drawing.Size(528, 436);
             this.lsvTodayEntries.TabIndex = 0;
             this.lsvTodayEntries.UseCompatibleStateImageBehavior = false;
             this.lsvTodayEntries.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader1
+            // columnTime
             // 
-            this.columnHeader1.Text = "Time";
-            this.columnHeader1.Width = 50;
+            this.columnTime.Text = "Time";
+            this.columnTime.Width = 50;
             // 
-            // columnHeader2
+            // columnVehicle
             // 
-            this.columnHeader2.Text = "Vehicle";
-            this.columnHeader2.Width = 80;
+            this.columnVehicle.Text = "Vehicle";
+            this.columnVehicle.Width = 80;
             // 
-            // columnHeader3
+            // columnEmployee
             // 
-            this.columnHeader3.Text = "Employee";
-            this.columnHeader3.Width = 90;
+            this.columnEmployee.Text = "Employee";
+            this.columnEmployee.Width = 90;
             // 
-            // columnHeader4
+            // columnTotal
             // 
-            this.columnHeader4.Text = "Total";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader4.Width = 70;
+            this.columnTotal.Text = "Total";
+            this.columnTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnTotal.Width = 70;
             // 
-            // columnHeader5
+            // columnPaid
             // 
-            this.columnHeader5.Text = "Paid";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 50;
+            this.columnPaid.Text = "Paid";
+            this.columnPaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnPaid.Width = 50;
             // 
-            // columnHeader6
+            // columnWashStatus
             // 
-            this.columnHeader6.Text = "Wash Status";
-            this.columnHeader6.Width = 85;
+            this.columnWashStatus.Text = "Wash Status";
+            this.columnWashStatus.Width = 85;
             // 
             // lsvContextMenu
             // 
@@ -565,20 +606,20 @@
             this.togglePaidStatusToolStripMenuItem,
             this.toggleWashStatusToolStripMenuItem});
             this.lsvContextMenu.Name = "lsvContextMenu";
-            this.lsvContextMenu.Size = new System.Drawing.Size(191, 48);
+            this.lsvContextMenu.Size = new System.Drawing.Size(214, 48);
             // 
             // togglePaidStatusToolStripMenuItem
             // 
             this.togglePaidStatusToolStripMenuItem.Name = "togglePaidStatusToolStripMenuItem";
-            this.togglePaidStatusToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.togglePaidStatusToolStripMenuItem.Text = "Toggle Paid Status";
+            this.togglePaidStatusToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.togglePaidStatusToolStripMenuItem.Text = "Thay đổi trạng thái Trả";
             this.togglePaidStatusToolStripMenuItem.Click += new System.EventHandler(this.TogglePaidStatus_Click);
             // 
             // toggleWashStatusToolStripMenuItem
             // 
             this.toggleWashStatusToolStripMenuItem.Name = "toggleWashStatusToolStripMenuItem";
-            this.toggleWashStatusToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.toggleWashStatusToolStripMenuItem.Text = "Toggle Wash Status";
+            this.toggleWashStatusToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.toggleWashStatusToolStripMenuItem.Text = "Thay đổi trạng thái Rửa";
             this.toggleWashStatusToolStripMenuItem.Click += new System.EventHandler(this.ToggleWashStatus_Click);
             // 
             // dailySummaryPanel
@@ -596,19 +637,21 @@
             this.dailySummaryPanel.Controls.Add(this.txtSummaryTotalRevenue);
             this.dailySummaryPanel.Controls.Add(this.lblSummaryTotalRevenue);
             this.dailySummaryPanel.Controls.Add(this.lblDailySummary);
-            this.dailySummaryPanel.Location = new System.Drawing.Point(320, 450);
+            this.dailySummaryPanel.Location = new System.Drawing.Point(373, 519);
+            this.dailySummaryPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dailySummaryPanel.Name = "dailySummaryPanel";
-            this.dailySummaryPanel.Size = new System.Drawing.Size(455, 200);
+            this.dailySummaryPanel.Size = new System.Drawing.Size(530, 230);
             this.dailySummaryPanel.TabIndex = 3;
             // 
             // txtSummaryMostWashedVehicle
             // 
             this.txtSummaryMostWashedVehicle.BackColor = System.Drawing.Color.White;
             this.txtSummaryMostWashedVehicle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryMostWashedVehicle.Location = new System.Drawing.Point(240, 160);
+            this.txtSummaryMostWashedVehicle.Location = new System.Drawing.Point(309, 185);
+            this.txtSummaryMostWashedVehicle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryMostWashedVehicle.Name = "txtSummaryMostWashedVehicle";
             this.txtSummaryMostWashedVehicle.ReadOnly = true;
-            this.txtSummaryMostWashedVehicle.Size = new System.Drawing.Size(180, 23);
+            this.txtSummaryMostWashedVehicle.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryMostWashedVehicle.TabIndex = 10;
             this.txtSummaryMostWashedVehicle.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -617,20 +660,22 @@
             this.lblSummaryMostWashedVehicle.AutoSize = true;
             this.lblSummaryMostWashedVehicle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryMostWashedVehicle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryMostWashedVehicle.Location = new System.Drawing.Point(240, 140);
+            this.lblSummaryMostWashedVehicle.Location = new System.Drawing.Point(309, 162);
+            this.lblSummaryMostWashedVehicle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryMostWashedVehicle.Name = "lblSummaryMostWashedVehicle";
-            this.lblSummaryMostWashedVehicle.Size = new System.Drawing.Size(128, 15);
+            this.lblSummaryMostWashedVehicle.Size = new System.Drawing.Size(168, 15);
             this.lblSummaryMostWashedVehicle.TabIndex = 9;
-            this.lblSummaryMostWashedVehicle.Text = "Most Washed Vehicle:";
+            this.lblSummaryMostWashedVehicle.Text = "Phương tiện ưa chuộng nhất:";
             // 
             // txtSummaryTotalWashes
             // 
             this.txtSummaryTotalWashes.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalWashes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryTotalWashes.Location = new System.Drawing.Point(15, 160);
+            this.txtSummaryTotalWashes.Location = new System.Drawing.Point(18, 185);
+            this.txtSummaryTotalWashes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalWashes.Name = "txtSummaryTotalWashes";
             this.txtSummaryTotalWashes.ReadOnly = true;
-            this.txtSummaryTotalWashes.Size = new System.Drawing.Size(180, 23);
+            this.txtSummaryTotalWashes.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryTotalWashes.TabIndex = 8;
             this.txtSummaryTotalWashes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -639,20 +684,22 @@
             this.lblSummaryTotalWashes.AutoSize = true;
             this.lblSummaryTotalWashes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalWashes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalWashes.Location = new System.Drawing.Point(15, 140);
+            this.lblSummaryTotalWashes.Location = new System.Drawing.Point(18, 162);
+            this.lblSummaryTotalWashes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalWashes.Name = "lblSummaryTotalWashes";
-            this.lblSummaryTotalWashes.Size = new System.Drawing.Size(82, 15);
+            this.lblSummaryTotalWashes.Size = new System.Drawing.Size(65, 15);
             this.lblSummaryTotalWashes.TabIndex = 7;
-            this.lblSummaryTotalWashes.Text = "Total Washes:";
+            this.lblSummaryTotalWashes.Text = "Số lần rửa:";
             // 
             // txtSummaryTotalEmpShare
             // 
             this.txtSummaryTotalEmpShare.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalEmpShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryTotalEmpShare.Location = new System.Drawing.Point(240, 110);
+            this.txtSummaryTotalEmpShare.Location = new System.Drawing.Point(309, 127);
+            this.txtSummaryTotalEmpShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalEmpShare.Name = "txtSummaryTotalEmpShare";
             this.txtSummaryTotalEmpShare.ReadOnly = true;
-            this.txtSummaryTotalEmpShare.Size = new System.Drawing.Size(180, 23);
+            this.txtSummaryTotalEmpShare.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryTotalEmpShare.TabIndex = 6;
             this.txtSummaryTotalEmpShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -661,20 +708,22 @@
             this.lblSummaryTotalEmpShare.AutoSize = true;
             this.lblSummaryTotalEmpShare.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalEmpShare.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalEmpShare.Location = new System.Drawing.Point(240, 90);
+            this.lblSummaryTotalEmpShare.Location = new System.Drawing.Point(309, 104);
+            this.lblSummaryTotalEmpShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalEmpShare.Name = "lblSummaryTotalEmpShare";
-            this.lblSummaryTotalEmpShare.Size = new System.Drawing.Size(129, 15);
+            this.lblSummaryTotalEmpShare.Size = new System.Drawing.Size(96, 15);
             this.lblSummaryTotalEmpShare.TabIndex = 5;
-            this.lblSummaryTotalEmpShare.Text = "Total Employee Share:";
+            this.lblSummaryTotalEmpShare.Text = "Nhân viên nhận:";
             // 
             // txtSummaryTotalOwnerShare
             // 
             this.txtSummaryTotalOwnerShare.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalOwnerShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryTotalOwnerShare.Location = new System.Drawing.Point(15, 110);
+            this.txtSummaryTotalOwnerShare.Location = new System.Drawing.Point(18, 127);
+            this.txtSummaryTotalOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalOwnerShare.Name = "txtSummaryTotalOwnerShare";
             this.txtSummaryTotalOwnerShare.ReadOnly = true;
-            this.txtSummaryTotalOwnerShare.Size = new System.Drawing.Size(180, 23);
+            this.txtSummaryTotalOwnerShare.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryTotalOwnerShare.TabIndex = 4;
             this.txtSummaryTotalOwnerShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -683,21 +732,23 @@
             this.lblSummaryTotalOwnerShare.AutoSize = true;
             this.lblSummaryTotalOwnerShare.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalOwnerShare.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalOwnerShare.Location = new System.Drawing.Point(15, 90);
+            this.lblSummaryTotalOwnerShare.Location = new System.Drawing.Point(18, 104);
+            this.lblSummaryTotalOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalOwnerShare.Name = "lblSummaryTotalOwnerShare";
-            this.lblSummaryTotalOwnerShare.Size = new System.Drawing.Size(113, 15);
+            this.lblSummaryTotalOwnerShare.Size = new System.Drawing.Size(91, 15);
             this.lblSummaryTotalOwnerShare.TabIndex = 3;
-            this.lblSummaryTotalOwnerShare.Text = "Total Owner Share:";
+            this.lblSummaryTotalOwnerShare.Text = "Công ty thu về:";
             // 
             // txtSummaryTotalRevenue
             // 
             this.txtSummaryTotalRevenue.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalRevenue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryTotalRevenue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.txtSummaryTotalRevenue.Location = new System.Drawing.Point(15, 60);
+            this.txtSummaryTotalRevenue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtSummaryTotalRevenue.Location = new System.Drawing.Point(18, 69);
+            this.txtSummaryTotalRevenue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalRevenue.Name = "txtSummaryTotalRevenue";
             this.txtSummaryTotalRevenue.ReadOnly = true;
-            this.txtSummaryTotalRevenue.Size = new System.Drawing.Size(180, 23);
+            this.txtSummaryTotalRevenue.Size = new System.Drawing.Size(210, 20);
             this.txtSummaryTotalRevenue.TabIndex = 2;
             this.txtSummaryTotalRevenue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -706,35 +757,40 @@
             this.lblSummaryTotalRevenue.AutoSize = true;
             this.lblSummaryTotalRevenue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalRevenue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalRevenue.Location = new System.Drawing.Point(15, 40);
+            this.lblSummaryTotalRevenue.Location = new System.Drawing.Point(18, 46);
+            this.lblSummaryTotalRevenue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalRevenue.Name = "lblSummaryTotalRevenue";
-            this.lblSummaryTotalRevenue.Size = new System.Drawing.Size(90, 15);
+            this.lblSummaryTotalRevenue.Size = new System.Drawing.Size(97, 15);
             this.lblSummaryTotalRevenue.TabIndex = 1;
-            this.lblSummaryTotalRevenue.Text = "Total Revenue:";
+            this.lblSummaryTotalRevenue.Text = "Tổng doanh thu:";
             // 
             // lblDailySummary
             // 
             this.lblDailySummary.AutoSize = true;
             this.lblDailySummary.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblDailySummary.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblDailySummary.Location = new System.Drawing.Point(15, 10);
+            this.lblDailySummary.Location = new System.Drawing.Point(18, 12);
+            this.lblDailySummary.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDailySummary.Name = "lblDailySummary";
-            this.lblDailySummary.Size = new System.Drawing.Size(116, 20);
+            this.lblDailySummary.Size = new System.Drawing.Size(170, 20);
             this.lblDailySummary.TabIndex = 0;
-            this.lblDailySummary.Text = "Daily Summary";
+            this.lblDailySummary.Text = "Doanh Thu trong Ngày";
             // 
             // DashboardForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 661);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(920, 762);
             this.Controls.Add(this.dailySummaryPanel);
             this.Controls.Add(this.todaysEntriesPanel);
             this.Controls.Add(this.washEntryPanel);
             this.Controls.Add(this.headerPanel);
-            this.MainMenuStrip = this.mainMenu;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
             this.Name = "DashboardForm";
             this.Text = "Car Wash Management - Daily Dashboard";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashboardForm_FormClosed);
             this.headerPanel.ResumeLayout(false);
             this.headerPanel.PerformLayout();
             this.mainMenu.ResumeLayout(false);
@@ -750,65 +806,66 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel headerPanel;
-        private System.Windows.Forms.Label welcomeLabel;
-        private System.Windows.Forms.Button logoutButton;
-        private System.Windows.Forms.Button btnChangePassword;
-        private System.Windows.Forms.MenuStrip mainMenu;
-        private System.Windows.Forms.ToolStripMenuItem adminMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageUsersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageVehiclesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageServicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageExpensesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem monthlyYearlyReportToolStripMenuItem;
-        private System.Windows.Forms.Panel washEntryPanel;
-        private System.Windows.Forms.Label lblEmployee;
-        private System.Windows.Forms.TextBox txtEmployeeName;
-        private System.Windows.Forms.Label lblVehicleType;
-        private System.Windows.Forms.ComboBox cmbVehicleType;
-        private System.Windows.Forms.Label lblBaseFee;
-        private System.Windows.Forms.TextBox txtBaseFee;
-        private System.Windows.Forms.Label lblOwnerShare;
-        private System.Windows.Forms.TextBox txtOwnerShare;
-        private System.Windows.Forms.Label lblEmployeeShare;
-        private System.Windows.Forms.TextBox txtEmployeeShare;
-        private System.Windows.Forms.Label lblAdditionalServices;
-        private System.Windows.Forms.Panel servicePanel;
-        private System.Windows.Forms.Label lblTotalServiceFee;
-        private System.Windows.Forms.TextBox txtTotalServiceFee;
-        private System.Windows.Forms.Label lblServiceOwnerShare;
-        private System.Windows.Forms.TextBox txtServiceOwnerShare;
-        private System.Windows.Forms.Label lblServiceEmpShare;
-        private System.Windows.Forms.TextBox txtServiceEmpShare;
-        private System.Windows.Forms.CheckBox chkIsPaid;
-        private System.Windows.Forms.CheckBox chkWashStatus;
-        private System.Windows.Forms.Label lblDiscount;
-        private System.Windows.Forms.ComboBox cmbDiscount;
-        private System.Windows.Forms.Label lblTotalAmount;
-        private System.Windows.Forms.TextBox txtTotalAmount;
-        private System.Windows.Forms.Button btnAddTransaction;
-        private System.Windows.Forms.Panel todaysEntriesPanel;
-        private System.Windows.Forms.ListView lsvTodayEntries;
-        private System.Windows.Forms.ContextMenuStrip lsvContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem togglePaidStatusToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toggleWashStatusToolStripMenuItem;
-        private System.Windows.Forms.Panel dailySummaryPanel;
-        private System.Windows.Forms.Label lblDailySummary;
-        private System.Windows.Forms.Label lblSummaryTotalRevenue;
-        private System.Windows.Forms.TextBox txtSummaryTotalRevenue;
-        private System.Windows.Forms.Label lblSummaryTotalOwnerShare;
-        private System.Windows.Forms.TextBox txtSummaryTotalOwnerShare;
-        private System.Windows.Forms.Label lblSummaryTotalEmpShare;
-        private System.Windows.Forms.TextBox txtSummaryTotalEmpShare;
-        private System.Windows.Forms.Label lblSummaryTotalWashes;
-        private System.Windows.Forms.TextBox txtSummaryTotalWashes;
-        private System.Windows.Forms.Label lblSummaryMostWashedVehicle;
-        private System.Windows.Forms.TextBox txtSummaryMostWashedVehicle;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
+
+        private Panel headerPanel;
+        private Label welcomeLabel;
+        private Button logoutButton;
+        private Button btnChangePassword;
+        private MenuStrip mainMenu;
+        private ToolStripMenuItem adminMenuItem;
+        private ToolStripMenuItem manageUsersToolStripMenuItem;
+        private ToolStripMenuItem manageVehiclesToolStripMenuItem;
+        private ToolStripMenuItem manageServicesToolStripMenuItem;
+        private ToolStripMenuItem manageExpensesToolStripMenuItem;
+        private ToolStripMenuItem monthlyYearlyReportToolStripMenuItem;
+        private Panel washEntryPanel;
+        private TextBox txtEmployeeName;
+        private Label lblEmployee;
+        private ComboBox cmbVehicleType;
+        private Label lblVehicleType;
+        private TextBox txtBaseFee;
+        private Label lblBaseFee;
+        private TextBox txtEmployeeShare;
+        private Label lblEmployeeShare;
+        private TextBox txtOwnerShare;
+        private Label lblOwnerShare;
+        private Panel servicePanel;
+        private Label lblAdditionalServices;
+        private TextBox txtServiceEmpShare;
+        private Label lblServiceEmpShare;
+        private TextBox txtServiceOwnerShare;
+        private Label lblServiceOwnerShare;
+        private TextBox txtTotalServiceFee;
+        private Label lblTotalServiceFee;
+        private CheckBox chkIsPaid;
+        private CheckBox chkWashStatus;
+        private ComboBox cmbDiscount;
+        private Label lblDiscount;
+        private TextBox txtTotalAmount;
+        private Label lblTotalAmount;
+        private Button btnAddTransaction;
+        private Panel todaysEntriesPanel;
+        private ListView lsvTodayEntries;
+        private ColumnHeader columnTime;
+        private ColumnHeader columnVehicle;
+        private ColumnHeader columnEmployee;
+        private ColumnHeader columnTotal;
+        private ColumnHeader columnPaid;
+        private ColumnHeader columnWashStatus;
+        private ContextMenuStrip lsvContextMenu;
+        private ToolStripMenuItem togglePaidStatusToolStripMenuItem;
+        private ToolStripMenuItem toggleWashStatusToolStripMenuItem;
+        private Panel dailySummaryPanel;
+        private TextBox txtSummaryMostWashedVehicle;
+        private Label lblSummaryMostWashedVehicle;
+        private TextBox txtSummaryTotalWashes;
+        private Label lblSummaryTotalWashes;
+        private TextBox txtSummaryTotalEmpShare;
+        private Label lblSummaryTotalEmpShare;
+        private TextBox txtSummaryTotalOwnerShare;
+        private Label lblSummaryTotalOwnerShare;
+        private TextBox txtSummaryTotalRevenue;
+        private Label lblSummaryTotalRevenue;
+        private Label lblDailySummary;
     }
 }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows.Forms;
-using CarWashManagement.Core.Managers;
-using CarWashManagement.Core.FileHandlers;
+﻿using CarWashManagement.Core;
 using CarWashManagement.Core.Enums;
-using CarWashManagement.Core;
+using CarWashManagement.Core.Database.SqlHandlers;
+using CarWashManagement.Core.Managers;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CarWashManagement.UI
 {
@@ -16,15 +14,15 @@ namespace CarWashManagement.UI
     {
         private readonly User loggedInUser;
 
-        // Managers
+        // Declaration of manager instances.
         private readonly CarManager carManager;
         private readonly TransactionManager transactionManager;
 
-        // Data lists
+        // Declaration of data lists.
         private List<Vehicle> vehicleTypes;
         private List<Service> services;
 
-        // To hold created service checkboxes
+        // To hold created service checkboxes and fee textboxes.
         private List<Control> serviceControls = new List<Control>();
 
         public DashboardForm(User loggedInUser)
@@ -33,31 +31,29 @@ namespace CarWashManagement.UI
 
             // Initialize manager instances.
             carManager = new CarManager(
-                new VehicleFileHandler(),
-                new ServiceFileHandler(),
-                new AuditFileHandler()
+                new VehicleSqlHandler(),
+                new ServiceSqlHandler(),
+                new AuditSqlHandler()
                 );
             transactionManager = new TransactionManager(
-                new TransactionFileHandler(),
-                new AuditFileHandler()
+                new TransactionSqlHandler(),
+                new AuditSqlHandler()
                 );
+
+            InitializeComponent();
 
             // Load data lists.
             vehicleTypes = carManager.GetVehicleTypes();
             services = carManager.GetServices();
 
-            // This now initializes all controls from the Designer file
-            InitializeComponent();
-
-            // Initialize form state and load data
-            welcomeLabel.Text = $"Welcome, {loggedInUser.FullName} ({loggedInUser.Role})";
-            cmbDiscount.SelectedIndex = 0;
-            cmbDiscount.SelectedIndexChanged += (sender, e) => UpdateTotalAmount();
-
             LoadVehicleComboBox();
             LoadServiceControls();
             RefreshTodaysEntries();
 
+            // Set welcome label text
+            welcomeLabel.Text = $"Welcome, {loggedInUser.FullName} ({loggedInUser.Role})";
+
+            // Adjust button positions for admin
             if (loggedInUser.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
             {
                 adminMenuItem.Visible = true;
@@ -73,7 +69,6 @@ namespace CarWashManagement.UI
             cmbVehicleType.DisplayMember = "Type";
             cmbVehicleType.ValueMember = "Type";
             cmbVehicleType.SelectedIndex = -1; // Start with no selection.
-
         }
 
         // Method to load the service controls.
@@ -81,18 +76,18 @@ namespace CarWashManagement.UI
         {
             int currentY = 10;
 
-            foreach(Control c in serviceControls)
+            foreach (Control c in serviceControls)
             {
                 servicePanel.Controls.Remove(c);
             }
             serviceControls.Clear();
 
-            foreach(Service service in services)
+            foreach (Service service in services)
             {
                 // Create the CheckBox.
                 CheckBox chk = new CheckBox();
                 chk.Text = service.Name;
-                chk.Location = new Point(10, currentY);
+                chk.Location = new System.Drawing.Point(10, currentY);
                 chk.AutoSize = true;
                 chk.Tag = service; // Store the service object in the tag.
                 chk.CheckedChanged += ServiceCheckbox_CheckedChanged;
@@ -101,8 +96,8 @@ namespace CarWashManagement.UI
 
                 // Create the Textbox
                 TextBox txt = new TextBox();
-                txt.Location = new Point(180, currentY - 3);
-                txt.Size = new Size(80, 23);
+                txt.Location = new System.Drawing.Point(180, currentY - 3);
+                txt.Size = new System.Drawing.Size(80, 23);
                 txt.Enabled = false;
                 txt.BorderStyle = BorderStyle.FixedSingle;
                 txt.BackColor = Color.White;
@@ -118,13 +113,14 @@ namespace CarWashManagement.UI
                     txt.TextChanged += ServiceTextBox_TextChanged;
                     txt.TextAlign = HorizontalAlignment.Right;
 
-                } else if (service.PricingType == ServicePricingType.FixedPrice)
+                }
+                else if (service.PricingType == ServicePricingType.FixedPrice)
                 {
                     txt.Text = service.Fee.ToString("N2");
                     txt.ReadOnly = true;
                     txt.Enabled = false; // Initially disabled until checkbox is checked.
                     txt.TextAlign = HorizontalAlignment.Right;
-                } 
+                }
                 else if (service.PricingType == ServicePricingType.VehicleBaseFeeMultiplier)
                 {
                     txt.Text = "0.00"; // Will be calculated based on vehicle base fee.
@@ -190,8 +186,10 @@ namespace CarWashManagement.UI
 
             decimal subTotal = baseFee + servicesTotal;
             decimal discountPercentage = 0.00m;
+            string selectedDiscount = cmbDiscount.SelectedItem as string ?? string.Empty;
 
-            if (cmbDiscount.SelectedItem.ToString() == "PWD" || cmbDiscount.SelectedItem.ToString() == "Senior")
+            if (selectedDiscount.Equals("PWD", StringComparison.OrdinalIgnoreCase) ||
+                selectedDiscount.Equals("Senior", StringComparison.OrdinalIgnoreCase))
             {
                 discountPercentage = 0.20m; // 20% discount
             }
@@ -209,7 +207,7 @@ namespace CarWashManagement.UI
                 .ToList();
 
             decimal totalRevenue = todaysTransaction.Sum(txn => txn.TotalAmount);
-            decimal totalOwnerShare = todaysTransaction.Sum (txn => txn.OwnerShare);
+            decimal totalOwnerShare = todaysTransaction.Sum(txn => txn.OwnerShare);
             decimal totalEmpShare = todaysTransaction.Sum(txn => txn.EmployeeShare);
             int totalWashes = todaysTransaction.Count();
 
@@ -246,7 +244,7 @@ namespace CarWashManagement.UI
                 ListViewItem row = new ListViewItem(txn.Timestamp.ToString("HH:mm"));
 
                 // Store transaction ID in the Tag for reference when updating the Paid and Status properties.
-                row.Tag = txn.ID; 
+                row.Tag = txn.ID;
 
                 // Add the other columns (sub-items).
                 row.SubItems.Add(txn.VehicleType);
@@ -306,7 +304,7 @@ namespace CarWashManagement.UI
             ChangePasswordForm changePasswordForm = new ChangePasswordForm(loggedInUser);
             changePasswordForm.ShowDialog();
         }
-        
+
         // Method that opens the Manage Users form (Admin Only).
         private void ManageUsers_Click(object sender, EventArgs e)
         {
@@ -354,7 +352,7 @@ namespace CarWashManagement.UI
         // Method that allow users to logout from the main dashboard.
         private void LogoutButton_Click(object sender, EventArgs e)
         {
-            DialogResult isLogout = MessageBox.Show("Are you sure you want to log out?", "Logout?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult isLogout = MessageBox.Show("Bạn muốn đăng xuất?", "Logout?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (isLogout == DialogResult.Yes)
             {
@@ -381,7 +379,7 @@ namespace CarWashManagement.UI
             // Check if any item is selected in the ListView.
             if (lsvTodayEntries.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Please select a transaction row to toggle its Paid Status.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Xin hãy chọn một hàng để thay đổi trạng thái Trả phí.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -397,7 +395,7 @@ namespace CarWashManagement.UI
 
                 if (txnToUpdate == null)
                 {
-                    MessageBox.Show("Transaction not found. Please refresh the list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy phiếu hóa đơn, xin hãy làm mới danh mục.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -415,7 +413,7 @@ namespace CarWashManagement.UI
         {
             if (lsvTodayEntries.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Please select a transaction row to toggle its Wash Status.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Xin hãy chọn một hàng để thay đổi trạng thái Rửa.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -429,7 +427,7 @@ namespace CarWashManagement.UI
 
                 if (txnToUpdate == null)
                 {
-                    MessageBox.Show("Transaction not found. Please refresh the list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy phiếu hóa đơn, xin hãy làm mới danh mục.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -445,13 +443,13 @@ namespace CarWashManagement.UI
         {
             if (txtEmployeeName.Text.Trim() == "")
             {
-                MessageBox.Show("Please enter the employee name.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Chưa nhập tên nhân viên!", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (cmbVehicleType.SelectedIndex == -1)
             {
-                MessageBox.Show("Please select a vehicle type.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Chưa chọn loại xe", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -466,7 +464,7 @@ namespace CarWashManagement.UI
 
                         if (txt == null || !decimal.TryParse(txt.Text, out decimal manualFee) || manualFee <= 0)
                         {
-                            MessageBox.Show($"Please enter a valid fee for the service: {service.Name}", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show($"phí dịch vụ không hợp lệ: {service.Name}", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
@@ -477,7 +475,10 @@ namespace CarWashManagement.UI
             string employeeName = txtEmployeeName.Text.Trim();
             bool isPaid = chkIsPaid.Checked;
             string washStatus = chkWashStatus.Checked ? "Completed" : "Ongoing";
-            decimal discountPercentage = (cmbDiscount.SelectedItem.ToString() == "PWD" || cmbDiscount.SelectedItem.ToString() == "Senior") ? 0.20m : 0.00m;
+            string selectedDiscount = cmbDiscount.SelectedItem as string ?? string.Empty;
+            decimal discountPercentage = (selectedDiscount.Equals("PWD", StringComparison.OrdinalIgnoreCase) ||
+                                          selectedDiscount.Equals("Senior", StringComparison.OrdinalIgnoreCase))
+                                          ? 0.20m : 0.00m;
             List<Service> selectedServices = new List<Service>();
 
             // Gather selected services and get their final fees.
@@ -505,7 +506,7 @@ namespace CarWashManagement.UI
 
             if (!decimal.TryParse(txtTotalAmount.Text, out decimal totalAmount) || totalAmount <= 0)
             {
-                MessageBox.Show("Total amount must be greater than zero. Please check vehicle selection and services.", "Invalid Transaction", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tổng chi phí phải lớn hơn 0.", "Invalid Transaction", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -521,14 +522,14 @@ namespace CarWashManagement.UI
                     loggedInUser.Username
                     );
 
-                MessageBox.Show($"Transaction {newTransaction.ID} added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Hóa đơn {newTransaction.ID} đã được thêm!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ResetWashEntryForm();
                 RefreshTodaysEntries();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while saving the transaction: {ex.Message}", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Có lỗi xảy ra khi lưu hóa đơn: {ex.Message}", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -579,7 +580,7 @@ namespace CarWashManagement.UI
 
             // Find the corresponding textbox for this service.
             TextBox txt = serviceControls.FirstOrDefault(c => c is TextBox && c.Tag == service) as TextBox;
-            
+
             if (service.PricingType == ServicePricingType.ManualInput)
             {
                 txt.Enabled = chk.Checked;
@@ -587,11 +588,13 @@ namespace CarWashManagement.UI
                 {
                     txt.Text = "0.00";
                 }
-            } else if (service.PricingType == ServicePricingType.VehicleBaseFeeMultiplier)
+            }
+            else if (service.PricingType == ServicePricingType.VehicleBaseFeeMultiplier)
             {
                 txt.Enabled = chk.Checked;
 
-            } else if (service.PricingType == ServicePricingType.ManualInput)
+            }
+            else if (service.PricingType == ServicePricingType.ManualInput)
             {
                 txt.Enabled = chk.Checked;
             }
@@ -606,7 +609,14 @@ namespace CarWashManagement.UI
             UpdateTotalAmount();
         }
 
-        protected override void OnFormClosed(FormClosedEventArgs e)
+        // Event handler for discount combo box
+        private void cmbDiscount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTotalAmount();
+        }
+
+        // Form closed event handler
+        private void DashboardForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Form loginForm = Application.OpenForms["LoginForm"];
 
@@ -616,9 +626,13 @@ namespace CarWashManagement.UI
                 ((LoginForm)loginForm).ClearFields();
                 loginForm.Show();
             }
-            
-            Console.WriteLine("Car Wash Management System\nMiccael Jasper Tayas\nFinal Project Requirement\nCIS202 - Object Oriented Programming\nNovember 2025\n\nThank you for using the system!");
-            base.OnFormClosed(e);
+
+            Console.WriteLine("Car Wash Management System\nGROUP 7 - CNTTVA2\nFinal Project\nNovember 2025\n\nThank you for using the system!");
+        }
+
+        private void mainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

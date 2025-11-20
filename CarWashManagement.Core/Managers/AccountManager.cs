@@ -3,35 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
+using CarWashManagement.Core.Database;
 
 namespace CarWashManagement.Core.Managers
 {
     public class AccountManager
     {
-        // Declaration of fields for the file handler objects.
-        private readonly IFileHandler<User> userFileHandler;
-        private readonly AuditFileHandler auditFileHandler;
+        // Declaration of fields for the SQL handler objects.
+        private readonly ISqlHandler<User> userSqlHandler;
+        private readonly AuditSqlHandler auditSqlHandler;
 
         // The maximum number of failed login attempts.
         private const int MaxLoginAttempts = 3;
 
         private List<User> users;
 
-        // Initialize file handlers when AccountManager is created.
-        public AccountManager(IFileHandler<User> userFileHandler, AuditFileHandler auditFileHandler)
+        // Initialize SQL handlers when AccountManager is created.
+        public AccountManager(ISqlHandler<User> userSqlHandler, AuditSqlHandler auditSqlHandler)
         {
-            users = userFileHandler.Load(); 
+            // Ensure database exists
+            DatabaseConnection.EnsureDatabaseExists();
+            
+            users = userSqlHandler.Load(); 
 
-            this.userFileHandler = userFileHandler;
-            this.auditFileHandler = auditFileHandler;
+            this.userSqlHandler = userSqlHandler;
+            this.auditSqlHandler = auditSqlHandler;
 
-            // Checks if there are any users in users.txt.
+            // Checks if there are any users in database.
             // If none, it creates the default admin account.
-            if (!userFileHandler.Load().Any())
+            if (!userSqlHandler.Load().Any())
             {
                 CreateUser("admin", "admin123", "ADMIN", "Default Administrator");
-                auditFileHandler.LogEvent("INFO: No users found. Default 'admin' account created.");
+                auditSqlHandler.LogEvent("INFO: No users found. Default 'admin' account created.");
             }
         }
 
@@ -40,7 +44,7 @@ namespace CarWashManagement.Core.Managers
         {
             loggedInUser = null; // Initializes the user to null.
 
-            // Get all users from the users.txt file.
+            // Get all users from the database.
             users = GetAllUsers();
 
             // Gets the first matching username from the users list, ignoring case; otherwise, sets to null.
@@ -49,19 +53,19 @@ namespace CarWashManagement.Core.Managers
             // Check for failure conditions.
             if (user == null)
             {
-                auditFileHandler.LogEvent($"FAILURE: Failed login attempt for non-existent user '{username}'.");
+                auditSqlHandler.LogEvent($"FAILURE: Failed login attempt for non-existent user '{username}'.");
                 return "Username or password is incorrect.";
             }
 
             if (user.Status == "INACTIVE")
             {
-                auditFileHandler.LogEvent($"FAILURE: Login attempt for inactive user '{username}'.");
+                auditSqlHandler.LogEvent($"FAILURE: Login attempt for inactive user '{username}'.");
                 return "This account is inactive. Please contact an administrator.";
             }
 
             if (user.Status == "LOCKED")
             {
-                auditFileHandler.LogEvent($"FAILURE: Login attempt for locked user '{username}'.");
+                auditSqlHandler.LogEvent($"FAILURE: Login attempt for locked user '{username}'.");
                 return "This account is locked due to too many failed attempts.";
             }
 
@@ -70,7 +74,7 @@ namespace CarWashManagement.Core.Managers
             {
                 // Increments the failed login attempts property of the user.
                 user.FailedLoginAttempts++;
-                auditFileHandler.LogEvent($"FAILURE: Failed login attempt for user '{username}'.");
+                auditSqlHandler.LogEvent($"FAILURE: Failed login attempt for user '{username}'.");
 
                 string failureMessage = "Username or password is incorrect.";
 
@@ -79,18 +83,18 @@ namespace CarWashManagement.Core.Managers
                 {
                     user.Status = "LOCKED";
                     failureMessage = "Account has been locked due to too many failed attempts.";
-                    auditFileHandler.LogEvent($"LOCKOUT: Account for user '{username}' has been locked.");
+                    auditSqlHandler.LogEvent($"LOCKOUT: Account for user '{username}' has been locked.");
                 }
 
                 // Save the changes (updated attempts or status update)
-                userFileHandler.Save(users);
+                userSqlHandler.Save(users);
                 return failureMessage;
             } else
             {
                 user.FailedLoginAttempts = 0; // Reset attempts when login is successful.
-                userFileHandler.Save(users); // Save the reset count.
+                userSqlHandler.Save(users); // Save the reset count.
 
-                auditFileHandler.LogEvent($"SUCCESS: User '{username}' logged in.");
+                auditSqlHandler.LogEvent($"SUCCESS: User '{username}' logged in.");
                 loggedInUser = user; // Pass the user object back.
                 return "SUCCESS";
             }
@@ -99,14 +103,15 @@ namespace CarWashManagement.Core.Managers
         // Method to activate a user account.
         public bool ActivateUser(string username)
         {
+            users = GetAllUsers(); // Reload from database
             User user = users.FirstOrDefault(u => u.Username == username);
 
             if (user != null && user.Status != "ACTIVE")
             {
                 user.Status = "ACTIVE";
                 user.FailedLoginAttempts = 0;
-                userFileHandler.Save(users);
-                auditFileHandler.LogEvent($"INFO: Account for user '{username}' has been activated.");
+                userSqlHandler.Save(users);
+                auditSqlHandler.LogEvent($"INFO: Account for user '{username}' has been activated.");
                 return true;
             } else
             {
@@ -118,14 +123,15 @@ namespace CarWashManagement.Core.Managers
         // Method to deactivate a user account.
         public bool DeactivateUser(string username)
         {
+            users = GetAllUsers(); // Reload from database
             User user = users.FirstOrDefault(u => u.Username == username);
 
             if (user != null && user.Status != "INACTIVE")
             {
                 user.Status = "INACTIVE";
                 user.FailedLoginAttempts = 0;
-                userFileHandler.Save(users);
-                auditFileHandler.LogEvent($"INFO: Account for user '{username}' has been deactivated.");
+                userSqlHandler.Save(users);
+                auditSqlHandler.LogEvent($"INFO: Account for user '{username}' has been deactivated.");
                 return true;
             }
             else
@@ -147,14 +153,14 @@ namespace CarWashManagement.Core.Managers
             // Verify the old password.
             if (user.Password != oldPassword)
             {
-                auditFileHandler.LogEvent($"SECURITY: User '{loggedInUsername}' failed to change their password. (Incorrect old password).");
+                auditSqlHandler.LogEvent($"SECURITY: User '{loggedInUsername}' failed to change their password. (Incorrect old password).");
                 return false;
             }
 
             user.Password = newPassword;
 
-            userFileHandler.Save(users);
-            auditFileHandler.LogEvent($"SECURITY: User '{loggedInUsername}' successfully changed their password.");
+            userSqlHandler.Save(users);
+            auditSqlHandler.LogEvent($"SECURITY: User '{loggedInUsername}' successfully changed their password.");
             return true;
         }
 
@@ -180,8 +186,8 @@ namespace CarWashManagement.Core.Managers
                 };
 
                 users.Add(newUser);
-                userFileHandler.Save(users);
-                auditFileHandler.LogEvent($"INFO: New user '{username}' created with role '{role}'.");
+                userSqlHandler.Save(users);
+                auditSqlHandler.LogEvent($"INFO: New user '{username}' created with role '{role}'.");
                 return true;
             }
         }
@@ -192,10 +198,11 @@ namespace CarWashManagement.Core.Managers
             return users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Method to get the list of all users from the user.txt file.
+        // Method to get the list of all users from the database.
         public List<User> GetAllUsers()
         {
-            return userFileHandler.Load();
+            users = userSqlHandler.Load();
+            return users;
         }
 
     }

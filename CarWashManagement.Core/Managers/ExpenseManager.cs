@@ -1,4 +1,5 @@
-﻿using CarWashManagement.Core.FileHandlers;
+using CarWashManagement.Core.Database.SqlHandlers;
+using CarWashManagement.Core.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,21 @@ namespace CarWashManagement.Core.Managers
 {
     public class ExpenseManager
     {
-        private readonly IFileHandler<Expense> expenseFileHandler;
-        private readonly AuditFileHandler auditFileHandler;
+        private readonly ISqlHandler<Expense> expenseSqlHandler;
+        private readonly AuditSqlHandler auditSqlHandler;
         private List<Expense> expenses;
 
-        public ExpenseManager(IFileHandler<Expense> expenseFileHandler, AuditFileHandler auditFileHandler)
+        public ExpenseManager(ISqlHandler<Expense> expenseSqlHandler, AuditSqlHandler auditSqlHandler)
         {
-            this.expenseFileHandler = expenseFileHandler;
-            this.auditFileHandler = auditFileHandler;
-            expenses = expenseFileHandler.Load(); // Load existing expenses from expenses.txt file
+            // Ensure database exists
+            DatabaseConnection.EnsureDatabaseExists();
+            
+            this.expenseSqlHandler = expenseSqlHandler;
+            this.auditSqlHandler = auditSqlHandler;
+            expenses = expenseSqlHandler.Load(); // Load existing expenses from database
         }
 
-        // Method to create a new expense and save it to the expenses.txt file
+        // Method to create a new expense and save it to the database
         public void CreateExpense(DateTime date, string description, decimal amount, string loggedInUsername)
         {
             Expense newExpense = new Expense
@@ -31,9 +35,9 @@ namespace CarWashManagement.Core.Managers
             };
 
             expenses.Add(newExpense);
-            expenseFileHandler.Save(expenses); // Save updated expenses list to expenses.txt file
+            expenseSqlHandler.Save(expenses); // Save updated expenses list to database
 
-            auditFileHandler.LogEvent($"EXPENSE: User '{loggedInUsername}' added expense '{description}' for {amount:N2} (Date: {date:yyyy-MM-dd}).");
+            auditSqlHandler.LogEvent($"EXPENSE: User '{loggedInUsername}' added expense '{description}' for {amount:N2} (Date: {date:yyyy-MM-dd}).");
         }
 
         // Method to get all expenses for a specific month.
