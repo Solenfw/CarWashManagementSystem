@@ -26,14 +26,14 @@ namespace CarWashManagement.UI
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.lblSelectPeriod = new System.Windows.Forms.Label();
             this.dtpChartDate = new System.Windows.Forms.DateTimePicker();
             this.btnMonthlyMode = new System.Windows.Forms.Button();
@@ -42,6 +42,7 @@ namespace CarWashManagement.UI
             this.chartWashes = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblRevenueChart = new System.Windows.Forms.Label();
             this.lblWashesChart = new System.Windows.Forms.Label();
+            this.btnGenerateCharts = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartRevenue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartWashes)).BeginInit();
             this.SuspendLayout();
@@ -97,45 +98,45 @@ namespace CarWashManagement.UI
             // 
             // chartRevenue
             // 
-            chartArea1.AxisX.Interval = 1D;
-            chartArea1.Name = "ChartArea1";
-            this.chartRevenue.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartRevenue.Legends.Add(legend1);
+            chartArea3.AxisX.Interval = 1D;
+            chartArea3.Name = "ChartArea1";
+            this.chartRevenue.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartRevenue.Legends.Add(legend3);
             this.chartRevenue.Location = new System.Drawing.Point(27, 120);
             this.chartRevenue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chartRevenue.Name = "chartRevenue";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Revenue";
-            this.chartRevenue.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Revenue";
+            this.chartRevenue.Series.Add(series3);
             this.chartRevenue.Size = new System.Drawing.Size(699, 333);
             this.chartRevenue.TabIndex = 5;
             this.chartRevenue.Text = "chart1";
-            title1.Name = "Title1";
-            title1.Text = "RevenueTitle";
-            this.chartRevenue.Titles.Add(title1);
+            title3.Name = "Title1";
+            title3.Text = "RevenueTitle";
+            this.chartRevenue.Titles.Add(title3);
             // 
             // chartWashes
             // 
-            chartArea2.AxisX.Interval = 1D;
-            chartArea2.Name = "ChartArea1";
-            this.chartWashes.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartWashes.Legends.Add(legend2);
+            chartArea4.AxisX.Interval = 1D;
+            chartArea4.Name = "ChartArea1";
+            this.chartWashes.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartWashes.Legends.Add(legend4);
             this.chartWashes.Location = new System.Drawing.Point(27, 523);
             this.chartWashes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chartWashes.Name = "chartWashes";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Washes";
-            this.chartWashes.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Washes";
+            this.chartWashes.Series.Add(series4);
             this.chartWashes.Size = new System.Drawing.Size(699, 333);
             this.chartWashes.TabIndex = 6;
             this.chartWashes.Text = "chart2";
-            title2.Name = "Title1";
-            title2.Text = "WashesTitle";
-            this.chartWashes.Titles.Add(title2);
+            title4.Name = "Title1";
+            title4.Text = "WashesTitle";
+            this.chartWashes.Titles.Add(title4);
             // 
             // lblRevenueChart
             // 
@@ -159,10 +160,27 @@ namespace CarWashManagement.UI
             this.lblWashesChart.TabIndex = 8;
             this.lblWashesChart.Text = "Biểu đồ số xe được rửa";
             // 
+            // btnGenerateCharts
+            // 
+            this.btnGenerateCharts.BackColor = System.Drawing.Color.LightCoral;
+            this.btnGenerateCharts.FlatAppearance.BorderSize = 0;
+            this.btnGenerateCharts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerateCharts.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnGenerateCharts.ForeColor = System.Drawing.Color.Black;
+            this.btnGenerateCharts.Location = new System.Drawing.Point(360, 18);
+            this.btnGenerateCharts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnGenerateCharts.Name = "btnGenerateCharts";
+            this.btnGenerateCharts.Size = new System.Drawing.Size(116, 39);
+            this.btnGenerateCharts.TabIndex = 9;
+            this.btnGenerateCharts.Text = "Tạo biểu đồ";
+            this.btnGenerateCharts.UseVisualStyleBackColor = false;
+            this.btnGenerateCharts.Click += new System.EventHandler(this.btnGenerateCharts_Click);
+            // 
             // ChartForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(759, 885);
+            this.Controls.Add(this.btnGenerateCharts);
             this.Controls.Add(this.lblWashesChart);
             this.Controls.Add(this.lblRevenueChart);
             this.Controls.Add(this.chartWashes);
@@ -191,6 +209,7 @@ namespace CarWashManagement.UI
         private Chart chartWashes;
         private Label lblRevenueChart;
         private Label lblWashesChart;
+        private Button btnGenerateCharts;
     }
 }
 
