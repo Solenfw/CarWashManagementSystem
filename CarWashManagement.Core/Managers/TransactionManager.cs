@@ -17,25 +17,14 @@ namespace CarWashManagement.Core.Managers
 
         public TransactionManager(TransactionSqlHandler txnSqlHandler, AuditSqlHandler auditSqlHandler)
         {
-            // Ensure database exists
             DatabaseConnection.EnsureDatabaseExists();
-            
+
             this.txnSqlHandler = txnSqlHandler;
             this.auditSqlHandler = auditSqlHandler;
             transactions = txnSqlHandler.LoadAllTransactions();
 
-            // Determine the next transaction number based on existing transactions.
-            if (transactions.Count == 0)
-            {
-                nextTransactionNumber = 1; // Start from 1 if no transactions exist.
-            }
-            else
-            {
-                // Get the ID of the last transaction.
-                string lastID = transactions.Last().ID;
-                int lastNumber = int.Parse(lastID.Substring(3));
-                nextTransactionNumber = lastNumber + 1;
-            }
+            // Get next transaction number from database directly
+            nextTransactionNumber = txnSqlHandler.GetNextTransactionNumber();
         }
 
         // Method to create a new transaction object and saves it to the database.

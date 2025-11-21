@@ -52,6 +52,15 @@ namespace CarWashManagement.UI
             LoadServiceControls();
             RefreshTodaysEntries();
 
+            // Load data for cmbVehicleToSearch
+            cmbVehicleToSearch.Items.Clear();
+            cmbVehicleToSearch.Items.Add("All");
+            foreach (var vehicle in vehicleTypes)
+            {
+                cmbVehicleToSearch.Items.Add(vehicle.Type);
+            }
+            cmbVehicleToSearch.SelectedIndex = 0;
+
             // Set welcome label text
             welcomeLabel.Text = $"Welcome, {loggedInUser.FullName} ({loggedInUser.Role})";
             txtEmployeeName.Text = loggedInUser.FullName;
@@ -189,12 +198,16 @@ namespace CarWashManagement.UI
 
             decimal subTotal = baseFee + servicesTotal;
             decimal discountPercentage = 0.00m;
-            string selectedDiscount = cmbDiscount.SelectedItem as string ?? string.Empty;
+            string selectedDiscount = cmbDiscount.SelectedItem?.ToString() ?? "N/A";
 
-            if (selectedDiscount.Equals("PWD", StringComparison.OrdinalIgnoreCase) ||
-                selectedDiscount.Equals("Senior", StringComparison.OrdinalIgnoreCase))
+            if (selectedDiscount.EndsWith("%"))
             {
-                discountPercentage = 0.20m; // 20% discount
+                var percentValue = decimal.Parse(selectedDiscount.TrimEnd('%'));
+                discountPercentage = percentValue / 100m;
+            }
+            else
+            {
+                discountPercentage = 0m; // No discount
             }
 
             decimal discountAmount = subTotal * discountPercentage;
@@ -267,7 +280,6 @@ namespace CarWashManagement.UI
         // Method to reset the wash entry form after adding a transaction.
         private void ResetWashEntryForm()
         {
-            txtEmployeeName.Clear();
             cmbVehicleType.SelectedIndex = -1; // Triggers the SelectedIndexChanged event to clear fees
             cmbVehicleType.SelectedIndex = -1; // There is a bug in setting SelectedIndex = -1 with data-bound ComboBoxes. The work-around is to set the property twice.
             cmbDiscount.SelectedIndex = 0;
@@ -714,5 +726,87 @@ namespace CarWashManagement.UI
 
             return input;
         }
+
+        private ListViewItem ToListViewItem(Transaction t)
+        {
+            return new ListViewItem(new string[]
+            {
+                t.Timestamp.ToString("HH:mm"),
+                t.VehicleType,
+                t.EmployeeName,
+                t.TotalAmount.ToString("N2"),
+                t.IsPaid ? "Yes" : "No",
+                t.WashStatus
+            });
+        }
+
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            // Start with today's transactions.
+            List<Transaction> data = transactionManager.GetTodaysTransactions();
+
+            string employee = txtEmployeeToSearch.Text.Trim().ToLower();
+            string vehicle = cmbVehicleToSearch.SelectedItem?.ToString() ?? "";
+            string paid = cmbPaidStatus.SelectedItem?.ToString() ?? "";
+            string wash = cmbWashStatus.SelectedItem?.ToString() ?? "";
+
+            decimal minPrice = 0;
+            decimal maxPrice = 0;
+
+            decimal.TryParse(txtMinPriceToSearch.Text, out minPrice);
+            decimal.TryParse(txtMaxPriceToSearch.Text, out maxPrice);
+
+            DateTime selectedDate = dateToSearch.Value.Date;
+
+            var results =
+                data
+                .Where(t => t.Timestamp.Date == selectedDate)
+                .Where(t => string.IsNullOrEmpty(employee) ||
+                            t.EmployeeName.ToLower().Contains(employee))
+                .Where(t => string.IsNullOrEmpty(vehicle) || vehicle == "All" ||
+                            t.VehicleType.Equals(vehicle, StringComparison.OrdinalIgnoreCase))
+                .Where(t => minPrice <= 0 || t.TotalAmount >= minPrice)
+                .Where(t => maxPrice <= 0 || t.TotalAmount <= maxPrice)
+                .Where(t => string.IsNullOrEmpty(paid) || paid == "All" ||
+                            (paid == "Yes" && t.IsPaid) ||
+                            (paid == "No" && !t.IsPaid))
+                .Where(t => string.IsNullOrEmpty(wash) || wash == "All" || (wash == "Completed") || (wash == "Ongoing") ||
+                            t.WashStatus.Equals(wash, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            lsvTodayEntries.BeginUpdate();
+            lsvTodayEntries.Items.Clear();
+
+            foreach (var t in results)
+                lsvTodayEntries.Items.Add(ToListViewItem(t));
+
+            lsvTodayEntries.EndUpdate();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            // Get fresh data
+            var todaysTransactions = transactionManager.GetTodaysTransactions();
+
+            lsvTodayEntries.BeginUpdate();
+            lsvTodayEntries.Items.Clear();
+
+            foreach (var t in todaysTransactions)
+            {
+                lsvTodayEntries.Items.Add(new ListViewItem(new string[]
+                {
+                    t.Timestamp.ToString("HH:mm"),
+                    t.VehicleType,
+                    t.EmployeeName,
+                    t.TotalAmount.ToString("N2"),
+                    t.IsPaid ? "Paid" : "Unpaid",
+                    t.WashStatus
+                }));
+            }
+
+            lsvTodayEntries.EndUpdate();
+        }
+
     }
 }

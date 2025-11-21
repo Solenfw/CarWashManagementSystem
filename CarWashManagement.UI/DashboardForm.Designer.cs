@@ -47,7 +47,6 @@ namespace CarWashManagement.UI
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.washEntryPanel = new System.Windows.Forms.Panel();
             this.btnAddTransaction = new System.Windows.Forms.Button();
-            this.btnExportToday = new System.Windows.Forms.Button();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.lblTotalAmount = new System.Windows.Forms.Label();
             this.cmbDiscount = new System.Windows.Forms.ComboBox();
@@ -72,6 +71,7 @@ namespace CarWashManagement.UI
             this.lblVehicleType = new System.Windows.Forms.Label();
             this.txtEmployeeName = new System.Windows.Forms.TextBox();
             this.lblEmployee = new System.Windows.Forms.Label();
+            this.btnExportToday = new System.Windows.Forms.Button();
             this.todaysEntriesPanel = new System.Windows.Forms.Panel();
             this.lsvTodayEntries = new System.Windows.Forms.ListView();
             this.columnTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -95,6 +95,22 @@ namespace CarWashManagement.UI
             this.txtSummaryTotalRevenue = new System.Windows.Forms.TextBox();
             this.lblSummaryTotalRevenue = new System.Windows.Forms.Label();
             this.lblDailySummary = new System.Windows.Forms.Label();
+            this.txtEmployeeToSearch = new System.Windows.Forms.RichTextBox();
+            this.cmbVehicleToSearch = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtMinPriceToSearch = new System.Windows.Forms.TextBox();
+            this.txtMaxPriceToSearch = new System.Windows.Forms.TextBox();
+            this.cmbPaidStatus = new System.Windows.Forms.ComboBox();
+            this.cmbWashStatus = new System.Windows.Forms.ComboBox();
+            this.dateToSearch = new System.Windows.Forms.DateTimePicker();
+            this.btnFilter = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.headerPanel.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.washEntryPanel.SuspendLayout();
@@ -113,7 +129,7 @@ namespace CarWashManagement.UI
             this.headerPanel.Location = new System.Drawing.Point(0, 0);
             this.headerPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.headerPanel.Name = "headerPanel";
-            this.headerPanel.Size = new System.Drawing.Size(927, 48);
+            this.headerPanel.Size = new System.Drawing.Size(1466, 48);
             this.headerPanel.TabIndex = 0;
             // 
             // welcomeLabel
@@ -134,7 +150,7 @@ namespace CarWashManagement.UI
             this.logoutButton.BackColor = System.Drawing.Color.White;
             this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.logoutButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.logoutButton.Location = new System.Drawing.Point(837, 6);
+            this.logoutButton.Location = new System.Drawing.Point(1367, 6);
             this.logoutButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logoutButton.Name = "logoutButton";
             this.logoutButton.Size = new System.Drawing.Size(75, 35);
@@ -221,7 +237,7 @@ namespace CarWashManagement.UI
             this.btnChangePassword.BackColor = System.Drawing.Color.White;
             this.btnChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.btnChangePassword.Location = new System.Drawing.Point(741, 6);
+            this.btnChangePassword.Location = new System.Drawing.Point(1261, 6);
             this.btnChangePassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(88, 35);
@@ -234,7 +250,6 @@ namespace CarWashManagement.UI
             // 
             this.washEntryPanel.BackColor = System.Drawing.Color.White;
             this.washEntryPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.washEntryPanel.Controls.Add(this.btnExportToday);
             this.washEntryPanel.Controls.Add(this.btnAddTransaction);
             this.washEntryPanel.Controls.Add(this.txtTotalAmount);
             this.washEntryPanel.Controls.Add(this.lblTotalAmount);
@@ -260,10 +275,10 @@ namespace CarWashManagement.UI
             this.washEntryPanel.Controls.Add(this.lblVehicleType);
             this.washEntryPanel.Controls.Add(this.txtEmployeeName);
             this.washEntryPanel.Controls.Add(this.lblEmployee);
-            this.washEntryPanel.Location = new System.Drawing.Point(12, 69);
+            this.washEntryPanel.Location = new System.Drawing.Point(12, 70);
             this.washEntryPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.washEntryPanel.Name = "washEntryPanel";
-            this.washEntryPanel.Size = new System.Drawing.Size(350, 680);
+            this.washEntryPanel.Size = new System.Drawing.Size(350, 679);
             this.washEntryPanel.TabIndex = 1;
             // 
             // btnAddTransaction
@@ -280,20 +295,6 @@ namespace CarWashManagement.UI
             this.btnAddTransaction.Text = "Lập phiếu";
             this.btnAddTransaction.UseVisualStyleBackColor = false;
             this.btnAddTransaction.Click += new System.EventHandler(this.btnAddTransaction_Click);
-            // 
-            // btnExportToday
-            // 
-            this.btnExportToday.BackColor = System.Drawing.Color.White;
-            this.btnExportToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.btnExportToday.Location = new System.Drawing.Point(170, 600);
-            this.btnExportToday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnExportToday.Name = "btnExportToday";
-            this.btnExportToday.Size = new System.Drawing.Size(157, 29);
-            this.btnExportToday.TabIndex = 24;
-            this.btnExportToday.Text = "Xuất Excel (Ngày)";
-            this.btnExportToday.UseVisualStyleBackColor = false;
-            this.btnExportToday.Click += new System.EventHandler(this.btnExportToday_Click);
             // 
             // txtTotalAmount
             // 
@@ -328,8 +329,9 @@ namespace CarWashManagement.UI
             this.cmbDiscount.FormattingEnabled = true;
             this.cmbDiscount.Items.AddRange(new object[] {
             "N/A",
-            "PWD",
-            "Senior"});
+            "20%",
+            "30%",
+            "50%"});
             this.cmbDiscount.Location = new System.Drawing.Point(257, 519);
             this.cmbDiscount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbDiscount.Name = "cmbDiscount";
@@ -438,10 +440,10 @@ namespace CarWashManagement.UI
             // servicePanel
             // 
             this.servicePanel.AutoScroll = true;
-            this.servicePanel.Location = new System.Drawing.Point(12, 225);
+            this.servicePanel.Location = new System.Drawing.Point(12, 174);
             this.servicePanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.servicePanel.Name = "servicePanel";
-            this.servicePanel.Size = new System.Drawing.Size(327, 231);
+            this.servicePanel.Size = new System.Drawing.Size(327, 282);
             this.servicePanel.TabIndex = 10;
             // 
             // lblAdditionalServices
@@ -449,7 +451,7 @@ namespace CarWashManagement.UI
             this.lblAdditionalServices.AutoSize = true;
             this.lblAdditionalServices.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblAdditionalServices.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblAdditionalServices.Location = new System.Drawing.Point(12, 202);
+            this.lblAdditionalServices.Location = new System.Drawing.Point(8, 151);
             this.lblAdditionalServices.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAdditionalServices.Name = "lblAdditionalServices";
             this.lblAdditionalServices.Size = new System.Drawing.Size(132, 20);
@@ -460,7 +462,7 @@ namespace CarWashManagement.UI
             // 
             this.txtEmployeeShare.BackColor = System.Drawing.Color.White;
             this.txtEmployeeShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmployeeShare.Location = new System.Drawing.Point(222, 156);
+            this.txtEmployeeShare.Location = new System.Drawing.Point(223, 125);
             this.txtEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmployeeShare.Name = "txtEmployeeShare";
             this.txtEmployeeShare.ReadOnly = true;
@@ -471,7 +473,7 @@ namespace CarWashManagement.UI
             // lblEmployeeShare
             // 
             this.lblEmployeeShare.AutoSize = true;
-            this.lblEmployeeShare.Location = new System.Drawing.Point(222, 133);
+            this.lblEmployeeShare.Location = new System.Drawing.Point(222, 107);
             this.lblEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployeeShare.Name = "lblEmployeeShare";
             this.lblEmployeeShare.Size = new System.Drawing.Size(94, 15);
@@ -482,7 +484,7 @@ namespace CarWashManagement.UI
             // 
             this.txtOwnerShare.BackColor = System.Drawing.Color.White;
             this.txtOwnerShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOwnerShare.Location = new System.Drawing.Point(117, 156);
+            this.txtOwnerShare.Location = new System.Drawing.Point(120, 125);
             this.txtOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtOwnerShare.Name = "txtOwnerShare";
             this.txtOwnerShare.ReadOnly = true;
@@ -493,7 +495,7 @@ namespace CarWashManagement.UI
             // lblOwnerShare
             // 
             this.lblOwnerShare.AutoSize = true;
-            this.lblOwnerShare.Location = new System.Drawing.Point(117, 133);
+            this.lblOwnerShare.Location = new System.Drawing.Point(117, 107);
             this.lblOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOwnerShare.Name = "lblOwnerShare";
             this.lblOwnerShare.Size = new System.Drawing.Size(82, 15);
@@ -504,7 +506,7 @@ namespace CarWashManagement.UI
             // 
             this.txtBaseFee.BackColor = System.Drawing.Color.White;
             this.txtBaseFee.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBaseFee.Location = new System.Drawing.Point(12, 156);
+            this.txtBaseFee.Location = new System.Drawing.Point(15, 125);
             this.txtBaseFee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBaseFee.Name = "txtBaseFee";
             this.txtBaseFee.ReadOnly = true;
@@ -515,7 +517,7 @@ namespace CarWashManagement.UI
             // lblBaseFee
             // 
             this.lblBaseFee.AutoSize = true;
-            this.lblBaseFee.Location = new System.Drawing.Point(12, 133);
+            this.lblBaseFee.Location = new System.Drawing.Point(12, 107);
             this.lblBaseFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBaseFee.Name = "lblBaseFee";
             this.lblBaseFee.Size = new System.Drawing.Size(66, 15);
@@ -526,7 +528,7 @@ namespace CarWashManagement.UI
             // 
             this.cmbVehicleType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVehicleType.FormattingEnabled = true;
-            this.cmbVehicleType.Location = new System.Drawing.Point(117, 82);
+            this.cmbVehicleType.Location = new System.Drawing.Point(118, 56);
             this.cmbVehicleType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbVehicleType.Name = "cmbVehicleType";
             this.cmbVehicleType.Size = new System.Drawing.Size(198, 23);
@@ -536,7 +538,7 @@ namespace CarWashManagement.UI
             // lblVehicleType
             // 
             this.lblVehicleType.AutoSize = true;
-            this.lblVehicleType.Location = new System.Drawing.Point(12, 90);
+            this.lblVehicleType.Location = new System.Drawing.Point(12, 64);
             this.lblVehicleType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVehicleType.Name = "lblVehicleType";
             this.lblVehicleType.Size = new System.Drawing.Size(100, 15);
@@ -562,14 +564,28 @@ namespace CarWashManagement.UI
             this.lblEmployee.TabIndex = 0;
             this.lblEmployee.Text = "Tên nhân viên:";
             // 
+            // btnExportToday
+            // 
+            this.btnExportToday.BackColor = System.Drawing.Color.White;
+            this.btnExportToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnExportToday.Location = new System.Drawing.Point(321, 10);
+            this.btnExportToday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnExportToday.Name = "btnExportToday";
+            this.btnExportToday.Size = new System.Drawing.Size(157, 29);
+            this.btnExportToday.TabIndex = 24;
+            this.btnExportToday.Text = "Xuất Excel (Ngày)";
+            this.btnExportToday.UseVisualStyleBackColor = false;
+            this.btnExportToday.Click += new System.EventHandler(this.btnExportToday_Click);
+            // 
             // todaysEntriesPanel
             // 
             this.todaysEntriesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.todaysEntriesPanel.Controls.Add(this.lsvTodayEntries);
-            this.todaysEntriesPanel.Location = new System.Drawing.Point(373, 69);
+            this.todaysEntriesPanel.Location = new System.Drawing.Point(374, 148);
             this.todaysEntriesPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.todaysEntriesPanel.Name = "todaysEntriesPanel";
-            this.todaysEntriesPanel.Size = new System.Drawing.Size(530, 438);
+            this.todaysEntriesPanel.Size = new System.Drawing.Size(573, 602);
             this.todaysEntriesPanel.TabIndex = 2;
             // 
             // lsvTodayEntries
@@ -589,7 +605,7 @@ namespace CarWashManagement.UI
             this.lsvTodayEntries.Location = new System.Drawing.Point(0, 0);
             this.lsvTodayEntries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvTodayEntries.Name = "lsvTodayEntries";
-            this.lsvTodayEntries.Size = new System.Drawing.Size(528, 436);
+            this.lsvTodayEntries.Size = new System.Drawing.Size(571, 600);
             this.lsvTodayEntries.TabIndex = 0;
             this.lsvTodayEntries.UseCompatibleStateImageBehavior = false;
             this.lsvTodayEntries.View = System.Windows.Forms.View.Details;
@@ -597,7 +613,7 @@ namespace CarWashManagement.UI
             // columnTime
             // 
             this.columnTime.Text = "Time";
-            this.columnTime.Width = 50;
+            this.columnTime.Width = 64;
             // 
             // columnVehicle
             // 
@@ -613,13 +629,13 @@ namespace CarWashManagement.UI
             // 
             this.columnTotal.Text = "Total";
             this.columnTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnTotal.Width = 70;
+            this.columnTotal.Width = 75;
             // 
             // columnPaid
             // 
             this.columnPaid.Text = "Paid";
             this.columnPaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnPaid.Width = 50;
+            this.columnPaid.Width = 87;
             // 
             // columnWashStatus
             // 
@@ -652,6 +668,7 @@ namespace CarWashManagement.UI
             // 
             this.dailySummaryPanel.BackColor = System.Drawing.Color.White;
             this.dailySummaryPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dailySummaryPanel.Controls.Add(this.btnExportToday);
             this.dailySummaryPanel.Controls.Add(this.txtSummaryMostWashedVehicle);
             this.dailySummaryPanel.Controls.Add(this.lblSummaryMostWashedVehicle);
             this.dailySummaryPanel.Controls.Add(this.txtSummaryTotalWashes);
@@ -662,18 +679,17 @@ namespace CarWashManagement.UI
             this.dailySummaryPanel.Controls.Add(this.lblSummaryTotalOwnerShare);
             this.dailySummaryPanel.Controls.Add(this.txtSummaryTotalRevenue);
             this.dailySummaryPanel.Controls.Add(this.lblSummaryTotalRevenue);
-            this.dailySummaryPanel.Controls.Add(this.lblDailySummary);
-            this.dailySummaryPanel.Location = new System.Drawing.Point(373, 519);
+            this.dailySummaryPanel.Location = new System.Drawing.Point(955, 88);
             this.dailySummaryPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dailySummaryPanel.Name = "dailySummaryPanel";
-            this.dailySummaryPanel.Size = new System.Drawing.Size(530, 230);
+            this.dailySummaryPanel.Size = new System.Drawing.Size(487, 193);
             this.dailySummaryPanel.TabIndex = 3;
             // 
             // txtSummaryMostWashedVehicle
             // 
             this.txtSummaryMostWashedVehicle.BackColor = System.Drawing.Color.White;
             this.txtSummaryMostWashedVehicle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryMostWashedVehicle.Location = new System.Drawing.Point(309, 185);
+            this.txtSummaryMostWashedVehicle.Location = new System.Drawing.Point(268, 162);
             this.txtSummaryMostWashedVehicle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryMostWashedVehicle.Name = "txtSummaryMostWashedVehicle";
             this.txtSummaryMostWashedVehicle.ReadOnly = true;
@@ -686,7 +702,7 @@ namespace CarWashManagement.UI
             this.lblSummaryMostWashedVehicle.AutoSize = true;
             this.lblSummaryMostWashedVehicle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryMostWashedVehicle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryMostWashedVehicle.Location = new System.Drawing.Point(309, 162);
+            this.lblSummaryMostWashedVehicle.Location = new System.Drawing.Point(265, 142);
             this.lblSummaryMostWashedVehicle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryMostWashedVehicle.Name = "lblSummaryMostWashedVehicle";
             this.lblSummaryMostWashedVehicle.Size = new System.Drawing.Size(168, 15);
@@ -697,7 +713,7 @@ namespace CarWashManagement.UI
             // 
             this.txtSummaryTotalWashes.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalWashes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryTotalWashes.Location = new System.Drawing.Point(18, 185);
+            this.txtSummaryTotalWashes.Location = new System.Drawing.Point(18, 162);
             this.txtSummaryTotalWashes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalWashes.Name = "txtSummaryTotalWashes";
             this.txtSummaryTotalWashes.ReadOnly = true;
@@ -710,7 +726,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalWashes.AutoSize = true;
             this.lblSummaryTotalWashes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalWashes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalWashes.Location = new System.Drawing.Point(18, 162);
+            this.lblSummaryTotalWashes.Location = new System.Drawing.Point(15, 142);
             this.lblSummaryTotalWashes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalWashes.Name = "lblSummaryTotalWashes";
             this.lblSummaryTotalWashes.Size = new System.Drawing.Size(65, 15);
@@ -721,7 +737,7 @@ namespace CarWashManagement.UI
             // 
             this.txtSummaryTotalEmpShare.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalEmpShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryTotalEmpShare.Location = new System.Drawing.Point(309, 127);
+            this.txtSummaryTotalEmpShare.Location = new System.Drawing.Point(268, 96);
             this.txtSummaryTotalEmpShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalEmpShare.Name = "txtSummaryTotalEmpShare";
             this.txtSummaryTotalEmpShare.ReadOnly = true;
@@ -734,7 +750,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalEmpShare.AutoSize = true;
             this.lblSummaryTotalEmpShare.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalEmpShare.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalEmpShare.Location = new System.Drawing.Point(309, 104);
+            this.lblSummaryTotalEmpShare.Location = new System.Drawing.Point(265, 78);
             this.lblSummaryTotalEmpShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalEmpShare.Name = "lblSummaryTotalEmpShare";
             this.lblSummaryTotalEmpShare.Size = new System.Drawing.Size(96, 15);
@@ -745,7 +761,7 @@ namespace CarWashManagement.UI
             // 
             this.txtSummaryTotalOwnerShare.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalOwnerShare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSummaryTotalOwnerShare.Location = new System.Drawing.Point(18, 127);
+            this.txtSummaryTotalOwnerShare.Location = new System.Drawing.Point(18, 96);
             this.txtSummaryTotalOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalOwnerShare.Name = "txtSummaryTotalOwnerShare";
             this.txtSummaryTotalOwnerShare.ReadOnly = true;
@@ -758,7 +774,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalOwnerShare.AutoSize = true;
             this.lblSummaryTotalOwnerShare.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalOwnerShare.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalOwnerShare.Location = new System.Drawing.Point(18, 104);
+            this.lblSummaryTotalOwnerShare.Location = new System.Drawing.Point(15, 78);
             this.lblSummaryTotalOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalOwnerShare.Name = "lblSummaryTotalOwnerShare";
             this.lblSummaryTotalOwnerShare.Size = new System.Drawing.Size(91, 15);
@@ -770,7 +786,7 @@ namespace CarWashManagement.UI
             this.txtSummaryTotalRevenue.BackColor = System.Drawing.Color.White;
             this.txtSummaryTotalRevenue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSummaryTotalRevenue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtSummaryTotalRevenue.Location = new System.Drawing.Point(18, 69);
+            this.txtSummaryTotalRevenue.Location = new System.Drawing.Point(18, 50);
             this.txtSummaryTotalRevenue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalRevenue.Name = "txtSummaryTotalRevenue";
             this.txtSummaryTotalRevenue.ReadOnly = true;
@@ -783,7 +799,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalRevenue.AutoSize = true;
             this.lblSummaryTotalRevenue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblSummaryTotalRevenue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblSummaryTotalRevenue.Location = new System.Drawing.Point(18, 46);
+            this.lblSummaryTotalRevenue.Location = new System.Drawing.Point(15, 32);
             this.lblSummaryTotalRevenue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalRevenue.Name = "lblSummaryTotalRevenue";
             this.lblSummaryTotalRevenue.Size = new System.Drawing.Size(97, 15);
@@ -795,21 +811,218 @@ namespace CarWashManagement.UI
             this.lblDailySummary.AutoSize = true;
             this.lblDailySummary.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblDailySummary.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblDailySummary.Location = new System.Drawing.Point(18, 12);
+            this.lblDailySummary.Location = new System.Drawing.Point(951, 65);
             this.lblDailySummary.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDailySummary.Name = "lblDailySummary";
             this.lblDailySummary.Size = new System.Drawing.Size(170, 20);
             this.lblDailySummary.TabIndex = 0;
             this.lblDailySummary.Text = "Doanh Thu trong Ngày";
             // 
+            // txtEmployeeToSearch
+            // 
+            this.txtEmployeeToSearch.Location = new System.Drawing.Point(375, 70);
+            this.txtEmployeeToSearch.Name = "txtEmployeeToSearch";
+            this.txtEmployeeToSearch.Size = new System.Drawing.Size(148, 23);
+            this.txtEmployeeToSearch.TabIndex = 5;
+            this.txtEmployeeToSearch.Text = "";
+            // 
+            // cmbVehicleToSearch
+            // 
+            this.cmbVehicleToSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVehicleToSearch.FormattingEnabled = true;
+            this.cmbVehicleToSearch.Location = new System.Drawing.Point(540, 70);
+            this.cmbVehicleToSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmbVehicleToSearch.Name = "cmbVehicleToSearch";
+            this.cmbVehicleToSearch.Size = new System.Drawing.Size(123, 23);
+            this.cmbVehicleToSearch.TabIndex = 24;
+            this.cmbVehicleToSearch.Items.AddRange(new object[] {
+                "All"
+            });
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(372, 52);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 15);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Tên nhân viên:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(537, 52);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 15);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "Loại phương tiện:";
+            // 
+            // txtMinPriceToSearch
+            // 
+            this.txtMinPriceToSearch.BackColor = System.Drawing.Color.White;
+            this.txtMinPriceToSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMinPriceToSearch.Location = new System.Drawing.Point(373, 119);
+            this.txtMinPriceToSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtMinPriceToSearch.Name = "txtMinPriceToSearch";
+            this.txtMinPriceToSearch.Size = new System.Drawing.Size(103, 23);
+            this.txtMinPriceToSearch.TabIndex = 24;
+            this.txtMinPriceToSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // txtMaxPriceToSearch
+            // 
+            this.txtMaxPriceToSearch.BackColor = System.Drawing.Color.White;
+            this.txtMaxPriceToSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMaxPriceToSearch.Location = new System.Drawing.Point(497, 119);
+            this.txtMaxPriceToSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtMaxPriceToSearch.Name = "txtMaxPriceToSearch";
+            this.txtMaxPriceToSearch.Size = new System.Drawing.Size(115, 23);
+            this.txtMaxPriceToSearch.TabIndex = 25;
+            this.txtMaxPriceToSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // cmbPaidStatus
+            // 
+            this.cmbPaidStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPaidStatus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbPaidStatus.FormattingEnabled = true;
+            this.cmbPaidStatus.Items.AddRange(new object[] {
+            "All",
+            "Yes",
+            "No"});
+            this.cmbPaidStatus.Location = new System.Drawing.Point(620, 118);
+            this.cmbPaidStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmbPaidStatus.Name = "cmbPaidStatus";
+            this.cmbPaidStatus.Size = new System.Drawing.Size(69, 23);
+            this.cmbPaidStatus.TabIndex = 24;
+            // 
+            // cmbWashStatus
+            // 
+            this.cmbWashStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWashStatus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbWashStatus.FormattingEnabled = true;
+            this.cmbWashStatus.Items.AddRange(new object[] {
+            "All",
+            "Completed",
+            "Ongoing"});
+            this.cmbWashStatus.Location = new System.Drawing.Point(697, 119);
+            this.cmbWashStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmbWashStatus.Name = "cmbWashStatus";
+            this.cmbWashStatus.Size = new System.Drawing.Size(69, 23);
+            this.cmbWashStatus.TabIndex = 26;
+            // 
+            // dateToSearch
+            // 
+            this.dateToSearch.Location = new System.Drawing.Point(680, 70);
+            this.dateToSearch.Name = "dateToSearch";
+            this.dateToSearch.Size = new System.Drawing.Size(221, 23);
+            this.dateToSearch.TabIndex = 27;
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnFilter.FlatAppearance.BorderSize = 0;
+            this.btnFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFilter.ForeColor = System.Drawing.Color.White;
+            this.btnFilter.Location = new System.Drawing.Point(774, 107);
+            this.btnFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(85, 35);
+            this.btnFilter.TabIndex = 24;
+            this.btnFilter.Text = "Lọc tìm kiếm";
+            this.btnFilter.UseVisualStyleBackColor = false;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(677, 52);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 15);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Thời gian:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(372, 99);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 15);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Giá MIN:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(507, 99);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 15);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Giá MAX:";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnRefresh.FlatAppearance.BorderSize = 0;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.ForeColor = System.Drawing.Color.White;
+            this.btnRefresh.Location = new System.Drawing.Point(867, 107);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(79, 36);
+            this.btnRefresh.TabIndex = 31;
+            this.btnRefresh.Text = "Làm mới";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(620, 100);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 15);
+            this.label6.TabIndex = 32;
+            this.label6.Text = "Đã trả?";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(693, 99);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 15);
+            this.label7.TabIndex = 33;
+            this.label7.Text = "Đã rửa?";
+            // 
             // DashboardForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(920, 762);
+            this.ClientSize = new System.Drawing.Size(1455, 762);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnFilter);
+            this.Controls.Add(this.dateToSearch);
+            this.Controls.Add(this.cmbWashStatus);
+            this.Controls.Add(this.cmbPaidStatus);
+            this.Controls.Add(this.txtMaxPriceToSearch);
+            this.Controls.Add(this.txtMinPriceToSearch);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cmbVehicleToSearch);
+            this.Controls.Add(this.txtEmployeeToSearch);
             this.Controls.Add(this.dailySummaryPanel);
             this.Controls.Add(this.todaysEntriesPanel);
             this.Controls.Add(this.washEntryPanel);
             this.Controls.Add(this.headerPanel);
+            this.Controls.Add(this.lblDailySummary);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = true;
@@ -828,6 +1041,7 @@ namespace CarWashManagement.UI
             this.dailySummaryPanel.ResumeLayout(false);
             this.dailySummaryPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -895,5 +1109,21 @@ namespace CarWashManagement.UI
         private TextBox txtSummaryTotalRevenue;
         private Label lblSummaryTotalRevenue;
         private Label lblDailySummary;
+        private RichTextBox txtEmployeeToSearch;
+        private ComboBox cmbVehicleToSearch;
+        private Label label1;
+        private Label label2;
+        private TextBox txtMinPriceToSearch;
+        private TextBox txtMaxPriceToSearch;
+        private ComboBox cmbPaidStatus;
+        private ComboBox cmbWashStatus;
+        private DateTimePicker dateToSearch;
+        private Button btnFilter;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Button btnRefresh;
+        private Label label6;
+        private Label label7;
     }
 }

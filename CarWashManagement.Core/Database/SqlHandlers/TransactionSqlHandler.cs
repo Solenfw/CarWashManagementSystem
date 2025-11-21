@@ -92,6 +92,20 @@ namespace CarWashManagement.Core.Database.SqlHandlers
             }
         }
 
+        public int GetNextTransactionNumber()
+        {
+            using (SqlConnection conn = DatabaseConnection.GetConnection())
+            {
+                conn.Open();
+                string query = @"SELECT ISNULL(MAX(CAST(SUBSTRING(ID, 4, 6) AS INT)), 0) + 1 
+                        FROM Transactions";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    return (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
         public List<Transaction> LoadAllTransactions()
         {
             List<Transaction> transactions = new List<Transaction>();
