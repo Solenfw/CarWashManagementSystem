@@ -133,9 +133,9 @@ namespace CarWashManagement.UI
             this.btnSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubmit.ForeColor = System.Drawing.Color.White;
-            this.btnSubmit.Location = new System.Drawing.Point(142, 290);
+            this.btnSubmit.Location = new System.Drawing.Point(121, 315);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(86, 32);
+            this.btnSubmit.Size = new System.Drawing.Size(106, 32);
             this.btnSubmit.TabIndex = 4;
             this.btnSubmit.Text = "Hoàn thành";
             this.btnSubmit.UseVisualStyleBackColor = false;
@@ -152,7 +152,7 @@ namespace CarWashManagement.UI
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(233, 290);
+            this.btnCancel.Location = new System.Drawing.Point(233, 315);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 32);
             this.btnCancel.TabIndex = 5;
@@ -198,9 +198,9 @@ namespace CarWashManagement.UI
             // 
             this.panelPasswordStrength.Controls.Add(this.lblPasswordStrength);
             this.panelPasswordStrength.Controls.Add(this.progressStrength);
-            this.panelPasswordStrength.Location = new System.Drawing.Point(28, 240);
+            this.panelPasswordStrength.Location = new System.Drawing.Point(28, 246);
             this.panelPasswordStrength.Name = "panelPasswordStrength";
-            this.panelPasswordStrength.Size = new System.Drawing.Size(280, 40);
+            this.panelPasswordStrength.Size = new System.Drawing.Size(280, 52);
             this.panelPasswordStrength.TabIndex = 9;
             this.panelPasswordStrength.Visible = false;
             // 
@@ -217,7 +217,7 @@ namespace CarWashManagement.UI
             // 
             // progressStrength
             // 
-            this.progressStrength.Location = new System.Drawing.Point(3, 19);
+            this.progressStrength.Location = new System.Drawing.Point(0, 25);
             this.progressStrength.Maximum = 4;
             this.progressStrength.Name = "progressStrength";
             this.progressStrength.Size = new System.Drawing.Size(274, 10);
@@ -229,7 +229,7 @@ namespace CarWashManagement.UI
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(334, 341);
+            this.ClientSize = new System.Drawing.Size(334, 359);
             this.Controls.Add(this.panelPasswordStrength);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.btnCancel);

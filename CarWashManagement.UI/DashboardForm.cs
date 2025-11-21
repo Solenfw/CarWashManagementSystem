@@ -463,7 +463,11 @@ namespace CarWashManagement.UI
             // Save the modified list of transactions back to the file. 
             transactionManager.UpdateTransaction();
 
-            RefreshTodaysEntries();
+            foreach (ListViewItem row in lsvTodayEntries.SelectedItems)
+            {
+                Transaction txn = transactionManager.GetTransactionByID(row.Tag.ToString());
+                row.SubItems[4].Text = txn.IsPaid ? "Yes" : "No";   // column index of IsPaid
+            }
         }
 
         // Method to handle toggling wash status of a transaction from the context menu.
@@ -493,7 +497,11 @@ namespace CarWashManagement.UI
             }
 
             transactionManager.UpdateTransaction();
-            RefreshTodaysEntries();
+            foreach (ListViewItem row in lsvTodayEntries.SelectedItems)
+            {
+                Transaction txn = transactionManager.GetTransactionByID(row.Tag.ToString());
+                row.SubItems[5].Text = txn.WashStatus;  // wash status column
+            }
 
             // Refreshing Pie Chart data
             DashboardForm_Load(this, EventArgs.Empty);
@@ -774,16 +782,20 @@ namespace CarWashManagement.UI
 
         private ListViewItem ToListViewItem(Transaction t)
         {
-            return new ListViewItem(new string[]
+            var item = new ListViewItem(new string[]
             {
-                t.Timestamp.ToString("HH:mm"),
-                t.VehicleType,
-                t.EmployeeName,
-                t.TotalAmount.ToString("N2"),
-                t.IsPaid ? "Yes" : "No",
-                t.WashStatus 
+        t.Timestamp.ToString("HH:mm"),
+        t.VehicleType,
+        t.EmployeeName,
+        t.TotalAmount.ToString("N2"),
+        t.IsPaid ? "Yes" : "No",
+        t.WashStatus
             });
+
+            item.Tag = t.ID;
+            return item;
         }
+
 
 
         private void btnFilter_Click(object sender, EventArgs e)
@@ -847,7 +859,7 @@ namespace CarWashManagement.UI
 
             foreach (var t in todaysTransactions)
             {
-                lsvTodayEntries.Items.Add(new ListViewItem(new string[]
+                var item = new ListViewItem(new string[]
                 {
                     t.Timestamp.ToString("HH:mm"),
                     t.VehicleType,
@@ -855,7 +867,9 @@ namespace CarWashManagement.UI
                     t.TotalAmount.ToString("N2"),
                     t.IsPaid ? "Yes" : "No",
                     t.WashStatus
-                }));
+                });
+                item.Tag = t.ID;  
+                lsvTodayEntries.Items.Add(item);
             }
 
             lsvTodayEntries.EndUpdate();

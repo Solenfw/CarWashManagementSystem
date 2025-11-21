@@ -170,7 +170,10 @@ namespace CarWashManagement.UI
             lblReportHighestDay.Text = "Highest Revenue Day:";
             txtReportHighestDay.Text = highestDay;
             txtReportTotalExpenses.Text = totalExpenses.ToString("C", CultureInfo.GetCultureInfo("en-US"));
-            txtReportNetProfit.Text = netProfit.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+
+            var us = (CultureInfo)CultureInfo.GetCultureInfo("en-US").Clone();
+            us.NumberFormat.CurrencyNegativePattern = 1; // -$n
+            txtReportNetProfit.Text = netProfit.ToString("C", us);
 
             lblEntries.Enabled = true;
             lsvMonthlyEntries.Enabled = true;
