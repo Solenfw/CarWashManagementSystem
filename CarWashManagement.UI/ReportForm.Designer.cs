@@ -376,7 +376,7 @@ namespace CarWashManagement.UI
             this.lblEntries.AutoSize = true;
             this.lblEntries.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblEntries.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblEntries.Location = new System.Drawing.Point(21, 592);
+            this.lblEntries.Location = new System.Drawing.Point(14, 572);
             this.lblEntries.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblEntries.Name = "lblEntries";
             this.lblEntries.Size = new System.Drawing.Size(141, 25);
@@ -395,7 +395,7 @@ namespace CarWashManagement.UI
             this.lsvMonthlyEntries.FullRowSelect = true;
             this.lsvMonthlyEntries.GridLines = true;
             this.lsvMonthlyEntries.HideSelection = false;
-            this.lsvMonthlyEntries.Location = new System.Drawing.Point(21, 631);
+            this.lsvMonthlyEntries.Location = new System.Drawing.Point(14, 606);
             this.lsvMonthlyEntries.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lsvMonthlyEntries.Name = "lsvMonthlyEntries";
             this.lsvMonthlyEntries.Size = new System.Drawing.Size(786, 436);
@@ -450,7 +450,7 @@ namespace CarWashManagement.UI
             // ReportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(832, 1055);
+            this.ClientSize = new System.Drawing.Size(824, 1045);
             this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.lsvMonthlyEntries);
             this.Controls.Add(this.lblEntries);
