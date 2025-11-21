@@ -791,6 +791,14 @@ namespace CarWashManagement.UI
 
             lsvTodayEntries.BeginUpdate();
             lsvTodayEntries.Items.Clear();
+            txtMinPriceToSearch.Clear();
+            txtMaxPriceToSearch.Clear();
+            txtEmployeeToSearch.Clear();
+
+            cmbVehicleToSearch.SelectedIndex = 0;
+            cmbPaidStatus.SelectedIndex = 0;
+            cmbWashStatus.SelectedIndex = 0;
+            dateToSearch.Value = DateTime.Today;
 
             foreach (var t in todaysTransactions)
             {
