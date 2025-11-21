@@ -403,20 +403,6 @@ namespace CarWashManagement.UI
             this.lsvMonthlyEntries.UseCompatibleStateImageBehavior = false;
             this.lsvMonthlyEntries.View = System.Windows.Forms.View.Details;
             // 
-            // btnExportExcel
-            // 
-            this.btnExportExcel.BackColor = System.Drawing.Color.White;
-            this.btnExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.btnExportExcel.Location = new System.Drawing.Point(368, 12);
-            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(150, 35);
-            this.btnExportExcel.TabIndex = 8;
-            this.btnExportExcel.Text = "Xuất Excel";
-            this.btnExportExcel.UseVisualStyleBackColor = false;
-            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
-            // 
             // columnTime
             // 
             this.columnTime.Text = "Time";
@@ -446,6 +432,20 @@ namespace CarWashManagement.UI
             // 
             this.columnPaymentStatus.Text = "Payment Status";
             this.columnPaymentStatus.Width = 100;
+            // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.BackColor = System.Drawing.Color.White;
+            this.btnExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnExportExcel.Location = new System.Drawing.Point(368, 12);
+            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(93, 35);
+            this.btnExportExcel.TabIndex = 8;
+            this.btnExportExcel.Text = "Xuất Excel";
+            this.btnExportExcel.UseVisualStyleBackColor = false;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // ReportForm
             // 

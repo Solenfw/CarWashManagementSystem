@@ -172,7 +172,7 @@ namespace CarWashManagement.UI
             this.mainMenu.Location = new System.Drawing.Point(373, 12);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.mainMenu.Size = new System.Drawing.Size(202, 24);
+            this.mainMenu.Size = new System.Drawing.Size(187, 28);
             this.mainMenu.TabIndex = 3;
             this.mainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mainMenu_ItemClicked);
             // 

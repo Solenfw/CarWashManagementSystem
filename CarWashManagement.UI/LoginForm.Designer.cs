@@ -48,12 +48,12 @@ namespace CarWashManagement.UI
             // lblLogin
             // 
             this.lblLogin.AutoSize = true;
-            this.lblLogin.Font = new System.Drawing.Font("Segoe UI", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.lblLogin.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblLogin.Location = new System.Drawing.Point(411, 139);
+            this.lblLogin.Location = new System.Drawing.Point(382, 139);
             this.lblLogin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(301, 32);
+            this.lblLogin.Size = new System.Drawing.Size(376, 35);
             this.lblLogin.TabIndex = 1;
             this.lblLogin.Text = "ĐĂNG NHẬP TÀI KHOẢN";
             // 

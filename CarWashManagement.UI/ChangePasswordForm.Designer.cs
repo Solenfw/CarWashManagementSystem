@@ -42,13 +42,13 @@ namespace CarWashManagement.UI
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelPasswordStrength = new System.Windows.Forms.Panel();
             this.lblPasswordStrength = new System.Windows.Forms.Label();
             this.progressStrength = new System.Windows.Forms.ProgressBar();
+            this.picSecurityLogo = new System.Windows.Forms.PictureBox();
             this.panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelPasswordStrength.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSecurityLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // lblOldPassword
@@ -166,7 +166,7 @@ namespace CarWashManagement.UI
             // 
             this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.panelHeader.Controls.Add(this.lblTitle);
-            this.panelHeader.Controls.Add(this.pictureBox1);
+            this.panelHeader.Controls.Add(this.picSecurityLogo);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
@@ -183,15 +183,6 @@ namespace CarWashManagement.UI
             this.lblTitle.Size = new System.Drawing.Size(114, 21);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Đổi Mật Khẩu";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(15, 15);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(30, 30);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // panelPasswordStrength
             // 
@@ -224,6 +215,16 @@ namespace CarWashManagement.UI
             this.progressStrength.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressStrength.TabIndex = 0;
             // 
+            // picSecurityLogo
+            // 
+            this.picSecurityLogo.Image = global::CarWashManagement.UI.Properties.Resources.security;
+            this.picSecurityLogo.Location = new System.Drawing.Point(15, 15);
+            this.picSecurityLogo.Name = "picSecurityLogo";
+            this.picSecurityLogo.Size = new System.Drawing.Size(30, 30);
+            this.picSecurityLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picSecurityLogo.TabIndex = 0;
+            this.picSecurityLogo.TabStop = false;
+            // 
             // ChangePasswordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,9 +248,9 @@ namespace CarWashManagement.UI
             this.Text = "Change Password";
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelPasswordStrength.ResumeLayout(false);
             this.panelPasswordStrength.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSecurityLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,7 +268,7 @@ namespace CarWashManagement.UI
         private Button btnCancel;
         private Panel panelHeader;
         private Label lblTitle;
-        private PictureBox pictureBox1;
+        private PictureBox picSecurityLogo;
         private Panel panelPasswordStrength;
         private Label lblPasswordStrength;
         private ProgressBar progressStrength;
