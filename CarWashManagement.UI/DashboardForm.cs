@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace CarWashManagement.UI
@@ -349,6 +351,13 @@ namespace CarWashManagement.UI
             reportForm.ShowDialog();
         }
 
+        // Method that opens the Chart dashboard form (Admin Only)
+        private void ShowCharts_Click(object sender, EventArgs e)
+        {
+            ChartForm chartForm = new ChartForm();
+            chartForm.ShowDialog();
+        }
+
         // Method that allow users to logout from the main dashboard.
         private void LogoutButton_Click(object sender, EventArgs e)
         {
@@ -633,6 +642,76 @@ namespace CarWashManagement.UI
         private void mainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void btnExportToday_Click(object sender, EventArgs e)
+        {
+            if (lsvTodayEntries.Items.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "Excel Files (*.csv)|*.csv",
+                FileName = $"DailyTransactions_{DateTime.Today:yyyyMMdd}.csv"
+            })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        ExportListViewToCsv(lsvTodayEntries, dialog.FileName);
+                        MessageBox.Show("Đã xuất danh sách theo ngày thành công.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Không thể xuất file: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void ExportListViewToCsv(ListView listView, string filePath)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            var headers = listView.Columns.Cast<ColumnHeader>()
+                .Select(col => EscapeCsv(col.Text));
+            builder.AppendLine(string.Join(",", headers));
+
+            foreach (ListViewItem item in listView.Items)
+            {
+                List<string> cells = new List<string>
+                {
+                    EscapeCsv(item.Text)
+                };
+
+                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems.Cast<ListViewItem.ListViewSubItem>().Skip(1))
+                {
+                    cells.Add(EscapeCsv(subItem.Text));
+                }
+
+                builder.AppendLine(string.Join(",", cells));
+            }
+
+            File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
+        }
+
+        private string EscapeCsv(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return string.Empty;
+            }
+
+            if (input.Contains("\"") || input.Contains(",") || input.Contains("\n"))
+            {
+                return $"\"{input.Replace("\"", "\"\"")}\"";
+            }
+
+            return input;
         }
     }
 }

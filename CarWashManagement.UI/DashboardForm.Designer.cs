@@ -43,9 +43,11 @@ namespace CarWashManagement.UI
             this.manageServicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageExpensesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyYearlyReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewChartsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.washEntryPanel = new System.Windows.Forms.Panel();
             this.btnAddTransaction = new System.Windows.Forms.Button();
+            this.btnExportToday = new System.Windows.Forms.Button();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.lblTotalAmount = new System.Windows.Forms.Label();
             this.cmbDiscount = new System.Windows.Forms.ComboBox();
@@ -164,7 +166,8 @@ namespace CarWashManagement.UI
             this.manageVehiclesToolStripMenuItem,
             this.manageServicesToolStripMenuItem,
             this.manageExpensesToolStripMenuItem,
-            this.monthlyYearlyReportToolStripMenuItem});
+            this.monthlyYearlyReportToolStripMenuItem,
+            this.viewChartsToolStripMenuItem});
             this.adminMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.adminMenuItem.Name = "adminMenuItem";
             this.adminMenuItem.Size = new System.Drawing.Size(58, 24);
@@ -206,6 +209,13 @@ namespace CarWashManagement.UI
             this.monthlyYearlyReportToolStripMenuItem.Text = "Báo cáo Tháng/Năm";
             this.monthlyYearlyReportToolStripMenuItem.Click += new System.EventHandler(this.ShowMonthlyReport_Click);
             // 
+            // viewChartsToolStripMenuItem
+            // 
+            this.viewChartsToolStripMenuItem.Name = "viewChartsToolStripMenuItem";
+            this.viewChartsToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.viewChartsToolStripMenuItem.Text = "Biểu đồ";
+            this.viewChartsToolStripMenuItem.Click += new System.EventHandler(this.ShowCharts_Click);
+            // 
             // btnChangePassword
             // 
             this.btnChangePassword.BackColor = System.Drawing.Color.White;
@@ -224,6 +234,7 @@ namespace CarWashManagement.UI
             // 
             this.washEntryPanel.BackColor = System.Drawing.Color.White;
             this.washEntryPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.washEntryPanel.Controls.Add(this.btnExportToday);
             this.washEntryPanel.Controls.Add(this.btnAddTransaction);
             this.washEntryPanel.Controls.Add(this.txtTotalAmount);
             this.washEntryPanel.Controls.Add(this.lblTotalAmount);
@@ -269,6 +280,20 @@ namespace CarWashManagement.UI
             this.btnAddTransaction.Text = "Lập phiếu";
             this.btnAddTransaction.UseVisualStyleBackColor = false;
             this.btnAddTransaction.Click += new System.EventHandler(this.btnAddTransaction_Click);
+            // 
+            // btnExportToday
+            // 
+            this.btnExportToday.BackColor = System.Drawing.Color.White;
+            this.btnExportToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnExportToday.Location = new System.Drawing.Point(170, 600);
+            this.btnExportToday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnExportToday.Name = "btnExportToday";
+            this.btnExportToday.Size = new System.Drawing.Size(157, 29);
+            this.btnExportToday.TabIndex = 24;
+            this.btnExportToday.Text = "Xuất Excel (Ngày)";
+            this.btnExportToday.UseVisualStyleBackColor = false;
+            this.btnExportToday.Click += new System.EventHandler(this.btnExportToday_Click);
             // 
             // txtTotalAmount
             // 
@@ -818,6 +843,7 @@ namespace CarWashManagement.UI
         private ToolStripMenuItem manageServicesToolStripMenuItem;
         private ToolStripMenuItem manageExpensesToolStripMenuItem;
         private ToolStripMenuItem monthlyYearlyReportToolStripMenuItem;
+        private ToolStripMenuItem viewChartsToolStripMenuItem;
         private Panel washEntryPanel;
         private TextBox txtEmployeeName;
         private Label lblEmployee;
@@ -844,6 +870,7 @@ namespace CarWashManagement.UI
         private TextBox txtTotalAmount;
         private Label lblTotalAmount;
         private Button btnAddTransaction;
+        private Button btnExportToday;
         private Panel todaysEntriesPanel;
         private ListView lsvTodayEntries;
         private ColumnHeader columnTime;

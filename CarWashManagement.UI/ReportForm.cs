@@ -7,6 +7,8 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
+using System.Text;
 
 namespace CarWashManagement.UI
 {
@@ -19,6 +21,13 @@ namespace CarWashManagement.UI
 
         private readonly TransactionManager transactionManager;
         private readonly ExpenseManager expenseManager;
+        private List<Transaction> lastMonthlyTransactions = new List<Transaction>();
+        private int lastMonthlyYear;
+        private int lastMonthlyMonth;
+        private bool hasMonthlyReport;
+        private List<Transaction> lastYearlyTransactions = new List<Transaction>();
+        private int lastYearlyYear;
+        private bool hasYearlyReport;
 
         public ReportForm()
         {
@@ -96,28 +105,28 @@ namespace CarWashManagement.UI
             // Get all transactions for the month.
             List<Transaction> transactions = transactionManager.GetTransactionsForMonth(year, month);
 
-            // Get all Paid transactions for the month.
-            List<Transaction> paidTransactions = transactions
-                .Where(txn => txn.IsPaid)
-                .ToList();
-
             // Get all expenses for the month.
             List<Expense> expenses = expenseManager.GetExpensesForMonth(year, month);
 
+            lastMonthlyTransactions = transactions;
+            lastMonthlyYear = year;
+            lastMonthlyMonth = month;
+            hasMonthlyReport = true;
+
             // Calculations.
-            decimal totalRevenue = paidTransactions.Sum(txn => txn.TotalAmount);
-            decimal totalOwnerShare = paidTransactions.Sum(txn => txn.OwnerShare);
-            decimal totalEmployeeShare = paidTransactions.Sum(txn => txn.EmployeeShare);
-            int totalWashes = paidTransactions.Count();
+            decimal totalRevenue = transactions.Sum(txn => txn.TotalAmount);
+            decimal totalOwnerShare = transactions.Sum(txn => txn.OwnerShare);
+            decimal totalEmployeeShare = transactions.Sum(txn => txn.EmployeeShare);
+            int totalWashes = transactions.Count();
 
             decimal totalExpenses = expenses.Sum(exp => exp.Amount);
             decimal netProfit = totalOwnerShare - totalExpenses;
 
             // Get Most Washed Vehicle.
             string mostWashed = "N/A";
-            if (paidTransactions.Any())
+            if (transactions.Any())
             {
-                mostWashed = paidTransactions
+                mostWashed = transactions
                     .GroupBy(txn => txn.VehicleType)
                     .OrderByDescending(g => g.Count())
                     .Select(g => g.Key)
@@ -125,9 +134,9 @@ namespace CarWashManagement.UI
             }
 
             // Get Most Availed service.
-            var allServices = paidTransactions.SelectMany(txn => txn.AdditionalServices);
+            var allServices = transactions.SelectMany(txn => txn.AdditionalServices);
             string mostService = "N/A";
-            if (paidTransactions.Any())
+            if (transactions.Any())
             {
                 mostService = allServices
                     .GroupBy(s => s.Name)
@@ -138,9 +147,9 @@ namespace CarWashManagement.UI
 
             // Highest Revenue Day
             string highestDay = "N/A (0.00)";
-            if (paidTransactions.Any())
+            if (transactions.Any())
             {
-                var dailyRevenue = paidTransactions
+                var dailyRevenue = transactions
                     .GroupBy(txn => txn.Timestamp.Date)
                     .Select(g => new { Date = g.Key, Total = g.Sum(txn => txn.TotalAmount) })
                     .OrderByDescending(d => d.Total)
@@ -165,6 +174,8 @@ namespace CarWashManagement.UI
 
             lblEntries.Enabled = true;
             lsvMonthlyEntries.Enabled = true;
+            lsvMonthlyEntries.Items.Clear();
+            lsvMonthlyEntries.Groups.Clear();
 
             // Group all transactions by date.
             var groupedByDay = transactions
@@ -200,25 +211,26 @@ namespace CarWashManagement.UI
             int year = dtpReportDate.Value.Year;
 
             List<Transaction> transactions = transactionManager.GetTransactionsForYear(year);
-            List<Transaction> paidTransactions = transactions
-                .Where(txn => txn.IsPaid)
-                .ToList();
             List<Expense> expenses = expenseManager.GetExpensesForYear(year);
 
+            lastYearlyTransactions = transactions;
+            lastYearlyYear = year;
+            hasYearlyReport = true;
+
             // Calculations.
-            decimal totalRevenue = paidTransactions.Sum(txn => txn.TotalAmount);
-            decimal totalOwnerShare = paidTransactions.Sum(txn => txn.OwnerShare);
-            decimal totalEmployeeShare = paidTransactions.Sum(txn => txn.EmployeeShare);
-            int totalWashes = paidTransactions.Count();
+            decimal totalRevenue = transactions.Sum(txn => txn.TotalAmount);
+            decimal totalOwnerShare = transactions.Sum(txn => txn.OwnerShare);
+            decimal totalEmployeeShare = transactions.Sum(txn => txn.EmployeeShare);
+            int totalWashes = transactions.Count();
 
             decimal totalExpenses = expenses.Sum(exp => exp.Amount);
             decimal netProfit = totalOwnerShare - totalExpenses;
 
             // Get Most Washed Vehicle.
             string mostWashed = "N/A";
-            if (paidTransactions.Any())
+            if (transactions.Any())
             {
-                mostWashed = paidTransactions
+                mostWashed = transactions
                     .GroupBy(txn => txn.VehicleType)
                     .OrderByDescending(g => g.Count())
                     .Select(g => g.Key)
@@ -226,9 +238,9 @@ namespace CarWashManagement.UI
             }
 
             // Get Most Availed service.
-            var allServices = paidTransactions.SelectMany(txn => txn.AdditionalServices);
+            var allServices = transactions.SelectMany(txn => txn.AdditionalServices);
             string mostService = "N/A";
-            if (paidTransactions.Any())
+            if (transactions.Any())
             {
                 mostService = allServices
                     .GroupBy(s => s.Name)
@@ -239,9 +251,9 @@ namespace CarWashManagement.UI
 
             // Highest Revenue Day
             string highestMonth = "N/A (0.00)";
-            if (paidTransactions.Any())
+            if (transactions.Any())
             {
-                var monthlyRevenue = paidTransactions
+                var monthlyRevenue = transactions
                     .GroupBy(txn => txn.Timestamp.Month)
                     .Select(g => new {
                         Month = g.Key,
@@ -271,6 +283,180 @@ namespace CarWashManagement.UI
 
             lblEntries.Enabled = false;
             lsvMonthlyEntries.Enabled = false;
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            if (currentReportMode == ReportMode.Monthly)
+            {
+                if (!hasMonthlyReport)
+                {
+                    MessageBox.Show("Vui lòng tạo báo cáo tháng trước khi xuất.", "Chưa có dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                ExportMonthlyReportToCsv();
+            }
+            else
+            {
+                if (!hasYearlyReport)
+                {
+                    MessageBox.Show("Vui lòng tạo báo cáo năm trước khi xuất.", "Chưa có dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                ExportYearlyReportToCsv();
+            }
+        }
+
+        private void ExportMonthlyReportToCsv()
+        {
+            using (SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "Excel Files (*.csv)|*.csv",
+                FileName = $"MonthlyReport_{lastMonthlyYear}_{lastMonthlyMonth:00}.csv"
+            })
+            {
+                if (dialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                try
+                {
+                    StringBuilder builder = new StringBuilder();
+                    builder.AppendLine("Tóm tắt,Giá trị");
+                    AppendKeyValueRow(builder, "Tổng doanh thu", txtReportTotalRevenue.Text);
+                    AppendKeyValueRow(builder, "Công ty thực nhận", txtReportOwnerShare.Text);
+                    AppendKeyValueRow(builder, "Nhân viên thực nhận", txtReportEmpShare.Text);
+                    AppendKeyValueRow(builder, "Tổng lượt rửa", txtReportTotalWashes.Text);
+                    AppendKeyValueRow(builder, "Phương tiện phổ biến nhất", txtReportMostWashed.Text);
+                    AppendKeyValueRow(builder, "Dịch vụ phổ biến nhất", txtReportMostService.Text);
+                    AppendKeyValueRow(builder, lblReportHighestDay.Text, txtReportHighestDay.Text);
+                    AppendKeyValueRow(builder, "Tổng chi phí", txtReportTotalExpenses.Text);
+                    AppendKeyValueRow(builder, "Lợi nhuận ròng", txtReportNetProfit.Text);
+
+                    builder.AppendLine();
+                    builder.AppendLine("Phiếu hóa đơn");
+                    AppendListViewToCsv(lsvMonthlyEntries, builder);
+
+                    File.WriteAllText(dialog.FileName, builder.ToString(), Encoding.UTF8);
+                    MessageBox.Show("Đã xuất báo cáo theo tháng.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Không thể xuất file: {ex.Message}", "Lỗi xuất file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ExportYearlyReportToCsv()
+        {
+            using (SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "Excel Files (*.csv)|*.csv",
+                FileName = $"YearlyReport_{lastYearlyYear}.csv"
+            })
+            {
+                if (dialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                try
+                {
+                    StringBuilder builder = new StringBuilder();
+                    builder.AppendLine("Tóm tắt,Giá trị");
+                    AppendKeyValueRow(builder, "Tổng doanh thu", txtReportTotalRevenue.Text);
+                    AppendKeyValueRow(builder, "Công ty thực nhận", txtReportOwnerShare.Text);
+                    AppendKeyValueRow(builder, "Nhân viên thực nhận", txtReportEmpShare.Text);
+                    AppendKeyValueRow(builder, "Tổng lượt rửa", txtReportTotalWashes.Text);
+                    AppendKeyValueRow(builder, "Phương tiện phổ biến nhất", txtReportMostWashed.Text);
+                    AppendKeyValueRow(builder, "Dịch vụ phổ biến nhất", txtReportMostService.Text);
+                    AppendKeyValueRow(builder, lblReportHighestDay.Text, txtReportHighestDay.Text);
+                    AppendKeyValueRow(builder, "Tổng chi phí", txtReportTotalExpenses.Text);
+                    AppendKeyValueRow(builder, "Lợi nhuận ròng", txtReportNetProfit.Text);
+
+                    builder.AppendLine();
+                    builder.AppendLine("Tháng,Doanh thu,Công ty,Nhân viên,Số lần rửa");
+
+                    var monthlyBreakdown = lastYearlyTransactions
+                        .GroupBy(txn => txn.Timestamp.Month)
+                        .OrderBy(g => g.Key)
+                        .Select(g => new
+                        {
+                            Month = g.Key,
+                            Revenue = g.Sum(txn => txn.TotalAmount),
+                            OwnerShare = g.Sum(txn => txn.OwnerShare),
+                            EmployeeShare = g.Sum(txn => txn.EmployeeShare),
+                            Washes = g.Count()
+                        })
+                        .ToList();
+
+                    foreach (var monthData in monthlyBreakdown)
+                    {
+                        string monthName = new DateTime(lastYearlyYear, monthData.Month, 1).ToString("MMMM");
+                        builder.AppendLine(string.Join(",", new[]
+                        {
+                            EscapeCsv(monthName),
+                            EscapeCsv(monthData.Revenue.ToString("N2")),
+                            EscapeCsv(monthData.OwnerShare.ToString("N2")),
+                            EscapeCsv(monthData.EmployeeShare.ToString("N2")),
+                            EscapeCsv(monthData.Washes.ToString())
+                        }));
+                    }
+
+                    File.WriteAllText(dialog.FileName, builder.ToString(), Encoding.UTF8);
+                    MessageBox.Show("Đã xuất báo cáo theo năm.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Không thể xuất file: {ex.Message}", "Lỗi xuất file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void AppendListViewToCsv(ListView listView, StringBuilder builder)
+        {
+            var headers = listView.Columns.Cast<ColumnHeader>()
+                .Select(col => EscapeCsv(col.Text));
+
+            builder.AppendLine(string.Join(",", headers));
+
+            foreach (ListViewItem item in listView.Items)
+            {
+                List<string> cells = new List<string>
+                {
+                    EscapeCsv(item.Text)
+                };
+
+                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems.Cast<ListViewItem.ListViewSubItem>().Skip(1))
+                {
+                    cells.Add(EscapeCsv(subItem.Text));
+                }
+
+                builder.AppendLine(string.Join(",", cells));
+            }
+        }
+
+        private void AppendKeyValueRow(StringBuilder builder, string key, string value)
+        {
+            builder.AppendLine($"{EscapeCsv(key)},{EscapeCsv(value)}");
+        }
+
+        private string EscapeCsv(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return string.Empty;
+            }
+
+            if (value.Contains("\"") || value.Contains(",") || value.Contains("\n"))
+            {
+                return $"\"{value.Replace("\"", "\"\"")}\"";
+            }
+
+            return value;
         }
     }
 }
