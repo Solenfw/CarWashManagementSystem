@@ -64,6 +64,7 @@ namespace CarWashManagement.UI
             this.columnOwnerShare = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEmployeeShare = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnPaymentStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnExportExcel = new System.Windows.Forms.Button();
             this.pnlReport.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -402,6 +403,20 @@ namespace CarWashManagement.UI
             this.lsvMonthlyEntries.UseCompatibleStateImageBehavior = false;
             this.lsvMonthlyEntries.View = System.Windows.Forms.View.Details;
             // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.BackColor = System.Drawing.Color.White;
+            this.btnExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnExportExcel.Location = new System.Drawing.Point(368, 12);
+            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(150, 35);
+            this.btnExportExcel.TabIndex = 8;
+            this.btnExportExcel.Text = "Xuất Excel";
+            this.btnExportExcel.UseVisualStyleBackColor = false;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
             // columnTime
             // 
             this.columnTime.Text = "Time";
@@ -437,6 +452,7 @@ namespace CarWashManagement.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(728, 832);
+            this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.lsvMonthlyEntries);
             this.Controls.Add(this.lblEntries);
             this.Controls.Add(this.pnlReport);
@@ -490,5 +506,6 @@ namespace CarWashManagement.UI
         private ColumnHeader columnOwnerShare;
         private ColumnHeader columnEmployeeShare;
         private ColumnHeader columnPaymentStatus;
+        private Button btnExportExcel;
     }
 }
