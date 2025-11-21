@@ -60,10 +60,10 @@ namespace CarWashManagement.UI
             this.columnFailedAttempts});
             this.lsvUsers.FullRowSelect = true;
             this.lsvUsers.HideSelection = false;
-            this.lsvUsers.Location = new System.Drawing.Point(18, 17);
-            this.lsvUsers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.lsvUsers.Location = new System.Drawing.Point(21, 23);
+            this.lsvUsers.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lsvUsers.Name = "lsvUsers";
-            this.lsvUsers.Size = new System.Drawing.Size(641, 230);
+            this.lsvUsers.Size = new System.Drawing.Size(732, 305);
             this.lsvUsers.TabIndex = 0;
             this.lsvUsers.UseCompatibleStateImageBehavior = false;
             this.lsvUsers.View = System.Windows.Forms.View.Details;
@@ -96,65 +96,65 @@ namespace CarWashManagement.UI
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(11, 265);
-            this.lblUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblUsername.Location = new System.Drawing.Point(13, 353);
+            this.lblUsername.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(88, 15);
+            this.lblUsername.Size = new System.Drawing.Size(110, 20);
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Tên đăng nhập:";
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(104, 262);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtUsername.Location = new System.Drawing.Point(119, 349);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(139, 23);
+            this.txtUsername.Size = new System.Drawing.Size(158, 27);
             this.txtUsername.TabIndex = 1;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(251, 265);
-            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPassword.Location = new System.Drawing.Point(287, 353);
+            this.lblPassword.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(60, 15);
+            this.lblPassword.Size = new System.Drawing.Size(73, 20);
             this.lblPassword.TabIndex = 3;
             this.lblPassword.Text = "Mật khẩu:";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(327, 262);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtPassword.Location = new System.Drawing.Point(374, 349);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(139, 23);
+            this.txtPassword.Size = new System.Drawing.Size(158, 27);
             this.txtPassword.TabIndex = 2;
             // 
             // lblFullName
             // 
             this.lblFullName.AutoSize = true;
-            this.lblFullName.Location = new System.Drawing.Point(32, 300);
-            this.lblFullName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFullName.Location = new System.Drawing.Point(37, 400);
+            this.lblFullName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblFullName.Name = "lblFullName";
-            this.lblFullName.Size = new System.Drawing.Size(67, 15);
+            this.lblFullName.Size = new System.Drawing.Size(84, 20);
             this.lblFullName.TabIndex = 5;
             this.lblFullName.Text = "Tên đầy đủ:";
             // 
             // txtFullName
             // 
-            this.txtFullName.Location = new System.Drawing.Point(104, 297);
-            this.txtFullName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtFullName.Location = new System.Drawing.Point(119, 396);
+            this.txtFullName.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(139, 23);
+            this.txtFullName.Size = new System.Drawing.Size(158, 27);
             this.txtFullName.TabIndex = 3;
             // 
             // lblRole
             // 
             this.lblRole.AutoSize = true;
-            this.lblRole.Location = new System.Drawing.Point(268, 300);
-            this.lblRole.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRole.Location = new System.Drawing.Point(306, 400);
+            this.lblRole.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(43, 15);
+            this.lblRole.Size = new System.Drawing.Size(55, 20);
             this.lblRole.TabIndex = 7;
             this.lblRole.Text = "Vai trò:";
             // 
@@ -165,10 +165,10 @@ namespace CarWashManagement.UI
             this.cmbRole.Items.AddRange(new object[] {
             "Admin",
             "Recorder"});
-            this.cmbRole.Location = new System.Drawing.Point(327, 297);
-            this.cmbRole.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmbRole.Location = new System.Drawing.Point(374, 396);
+            this.cmbRole.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.cmbRole.Name = "cmbRole";
-            this.cmbRole.Size = new System.Drawing.Size(139, 23);
+            this.cmbRole.Size = new System.Drawing.Size(158, 28);
             this.cmbRole.TabIndex = 4;
             // 
             // btnCreateUser
@@ -177,10 +177,10 @@ namespace CarWashManagement.UI
             this.btnCreateUser.FlatAppearance.BorderSize = 0;
             this.btnCreateUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateUser.ForeColor = System.Drawing.Color.White;
-            this.btnCreateUser.Location = new System.Drawing.Point(490, 262);
-            this.btnCreateUser.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnCreateUser.Location = new System.Drawing.Point(598, 336);
+            this.btnCreateUser.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnCreateUser.Name = "btnCreateUser";
-            this.btnCreateUser.Size = new System.Drawing.Size(117, 35);
+            this.btnCreateUser.Size = new System.Drawing.Size(155, 47);
             this.btnCreateUser.TabIndex = 5;
             this.btnCreateUser.Text = "Tạo tài khoản";
             this.btnCreateUser.UseVisualStyleBackColor = false;
@@ -192,10 +192,10 @@ namespace CarWashManagement.UI
             this.btnToggleStatus.FlatAppearance.BorderSize = 0;
             this.btnToggleStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToggleStatus.ForeColor = System.Drawing.Color.White;
-            this.btnToggleStatus.Location = new System.Drawing.Point(490, 297);
-            this.btnToggleStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnToggleStatus.Location = new System.Drawing.Point(598, 391);
+            this.btnToggleStatus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnToggleStatus.Name = "btnToggleStatus";
-            this.btnToggleStatus.Size = new System.Drawing.Size(117, 35);
+            this.btnToggleStatus.Size = new System.Drawing.Size(155, 47);
             this.btnToggleStatus.TabIndex = 6;
             this.btnToggleStatus.Text = "Kích hoạt / vô hiệu";
             this.btnToggleStatus.UseVisualStyleBackColor = false;
@@ -203,9 +203,8 @@ namespace CarWashManagement.UI
             // 
             // UserManagementForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 342);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(762, 456);
             this.Controls.Add(this.btnToggleStatus);
             this.Controls.Add(this.btnCreateUser);
             this.Controls.Add(this.cmbRole);
@@ -218,7 +217,7 @@ namespace CarWashManagement.UI
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lsvUsers);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "UserManagementForm";
             this.Text = "User Management";
             this.ResumeLayout(false);

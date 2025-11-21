@@ -536,10 +536,19 @@ namespace CarWashManagement.UI
             string employeeName = txtEmployeeName.Text.Trim();
             bool isPaid = chkIsPaid.Checked;
             string washStatus = chkWashStatus.Checked ? "Completed" : "Ongoing";
-            string selectedDiscount = cmbDiscount.SelectedItem as string ?? string.Empty;
-            decimal discountPercentage = (selectedDiscount.Equals("PWD", StringComparison.OrdinalIgnoreCase) ||
-                                          selectedDiscount.Equals("Senior", StringComparison.OrdinalIgnoreCase))
-                                          ? 0.20m : 0.00m;
+            
+            decimal discountPercentage = 0.00m;
+            string selectedDiscount = cmbDiscount.SelectedItem?.ToString() ?? "N/A";
+
+            if (selectedDiscount.EndsWith("%"))
+            {
+                var percentValue = decimal.Parse(selectedDiscount.TrimEnd('%'));
+                discountPercentage = percentValue / 100m;
+            }
+            else
+            {
+                discountPercentage = 0m; // No discount
+            }
             List<Service> selectedServices = new List<Service>();
 
             // Gather selected services and get their final fees.
@@ -693,11 +702,6 @@ namespace CarWashManagement.UI
             Console.WriteLine("Car Wash Management System\nGROUP 7 - CNTTVA2\nFinal Project\nNovember 2025\n\nThank you for using the system!");
         }
 
-        private void mainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private void btnExportToday_Click(object sender, EventArgs e)
         {
             if (lsvTodayEntries.Items.Count == 0)
@@ -777,7 +781,7 @@ namespace CarWashManagement.UI
                 t.EmployeeName,
                 t.TotalAmount.ToString("N2"),
                 t.IsPaid ? "Yes" : "No",
-                t.WashStatus
+                t.WashStatus 
             });
         }
 
@@ -812,7 +816,7 @@ namespace CarWashManagement.UI
                 .Where(t => string.IsNullOrEmpty(paid) || paid == "All" ||
                             (paid == "Yes" && t.IsPaid) ||
                             (paid == "No" && !t.IsPaid))
-                .Where(t => string.IsNullOrEmpty(wash) || wash == "All" || (wash == "Completed") || (wash == "Ongoing") ||
+                .Where(t => string.IsNullOrEmpty(wash) || wash == "All" || 
                             t.WashStatus.Equals(wash, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
@@ -849,7 +853,7 @@ namespace CarWashManagement.UI
                     t.VehicleType,
                     t.EmployeeName,
                     t.TotalAmount.ToString("N2"),
-                    t.IsPaid ? "Paid" : "Unpaid",
+                    t.IsPaid ? "Yes" : "No",
                     t.WashStatus
                 }));
             }

@@ -42,13 +42,13 @@ namespace CarWashManagement.UI
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.picSecurityLogo = new System.Windows.Forms.PictureBox();
             this.panelPasswordStrength = new System.Windows.Forms.Panel();
             this.lblPasswordStrength = new System.Windows.Forms.Label();
             this.progressStrength = new System.Windows.Forms.ProgressBar();
-            this.picSecurityLogo = new System.Windows.Forms.PictureBox();
             this.panelHeader.SuspendLayout();
-            this.panelPasswordStrength.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picSecurityLogo)).BeginInit();
+            this.panelPasswordStrength.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblOldPassword
@@ -58,7 +58,7 @@ namespace CarWashManagement.UI
             this.lblOldPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblOldPassword.Location = new System.Drawing.Point(25, 85);
             this.lblOldPassword.Name = "lblOldPassword";
-            this.lblOldPassword.Size = new System.Drawing.Size(77, 15);
+            this.lblOldPassword.Size = new System.Drawing.Size(94, 20);
             this.lblOldPassword.TabIndex = 0;
             this.lblOldPassword.Text = "Mật Khẩu cũ:";
             // 
@@ -69,7 +69,7 @@ namespace CarWashManagement.UI
             this.txtOldPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOldPassword.Location = new System.Drawing.Point(28, 103);
             this.txtOldPassword.Name = "txtOldPassword";
-            this.txtOldPassword.Size = new System.Drawing.Size(280, 23);
+            this.txtOldPassword.Size = new System.Drawing.Size(280, 27);
             this.txtOldPassword.TabIndex = 1;
             this.txtOldPassword.UseSystemPasswordChar = true;
             this.txtOldPassword.Enter += new System.EventHandler(this.TextBox_Enter);
@@ -82,7 +82,7 @@ namespace CarWashManagement.UI
             this.lblNewPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblNewPassword.Location = new System.Drawing.Point(25, 140);
             this.lblNewPassword.Name = "lblNewPassword";
-            this.lblNewPassword.Size = new System.Drawing.Size(85, 15);
+            this.lblNewPassword.Size = new System.Drawing.Size(105, 20);
             this.lblNewPassword.TabIndex = 2;
             this.lblNewPassword.Text = "Mật Khẩu mới:";
             // 
@@ -93,7 +93,7 @@ namespace CarWashManagement.UI
             this.txtNewPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewPassword.Location = new System.Drawing.Point(28, 158);
             this.txtNewPassword.Name = "txtNewPassword";
-            this.txtNewPassword.Size = new System.Drawing.Size(280, 23);
+            this.txtNewPassword.Size = new System.Drawing.Size(280, 27);
             this.txtNewPassword.TabIndex = 2;
             this.txtNewPassword.UseSystemPasswordChar = true;
             this.txtNewPassword.TextChanged += new System.EventHandler(this.txtNewPassword_TextChanged);
@@ -107,7 +107,7 @@ namespace CarWashManagement.UI
             this.lblConfirmPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblConfirmPassword.Location = new System.Drawing.Point(25, 195);
             this.lblConfirmPassword.Name = "lblConfirmPassword";
-            this.lblConfirmPassword.Size = new System.Drawing.Size(131, 15);
+            this.lblConfirmPassword.Size = new System.Drawing.Size(163, 20);
             this.lblConfirmPassword.TabIndex = 4;
             this.lblConfirmPassword.Text = "Nhập lại mật khẩu mới:";
             // 
@@ -118,7 +118,7 @@ namespace CarWashManagement.UI
             this.txtConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConfirmPassword.Location = new System.Drawing.Point(28, 213);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.Size = new System.Drawing.Size(280, 23);
+            this.txtConfirmPassword.Size = new System.Drawing.Size(280, 27);
             this.txtConfirmPassword.TabIndex = 3;
             this.txtConfirmPassword.UseSystemPasswordChar = true;
             this.txtConfirmPassword.Enter += new System.EventHandler(this.TextBox_Enter);
@@ -180,9 +180,19 @@ namespace CarWashManagement.UI
             this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(50, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(114, 21);
+            this.lblTitle.Size = new System.Drawing.Size(143, 28);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Đổi Mật Khẩu";
+            // 
+            // picSecurityLogo
+            // 
+            this.picSecurityLogo.Image = global::CarWashManagement.UI.Properties.Resources.security;
+            this.picSecurityLogo.Location = new System.Drawing.Point(15, 15);
+            this.picSecurityLogo.Name = "picSecurityLogo";
+            this.picSecurityLogo.Size = new System.Drawing.Size(30, 30);
+            this.picSecurityLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picSecurityLogo.TabIndex = 0;
+            this.picSecurityLogo.TabStop = false;
             // 
             // panelPasswordStrength
             // 
@@ -201,7 +211,7 @@ namespace CarWashManagement.UI
             this.lblPasswordStrength.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblPasswordStrength.Location = new System.Drawing.Point(3, 3);
             this.lblPasswordStrength.Name = "lblPasswordStrength";
-            this.lblPasswordStrength.Size = new System.Drawing.Size(61, 13);
+            this.lblPasswordStrength.Size = new System.Drawing.Size(74, 19);
             this.lblPasswordStrength.TabIndex = 1;
             this.lblPasswordStrength.Text = "Độ tin cậy:";
             // 
@@ -215,20 +225,9 @@ namespace CarWashManagement.UI
             this.progressStrength.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressStrength.TabIndex = 0;
             // 
-            // picSecurityLogo
-            // 
-            this.picSecurityLogo.Image = global::CarWashManagement.UI.Properties.Resources.security;
-            this.picSecurityLogo.Location = new System.Drawing.Point(15, 15);
-            this.picSecurityLogo.Name = "picSecurityLogo";
-            this.picSecurityLogo.Size = new System.Drawing.Size(30, 30);
-            this.picSecurityLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picSecurityLogo.TabIndex = 0;
-            this.picSecurityLogo.TabStop = false;
-            // 
             // ChangePasswordForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(334, 341);
             this.Controls.Add(this.panelPasswordStrength);
@@ -248,9 +247,9 @@ namespace CarWashManagement.UI
             this.Text = "Change Password";
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSecurityLogo)).EndInit();
             this.panelPasswordStrength.ResumeLayout(false);
             this.panelPasswordStrength.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picSecurityLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -5,7 +5,7 @@ namespace CarWashManagement.Core.Database
 {
     public static class DatabaseConnection
     {
-        private const string ServerName = "Geeka\\SQLEXPRESS01";
+        private const string ServerName = "(local)\\SQLEXPRESS";
         private const string DatabaseName = "CarWashManagement";
         private const string IntegratedSecurity = "true";
 

@@ -50,10 +50,10 @@ namespace CarWashManagement.UI
             this.lblLogin.AutoSize = true;
             this.lblLogin.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblLogin.Location = new System.Drawing.Point(382, 139);
-            this.lblLogin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLogin.Location = new System.Drawing.Point(425, 193);
+            this.lblLogin.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(376, 35);
+            this.lblLogin.Size = new System.Drawing.Size(464, 42);
             this.lblLogin.TabIndex = 1;
             this.lblLogin.Text = "ĐĂNG NHẬP TÀI KHOẢN";
             // 
@@ -61,10 +61,10 @@ namespace CarWashManagement.UI
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblUsername.Location = new System.Drawing.Point(397, 185);
-            this.lblUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblUsername.Location = new System.Drawing.Point(454, 247);
+            this.lblUsername.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(114, 21);
+            this.lblUsername.Size = new System.Drawing.Size(144, 28);
             this.lblUsername.TabIndex = 2;
             this.lblUsername.Text = "Tên đăng nhập:";
             // 
@@ -72,21 +72,21 @@ namespace CarWashManagement.UI
             // 
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtUsername.Location = new System.Drawing.Point(397, 219);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtUsername.Location = new System.Drawing.Point(454, 292);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtUsername.Multiline = true;
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(315, 35);
+            this.txtUsername.Size = new System.Drawing.Size(360, 31);
             this.txtUsername.TabIndex = 1;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblPassword.Location = new System.Drawing.Point(397, 265);
-            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPassword.Location = new System.Drawing.Point(454, 353);
+            this.lblPassword.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(79, 21);
+            this.lblPassword.Size = new System.Drawing.Size(100, 28);
             this.lblPassword.TabIndex = 4;
             this.lblPassword.Text = "Mật Khẩu:";
             // 
@@ -94,12 +94,12 @@ namespace CarWashManagement.UI
             // 
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtPassword.Location = new System.Drawing.Point(397, 300);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtPassword.Location = new System.Drawing.Point(454, 400);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtPassword.Multiline = true;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '•';
-            this.txtPassword.Size = new System.Drawing.Size(315, 35);
+            this.txtPassword.Size = new System.Drawing.Size(360, 29);
             this.txtPassword.TabIndex = 2;
             // 
             // btnLogin
@@ -109,10 +109,10 @@ namespace CarWashManagement.UI
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(397, 351);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnLogin.Location = new System.Drawing.Point(454, 454);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(117, 46);
+            this.btnLogin.Size = new System.Drawing.Size(122, 51);
             this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "Đăng nhập";
             this.btnLogin.UseVisualStyleBackColor = false;
@@ -122,10 +122,10 @@ namespace CarWashManagement.UI
             // 
             this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblInfo.ForeColor = System.Drawing.Color.Gray;
-            this.lblInfo.Location = new System.Drawing.Point(389, 556);
-            this.lblInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInfo.Location = new System.Drawing.Point(428, 628);
+            this.lblInfo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(369, 56);
+            this.lblInfo.Size = new System.Drawing.Size(422, 75);
             this.lblInfo.TabIndex = 8;
             this.lblInfo.Text = "Chưa có tài khoản?\r\ncần quyền truy cập admin để tạo tài khoản mới.";
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -133,10 +133,10 @@ namespace CarWashManagement.UI
             // eyeIcon
             // 
             this.eyeIcon.Image = global::CarWashManagement.UI.Properties.Resources.eye_hide;
-            this.eyeIcon.Location = new System.Drawing.Point(723, 300);
-            this.eyeIcon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.eyeIcon.Location = new System.Drawing.Point(824, 400);
+            this.eyeIcon.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.eyeIcon.Name = "eyeIcon";
-            this.eyeIcon.Size = new System.Drawing.Size(35, 35);
+            this.eyeIcon.Size = new System.Drawing.Size(38, 29);
             this.eyeIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.eyeIcon.TabIndex = 6;
             this.eyeIcon.TabStop = false;
@@ -145,19 +145,18 @@ namespace CarWashManagement.UI
             // loginPicture
             // 
             this.loginPicture.Image = global::CarWashManagement.UI.Properties.Resources.login_image;
-            this.loginPicture.Location = new System.Drawing.Point(0, 0);
-            this.loginPicture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.loginPicture.Location = new System.Drawing.Point(-10, -63);
+            this.loginPicture.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.loginPicture.Name = "loginPicture";
-            this.loginPicture.Size = new System.Drawing.Size(350, 612);
+            this.loginPicture.Size = new System.Drawing.Size(400, 816);
             this.loginPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.loginPicture.TabIndex = 0;
             this.loginPicture.TabStop = false;
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(781, 612);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(960, 696);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.eyeIcon);
@@ -168,7 +167,7 @@ namespace CarWashManagement.UI
             this.Controls.Add(this.lblLogin);
             this.Controls.Add(this.loginPicture);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "LoginForm";

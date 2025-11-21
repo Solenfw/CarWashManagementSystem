@@ -66,10 +66,10 @@ namespace CarWashManagement.UI
             this.lsvVehicles.FullRowSelect = true;
             this.lsvVehicles.GridLines = true;
             this.lsvVehicles.HideSelection = false;
-            this.lsvVehicles.Location = new System.Drawing.Point(18, 17);
-            this.lsvVehicles.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.lsvVehicles.Location = new System.Drawing.Point(21, 23);
+            this.lsvVehicles.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lsvVehicles.Name = "lsvVehicles";
-            this.lsvVehicles.Size = new System.Drawing.Size(641, 230);
+            this.lsvVehicles.Size = new System.Drawing.Size(732, 305);
             this.lsvVehicles.TabIndex = 0;
             this.lsvVehicles.UseCompatibleStateImageBehavior = false;
             this.lsvVehicles.View = System.Windows.Forms.View.Details;
@@ -101,73 +101,73 @@ namespace CarWashManagement.UI
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(18, 277);
-            this.lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblType.Location = new System.Drawing.Point(21, 369);
+            this.lblType.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(100, 15);
+            this.lblType.Size = new System.Drawing.Size(125, 20);
             this.lblType.TabIndex = 1;
             this.lblType.Text = "Loại phương tiện:";
             // 
             // txtType
             // 
-            this.txtType.Location = new System.Drawing.Point(140, 273);
-            this.txtType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtType.Location = new System.Drawing.Point(160, 364);
+            this.txtType.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtType.Name = "txtType";
-            this.txtType.Size = new System.Drawing.Size(174, 23);
+            this.txtType.Size = new System.Drawing.Size(198, 27);
             this.txtType.TabIndex = 2;
             // 
             // lblBaseFee
             // 
             this.lblBaseFee.AutoSize = true;
-            this.lblBaseFee.Location = new System.Drawing.Point(18, 317);
-            this.lblBaseFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblBaseFee.Location = new System.Drawing.Point(21, 423);
+            this.lblBaseFee.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblBaseFee.Name = "lblBaseFee";
-            this.lblBaseFee.Size = new System.Drawing.Size(65, 15);
+            this.lblBaseFee.Size = new System.Drawing.Size(82, 20);
             this.lblBaseFee.TabIndex = 3;
             this.lblBaseFee.Text = "giá cơ bản:";
             // 
             // txtBaseFee
             // 
-            this.txtBaseFee.Location = new System.Drawing.Point(140, 314);
-            this.txtBaseFee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtBaseFee.Location = new System.Drawing.Point(160, 419);
+            this.txtBaseFee.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtBaseFee.Name = "txtBaseFee";
-            this.txtBaseFee.Size = new System.Drawing.Size(174, 23);
+            this.txtBaseFee.Size = new System.Drawing.Size(198, 27);
             this.txtBaseFee.TabIndex = 4;
             // 
             // lblOwnerShare
             // 
             this.lblOwnerShare.AutoSize = true;
-            this.lblOwnerShare.Location = new System.Drawing.Point(18, 358);
-            this.lblOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblOwnerShare.Location = new System.Drawing.Point(21, 477);
+            this.lblOwnerShare.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblOwnerShare.Name = "lblOwnerShare";
-            this.lblOwnerShare.Size = new System.Drawing.Size(82, 15);
+            this.lblOwnerShare.Size = new System.Drawing.Size(99, 20);
             this.lblOwnerShare.TabIndex = 5;
             this.lblOwnerShare.Text = "Công ty nhận:";
             // 
             // txtOwnerShare
             // 
-            this.txtOwnerShare.Location = new System.Drawing.Point(140, 354);
-            this.txtOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtOwnerShare.Location = new System.Drawing.Point(160, 472);
+            this.txtOwnerShare.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtOwnerShare.Name = "txtOwnerShare";
-            this.txtOwnerShare.Size = new System.Drawing.Size(174, 23);
+            this.txtOwnerShare.Size = new System.Drawing.Size(198, 27);
             this.txtOwnerShare.TabIndex = 6;
             // 
             // lblEmployeeShare
             // 
             this.lblEmployeeShare.AutoSize = true;
-            this.lblEmployeeShare.Location = new System.Drawing.Point(18, 398);
-            this.lblEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEmployeeShare.Location = new System.Drawing.Point(21, 531);
+            this.lblEmployeeShare.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblEmployeeShare.Name = "lblEmployeeShare";
-            this.lblEmployeeShare.Size = new System.Drawing.Size(94, 15);
+            this.lblEmployeeShare.Size = new System.Drawing.Size(114, 20);
             this.lblEmployeeShare.TabIndex = 7;
             this.lblEmployeeShare.Text = "Nhân viên nhận:";
             // 
             // txtEmployeeShare
             // 
-            this.txtEmployeeShare.Location = new System.Drawing.Point(140, 395);
-            this.txtEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtEmployeeShare.Location = new System.Drawing.Point(160, 527);
+            this.txtEmployeeShare.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtEmployeeShare.Name = "txtEmployeeShare";
-            this.txtEmployeeShare.Size = new System.Drawing.Size(174, 23);
+            this.txtEmployeeShare.Size = new System.Drawing.Size(198, 27);
             this.txtEmployeeShare.TabIndex = 8;
             // 
             // btnAdd
@@ -175,10 +175,10 @@ namespace CarWashManagement.UI
             this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(350, 273);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnAdd.Location = new System.Drawing.Point(400, 419);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(140, 35);
+            this.btnAdd.Size = new System.Drawing.Size(160, 47);
             this.btnAdd.TabIndex = 9;
             this.btnAdd.Text = "Thêm mới";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -190,12 +190,12 @@ namespace CarWashManagement.UI
             this.btnUpdate.Enabled = false;
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(507, 273);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnUpdate.Location = new System.Drawing.Point(579, 419);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(152, 35);
+            this.btnUpdate.Size = new System.Drawing.Size(170, 47);
             this.btnUpdate.TabIndex = 10;
-            this.btnUpdate.Text = "Cập nhật mục được chọn";
+            this.btnUpdate.Text = "Cập nhật phương tiện";
             this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -205,12 +205,12 @@ namespace CarWashManagement.UI
             this.btnDelete.Enabled = false;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(507, 366);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnDelete.Location = new System.Drawing.Point(579, 488);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(140, 35);
+            this.btnDelete.Size = new System.Drawing.Size(170, 47);
             this.btnDelete.TabIndex = 11;
-            this.btnDelete.Text = "Xóa mục được chọn";
+            this.btnDelete.Text = "Xóa phương tiện";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -219,10 +219,10 @@ namespace CarWashManagement.UI
             this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(350, 320);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnClear.Location = new System.Drawing.Point(400, 488);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(140, 35);
+            this.btnClear.Size = new System.Drawing.Size(160, 47);
             this.btnClear.TabIndex = 12;
             this.btnClear.Text = "Xóa bảng";
             this.btnClear.UseVisualStyleBackColor = false;
@@ -230,9 +230,8 @@ namespace CarWashManagement.UI
             // 
             // VehicleManagementForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 427);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(763, 569);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
@@ -247,7 +246,7 @@ namespace CarWashManagement.UI
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.lsvVehicles);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "VehicleManagementForm";
             this.Text = "Vehicle Management";
             this.ResumeLayout(false);
