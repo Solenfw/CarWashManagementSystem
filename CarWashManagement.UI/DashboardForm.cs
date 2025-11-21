@@ -9,6 +9,9 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using LiveCharts;
+using LiveCharts.Wpf;
+using System.Runtime.InteropServices;
 
 namespace CarWashManagement.UI
 {
@@ -70,6 +73,39 @@ namespace CarWashManagement.UI
             {
                 adminMenuItem.Visible = true;
             }
+        }
+
+        private void DashboardForm_Load(object sender, EventArgs e)
+        {
+            Func<ChartPoint, string> labelPoint = chartPoint =>
+                string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+
+            List<Transaction> todaysTransaction = transactionManager.GetTodaysTransactions()
+                .Where(txn => txn.WashStatus == "Completed")
+                .ToList();
+
+            var occurrences = todaysTransaction
+                .GroupBy(v => v.VehicleType)
+                .Select(g => new { Type = g.Key, Count = g.Count() });
+
+            SeriesCollection piechartData = new SeriesCollection();
+
+            // Loop through occurrences, not transactions!
+            foreach (var item in occurrences)
+            {
+                piechartData.Add(
+                    new PieSeries
+                    {
+                        Title = item.Type,
+                        Values = new ChartValues<int> { item.Count },
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    }
+                );
+            }
+
+            pchVehicles.Series = piechartData;
+            pchVehicles.LegendLocation = LegendLocation.Top;
         }
 
         // Method to load the vehicle types in the dropdown combo box.
@@ -458,6 +494,9 @@ namespace CarWashManagement.UI
 
             transactionManager.UpdateTransaction();
             RefreshTodaysEntries();
+
+            // Refreshing Pie Chart data
+            DashboardForm_Load(this, EventArgs.Empty);
         }
 
         // Method to handle when the "Add Entry" button is clicked.
@@ -553,6 +592,8 @@ namespace CarWashManagement.UI
             {
                 MessageBox.Show($"Có lỗi xảy ra khi lưu hóa đơn: {ex.Message}", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            DashboardForm_Load(this, EventArgs.Empty); // Refresh Pie Chart data
         }
 
         // Method to handle vehicle type selection change.
@@ -815,6 +856,5 @@ namespace CarWashManagement.UI
 
             lsvTodayEntries.EndUpdate();
         }
-
     }
 }

@@ -111,6 +111,8 @@ namespace CarWashManagement.UI
             this.btnRefresh = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.pchVehicles = new LiveCharts.WinForms.PieChart();
+            this.label8 = new System.Windows.Forms.Label();
             this.headerPanel.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.washEntryPanel.SuspendLayout();
@@ -830,14 +832,13 @@ namespace CarWashManagement.UI
             // 
             this.cmbVehicleToSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVehicleToSearch.FormattingEnabled = true;
+            this.cmbVehicleToSearch.Items.AddRange(new object[] {
+            "All"});
             this.cmbVehicleToSearch.Location = new System.Drawing.Point(540, 70);
             this.cmbVehicleToSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbVehicleToSearch.Name = "cmbVehicleToSearch";
             this.cmbVehicleToSearch.Size = new System.Drawing.Size(123, 23);
             this.cmbVehicleToSearch.TabIndex = 24;
-            this.cmbVehicleToSearch.Items.AddRange(new object[] {
-                "All"
-            });
             // 
             // label1
             // 
@@ -868,7 +869,6 @@ namespace CarWashManagement.UI
             this.txtMinPriceToSearch.Name = "txtMinPriceToSearch";
             this.txtMinPriceToSearch.Size = new System.Drawing.Size(103, 23);
             this.txtMinPriceToSearch.TabIndex = 24;
-            this.txtMinPriceToSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // txtMaxPriceToSearch
             // 
@@ -879,7 +879,6 @@ namespace CarWashManagement.UI
             this.txtMaxPriceToSearch.Name = "txtMaxPriceToSearch";
             this.txtMaxPriceToSearch.Size = new System.Drawing.Size(115, 23);
             this.txtMaxPriceToSearch.TabIndex = 25;
-            this.txtMaxPriceToSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // cmbPaidStatus
             // 
@@ -998,10 +997,32 @@ namespace CarWashManagement.UI
             this.label7.TabIndex = 33;
             this.label7.Text = "Đã rửa?";
             // 
+            // pchVehicles
+            // 
+            this.pchVehicles.Location = new System.Drawing.Point(1015, 327);
+            this.pchVehicles.Name = "pchVehicles";
+            this.pchVehicles.Size = new System.Drawing.Size(385, 443);
+            this.pchVehicles.TabIndex = 35;
+            this.pchVehicles.Text = "pieChart2";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.label8.Location = new System.Drawing.Point(955, 284);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(241, 20);
+            this.label8.TabIndex = 36;
+            this.label8.Text = "Live data: Most common vehicles";
+            // 
             // DashboardForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1455, 762);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.pchVehicles);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnRefresh);
@@ -1030,6 +1051,7 @@ namespace CarWashManagement.UI
             this.Name = "DashboardForm";
             this.Text = "Car Wash Management - Daily Dashboard";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashboardForm_FormClosed);
+            this.Load += new System.EventHandler(this.DashboardForm_Load);
             this.headerPanel.ResumeLayout(false);
             this.headerPanel.PerformLayout();
             this.mainMenu.ResumeLayout(false);
@@ -1125,5 +1147,7 @@ namespace CarWashManagement.UI
         private Button btnRefresh;
         private Label label6;
         private Label label7;
+        private LiveCharts.WinForms.PieChart pchVehicles;
+        private Label label8;
     }
 }
