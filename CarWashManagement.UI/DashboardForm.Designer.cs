@@ -143,7 +143,7 @@ namespace CarWashManagement.UI
             this.welcomeLabel.Location = new System.Drawing.Point(13, 12);
             this.welcomeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(65, 25);
+            this.welcomeLabel.Size = new System.Drawing.Size(51, 20);
             this.welcomeLabel.TabIndex = 0;
             this.welcomeLabel.Text = "label1";
             // 
@@ -173,7 +173,7 @@ namespace CarWashManagement.UI
             this.mainMenu.Location = new System.Drawing.Point(411, 9);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.mainMenu.Size = new System.Drawing.Size(237, 33);
+            this.mainMenu.Size = new System.Drawing.Size(202, 24);
             this.mainMenu.TabIndex = 3;
             // 
             // adminMenuItem
@@ -189,49 +189,49 @@ namespace CarWashManagement.UI
             this.adminMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.adminMenuItem.ForeColor = System.Drawing.Color.White;
             this.adminMenuItem.Name = "adminMenuItem";
-            this.adminMenuItem.Size = new System.Drawing.Size(78, 29);
+            this.adminMenuItem.Size = new System.Drawing.Size(61, 24);
             this.adminMenuItem.Text = "Menu";
             this.adminMenuItem.Visible = false;
             // 
             // manageUsersToolStripMenuItem
             // 
             this.manageUsersToolStripMenuItem.Name = "manageUsersToolStripMenuItem";
-            this.manageUsersToolStripMenuItem.Size = new System.Drawing.Size(286, 30);
+            this.manageUsersToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
             this.manageUsersToolStripMenuItem.Text = "Quản lý Nhân Viên";
             this.manageUsersToolStripMenuItem.Click += new System.EventHandler(this.ManageUsers_Click);
             // 
             // manageVehiclesToolStripMenuItem
             // 
             this.manageVehiclesToolStripMenuItem.Name = "manageVehiclesToolStripMenuItem";
-            this.manageVehiclesToolStripMenuItem.Size = new System.Drawing.Size(286, 30);
+            this.manageVehiclesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
             this.manageVehiclesToolStripMenuItem.Text = "Quản lý Phương Tiện";
             this.manageVehiclesToolStripMenuItem.Click += new System.EventHandler(this.ManageVehicles_Click);
             // 
             // manageServicesToolStripMenuItem
             // 
             this.manageServicesToolStripMenuItem.Name = "manageServicesToolStripMenuItem";
-            this.manageServicesToolStripMenuItem.Size = new System.Drawing.Size(286, 30);
+            this.manageServicesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
             this.manageServicesToolStripMenuItem.Text = "Quản lý Dịch Vụ";
             this.manageServicesToolStripMenuItem.Click += new System.EventHandler(this.ManageServices_Click);
             // 
             // manageExpensesToolStripMenuItem
             // 
             this.manageExpensesToolStripMenuItem.Name = "manageExpensesToolStripMenuItem";
-            this.manageExpensesToolStripMenuItem.Size = new System.Drawing.Size(286, 30);
+            this.manageExpensesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
             this.manageExpensesToolStripMenuItem.Text = "Quản lý Chi Phí";
             this.manageExpensesToolStripMenuItem.Click += new System.EventHandler(this.ManageExpenses_Click);
             // 
             // monthlyYearlyReportToolStripMenuItem
             // 
             this.monthlyYearlyReportToolStripMenuItem.Name = "monthlyYearlyReportToolStripMenuItem";
-            this.monthlyYearlyReportToolStripMenuItem.Size = new System.Drawing.Size(286, 30);
+            this.monthlyYearlyReportToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
             this.monthlyYearlyReportToolStripMenuItem.Text = "Báo cáo Tháng/Năm";
             this.monthlyYearlyReportToolStripMenuItem.Click += new System.EventHandler(this.ShowMonthlyReport_Click);
             // 
             // viewChartsToolStripMenuItem
             // 
             this.viewChartsToolStripMenuItem.Name = "viewChartsToolStripMenuItem";
-            this.viewChartsToolStripMenuItem.Size = new System.Drawing.Size(286, 30);
+            this.viewChartsToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
             this.viewChartsToolStripMenuItem.Text = "Biểu đồ";
             this.viewChartsToolStripMenuItem.Click += new System.EventHandler(this.ShowCharts_Click);
             // 
@@ -308,7 +308,7 @@ namespace CarWashManagement.UI
             this.txtTotalAmount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
-            this.txtTotalAmount.Size = new System.Drawing.Size(186, 23);
+            this.txtTotalAmount.Size = new System.Drawing.Size(186, 20);
             this.txtTotalAmount.TabIndex = 22;
             this.txtTotalAmount.Text = "0.00";
             this.txtTotalAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -321,7 +321,7 @@ namespace CarWashManagement.UI
             this.lblTotalAmount.Location = new System.Drawing.Point(8, 590);
             this.lblTotalAmount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(115, 23);
+            this.lblTotalAmount.Size = new System.Drawing.Size(94, 19);
             this.lblTotalAmount.TabIndex = 21;
             this.lblTotalAmount.Text = "Chi phí tổng:";
             // 
@@ -338,7 +338,7 @@ namespace CarWashManagement.UI
             this.cmbDiscount.Location = new System.Drawing.Point(257, 519);
             this.cmbDiscount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbDiscount.Name = "cmbDiscount";
-            this.cmbDiscount.Size = new System.Drawing.Size(69, 28);
+            this.cmbDiscount.Size = new System.Drawing.Size(69, 23);
             this.cmbDiscount.TabIndex = 20;
             this.cmbDiscount.SelectedIndexChanged += new System.EventHandler(this.cmbDiscount_SelectedIndexChanged);
             // 
@@ -348,7 +348,7 @@ namespace CarWashManagement.UI
             this.lblDiscount.Location = new System.Drawing.Point(187, 523);
             this.lblDiscount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDiscount.Name = "lblDiscount";
-            this.lblDiscount.Size = new System.Drawing.Size(70, 20);
+            this.lblDiscount.Size = new System.Drawing.Size(57, 15);
             this.lblDiscount.TabIndex = 19;
             this.lblDiscount.Text = "Discount:";
             // 
@@ -358,7 +358,7 @@ namespace CarWashManagement.UI
             this.chkWashStatus.Location = new System.Drawing.Point(12, 554);
             this.chkWashStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkWashStatus.Name = "chkWashStatus";
-            this.chkWashStatus.Size = new System.Drawing.Size(108, 24);
+            this.chkWashStatus.Size = new System.Drawing.Size(89, 19);
             this.chkWashStatus.TabIndex = 18;
             this.chkWashStatus.Text = "Hoàn thành";
             this.chkWashStatus.UseVisualStyleBackColor = true;
@@ -369,7 +369,7 @@ namespace CarWashManagement.UI
             this.chkIsPaid.Location = new System.Drawing.Point(12, 523);
             this.chkIsPaid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkIsPaid.Name = "chkIsPaid";
-            this.chkIsPaid.Size = new System.Drawing.Size(72, 24);
+            this.chkIsPaid.Size = new System.Drawing.Size(57, 19);
             this.chkIsPaid.TabIndex = 17;
             this.chkIsPaid.Text = "Đã trả";
             this.chkIsPaid.UseVisualStyleBackColor = true;
@@ -382,7 +382,7 @@ namespace CarWashManagement.UI
             this.txtServiceEmpShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtServiceEmpShare.Name = "txtServiceEmpShare";
             this.txtServiceEmpShare.ReadOnly = true;
-            this.txtServiceEmpShare.Size = new System.Drawing.Size(93, 27);
+            this.txtServiceEmpShare.Size = new System.Drawing.Size(93, 23);
             this.txtServiceEmpShare.TabIndex = 16;
             this.txtServiceEmpShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -392,7 +392,7 @@ namespace CarWashManagement.UI
             this.lblServiceEmpShare.Location = new System.Drawing.Point(222, 462);
             this.lblServiceEmpShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblServiceEmpShare.Name = "lblServiceEmpShare";
-            this.lblServiceEmpShare.Size = new System.Drawing.Size(114, 20);
+            this.lblServiceEmpShare.Size = new System.Drawing.Size(94, 15);
             this.lblServiceEmpShare.TabIndex = 15;
             this.lblServiceEmpShare.Text = "Nhân viên nhận:";
             // 
@@ -404,7 +404,7 @@ namespace CarWashManagement.UI
             this.txtServiceOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtServiceOwnerShare.Name = "txtServiceOwnerShare";
             this.txtServiceOwnerShare.ReadOnly = true;
-            this.txtServiceOwnerShare.Size = new System.Drawing.Size(93, 27);
+            this.txtServiceOwnerShare.Size = new System.Drawing.Size(93, 23);
             this.txtServiceOwnerShare.TabIndex = 14;
             this.txtServiceOwnerShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -414,7 +414,7 @@ namespace CarWashManagement.UI
             this.lblServiceOwnerShare.Location = new System.Drawing.Point(117, 462);
             this.lblServiceOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblServiceOwnerShare.Name = "lblServiceOwnerShare";
-            this.lblServiceOwnerShare.Size = new System.Drawing.Size(99, 20);
+            this.lblServiceOwnerShare.Size = new System.Drawing.Size(82, 15);
             this.lblServiceOwnerShare.TabIndex = 13;
             this.lblServiceOwnerShare.Text = "Công ty nhận:";
             // 
@@ -426,7 +426,7 @@ namespace CarWashManagement.UI
             this.txtTotalServiceFee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTotalServiceFee.Name = "txtTotalServiceFee";
             this.txtTotalServiceFee.ReadOnly = true;
-            this.txtTotalServiceFee.Size = new System.Drawing.Size(93, 27);
+            this.txtTotalServiceFee.Size = new System.Drawing.Size(93, 23);
             this.txtTotalServiceFee.TabIndex = 12;
             this.txtTotalServiceFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -436,7 +436,7 @@ namespace CarWashManagement.UI
             this.lblTotalServiceFee.Location = new System.Drawing.Point(12, 462);
             this.lblTotalServiceFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalServiceFee.Name = "lblTotalServiceFee";
-            this.lblTotalServiceFee.Size = new System.Drawing.Size(83, 20);
+            this.lblTotalServiceFee.Size = new System.Drawing.Size(69, 15);
             this.lblTotalServiceFee.TabIndex = 11;
             this.lblTotalServiceFee.Text = "Phí dịch vụ:";
             // 
@@ -457,7 +457,7 @@ namespace CarWashManagement.UI
             this.lblAdditionalServices.Location = new System.Drawing.Point(8, 151);
             this.lblAdditionalServices.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAdditionalServices.Name = "lblAdditionalServices";
-            this.lblAdditionalServices.Size = new System.Drawing.Size(153, 23);
+            this.lblAdditionalServices.Size = new System.Drawing.Size(127, 19);
             this.lblAdditionalServices.TabIndex = 9;
             this.lblAdditionalServices.Text = "Các dịch vụ thêm:";
             // 
@@ -469,7 +469,7 @@ namespace CarWashManagement.UI
             this.txtEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmployeeShare.Name = "txtEmployeeShare";
             this.txtEmployeeShare.ReadOnly = true;
-            this.txtEmployeeShare.Size = new System.Drawing.Size(93, 27);
+            this.txtEmployeeShare.Size = new System.Drawing.Size(93, 23);
             this.txtEmployeeShare.TabIndex = 8;
             this.txtEmployeeShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -479,7 +479,7 @@ namespace CarWashManagement.UI
             this.lblEmployeeShare.Location = new System.Drawing.Point(222, 96);
             this.lblEmployeeShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployeeShare.Name = "lblEmployeeShare";
-            this.lblEmployeeShare.Size = new System.Drawing.Size(114, 20);
+            this.lblEmployeeShare.Size = new System.Drawing.Size(94, 15);
             this.lblEmployeeShare.TabIndex = 7;
             this.lblEmployeeShare.Text = "Nhân viên nhận:";
             // 
@@ -491,7 +491,7 @@ namespace CarWashManagement.UI
             this.txtOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtOwnerShare.Name = "txtOwnerShare";
             this.txtOwnerShare.ReadOnly = true;
-            this.txtOwnerShare.Size = new System.Drawing.Size(93, 27);
+            this.txtOwnerShare.Size = new System.Drawing.Size(93, 23);
             this.txtOwnerShare.TabIndex = 6;
             this.txtOwnerShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -501,7 +501,7 @@ namespace CarWashManagement.UI
             this.lblOwnerShare.Location = new System.Drawing.Point(117, 96);
             this.lblOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOwnerShare.Name = "lblOwnerShare";
-            this.lblOwnerShare.Size = new System.Drawing.Size(99, 20);
+            this.lblOwnerShare.Size = new System.Drawing.Size(82, 15);
             this.lblOwnerShare.TabIndex = 5;
             this.lblOwnerShare.Text = "Công ty nhận:";
             // 
@@ -513,7 +513,7 @@ namespace CarWashManagement.UI
             this.txtBaseFee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBaseFee.Name = "txtBaseFee";
             this.txtBaseFee.ReadOnly = true;
-            this.txtBaseFee.Size = new System.Drawing.Size(93, 27);
+            this.txtBaseFee.Size = new System.Drawing.Size(93, 23);
             this.txtBaseFee.TabIndex = 4;
             this.txtBaseFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -523,7 +523,7 @@ namespace CarWashManagement.UI
             this.lblBaseFee.Location = new System.Drawing.Point(11, 96);
             this.lblBaseFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBaseFee.Name = "lblBaseFee";
-            this.lblBaseFee.Size = new System.Drawing.Size(83, 20);
+            this.lblBaseFee.Size = new System.Drawing.Size(66, 15);
             this.lblBaseFee.TabIndex = 3;
             this.lblBaseFee.Text = "Giá cơ bản:";
             // 
@@ -534,7 +534,7 @@ namespace CarWashManagement.UI
             this.cmbVehicleType.Location = new System.Drawing.Point(133, 56);
             this.cmbVehicleType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbVehicleType.Name = "cmbVehicleType";
-            this.cmbVehicleType.Size = new System.Drawing.Size(198, 28);
+            this.cmbVehicleType.Size = new System.Drawing.Size(198, 23);
             this.cmbVehicleType.TabIndex = 2;
             this.cmbVehicleType.SelectedIndexChanged += new System.EventHandler(this.cmbVehicleType_SelectedIndexChanged);
             // 
@@ -544,7 +544,7 @@ namespace CarWashManagement.UI
             this.lblVehicleType.Location = new System.Drawing.Point(0, 63);
             this.lblVehicleType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVehicleType.Name = "lblVehicleType";
-            this.lblVehicleType.Size = new System.Drawing.Size(125, 20);
+            this.lblVehicleType.Size = new System.Drawing.Size(100, 15);
             this.lblVehicleType.TabIndex = 1;
             this.lblVehicleType.Text = "Loại phương tiện:";
             // 
@@ -554,7 +554,7 @@ namespace CarWashManagement.UI
             this.txtEmployeeName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.ReadOnly = true;
-            this.txtEmployeeName.Size = new System.Drawing.Size(198, 27);
+            this.txtEmployeeName.Size = new System.Drawing.Size(198, 23);
             this.txtEmployeeName.TabIndex = 1;
             // 
             // lblEmployee
@@ -563,7 +563,7 @@ namespace CarWashManagement.UI
             this.lblEmployee.Location = new System.Drawing.Point(18, 17);
             this.lblEmployee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployee.Name = "lblEmployee";
-            this.lblEmployee.Size = new System.Drawing.Size(102, 20);
+            this.lblEmployee.Size = new System.Drawing.Size(83, 15);
             this.lblEmployee.TabIndex = 0;
             this.lblEmployee.Text = "Tên nhân viên:";
             // 
@@ -652,19 +652,19 @@ namespace CarWashManagement.UI
             this.togglePaidStatusToolStripMenuItem,
             this.toggleWashStatusToolStripMenuItem});
             this.lsvContextMenu.Name = "lsvContextMenu";
-            this.lsvContextMenu.Size = new System.Drawing.Size(234, 52);
+            this.lsvContextMenu.Size = new System.Drawing.Size(214, 48);
             // 
             // togglePaidStatusToolStripMenuItem
             // 
             this.togglePaidStatusToolStripMenuItem.Name = "togglePaidStatusToolStripMenuItem";
-            this.togglePaidStatusToolStripMenuItem.Size = new System.Drawing.Size(233, 24);
+            this.togglePaidStatusToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.togglePaidStatusToolStripMenuItem.Text = "Thay đổi trạng thái Trả";
             this.togglePaidStatusToolStripMenuItem.Click += new System.EventHandler(this.TogglePaidStatus_Click);
             // 
             // toggleWashStatusToolStripMenuItem
             // 
             this.toggleWashStatusToolStripMenuItem.Name = "toggleWashStatusToolStripMenuItem";
-            this.toggleWashStatusToolStripMenuItem.Size = new System.Drawing.Size(233, 24);
+            this.toggleWashStatusToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.toggleWashStatusToolStripMenuItem.Text = "Thay đổi trạng thái Rửa";
             this.toggleWashStatusToolStripMenuItem.Click += new System.EventHandler(this.ToggleWashStatus_Click);
             // 
@@ -697,7 +697,7 @@ namespace CarWashManagement.UI
             this.txtSummaryMostWashedVehicle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryMostWashedVehicle.Name = "txtSummaryMostWashedVehicle";
             this.txtSummaryMostWashedVehicle.ReadOnly = true;
-            this.txtSummaryMostWashedVehicle.Size = new System.Drawing.Size(210, 27);
+            this.txtSummaryMostWashedVehicle.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryMostWashedVehicle.TabIndex = 10;
             this.txtSummaryMostWashedVehicle.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -709,7 +709,7 @@ namespace CarWashManagement.UI
             this.lblSummaryMostWashedVehicle.Location = new System.Drawing.Point(263, 139);
             this.lblSummaryMostWashedVehicle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryMostWashedVehicle.Name = "lblSummaryMostWashedVehicle";
-            this.lblSummaryMostWashedVehicle.Size = new System.Drawing.Size(213, 20);
+            this.lblSummaryMostWashedVehicle.Size = new System.Drawing.Size(168, 15);
             this.lblSummaryMostWashedVehicle.TabIndex = 9;
             this.lblSummaryMostWashedVehicle.Text = "Phương tiện ưa chuộng nhất:";
             // 
@@ -721,7 +721,7 @@ namespace CarWashManagement.UI
             this.txtSummaryTotalWashes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalWashes.Name = "txtSummaryTotalWashes";
             this.txtSummaryTotalWashes.ReadOnly = true;
-            this.txtSummaryTotalWashes.Size = new System.Drawing.Size(210, 27);
+            this.txtSummaryTotalWashes.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryTotalWashes.TabIndex = 8;
             this.txtSummaryTotalWashes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -733,7 +733,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalWashes.Location = new System.Drawing.Point(15, 139);
             this.lblSummaryTotalWashes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalWashes.Name = "lblSummaryTotalWashes";
-            this.lblSummaryTotalWashes.Size = new System.Drawing.Size(83, 20);
+            this.lblSummaryTotalWashes.Size = new System.Drawing.Size(65, 15);
             this.lblSummaryTotalWashes.TabIndex = 7;
             this.lblSummaryTotalWashes.Text = "Số lần rửa:";
             // 
@@ -745,7 +745,7 @@ namespace CarWashManagement.UI
             this.txtSummaryTotalEmpShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalEmpShare.Name = "txtSummaryTotalEmpShare";
             this.txtSummaryTotalEmpShare.ReadOnly = true;
-            this.txtSummaryTotalEmpShare.Size = new System.Drawing.Size(210, 27);
+            this.txtSummaryTotalEmpShare.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryTotalEmpShare.TabIndex = 6;
             this.txtSummaryTotalEmpShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -757,7 +757,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalEmpShare.Location = new System.Drawing.Point(265, 78);
             this.lblSummaryTotalEmpShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalEmpShare.Name = "lblSummaryTotalEmpShare";
-            this.lblSummaryTotalEmpShare.Size = new System.Drawing.Size(123, 20);
+            this.lblSummaryTotalEmpShare.Size = new System.Drawing.Size(96, 15);
             this.lblSummaryTotalEmpShare.TabIndex = 5;
             this.lblSummaryTotalEmpShare.Text = "Nhân viên nhận:";
             // 
@@ -769,7 +769,7 @@ namespace CarWashManagement.UI
             this.txtSummaryTotalOwnerShare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalOwnerShare.Name = "txtSummaryTotalOwnerShare";
             this.txtSummaryTotalOwnerShare.ReadOnly = true;
-            this.txtSummaryTotalOwnerShare.Size = new System.Drawing.Size(210, 27);
+            this.txtSummaryTotalOwnerShare.Size = new System.Drawing.Size(210, 23);
             this.txtSummaryTotalOwnerShare.TabIndex = 4;
             this.txtSummaryTotalOwnerShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -781,7 +781,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalOwnerShare.Location = new System.Drawing.Point(15, 78);
             this.lblSummaryTotalOwnerShare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalOwnerShare.Name = "lblSummaryTotalOwnerShare";
-            this.lblSummaryTotalOwnerShare.Size = new System.Drawing.Size(115, 20);
+            this.lblSummaryTotalOwnerShare.Size = new System.Drawing.Size(91, 15);
             this.lblSummaryTotalOwnerShare.TabIndex = 3;
             this.lblSummaryTotalOwnerShare.Text = "Công ty thu về:";
             // 
@@ -794,7 +794,7 @@ namespace CarWashManagement.UI
             this.txtSummaryTotalRevenue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSummaryTotalRevenue.Name = "txtSummaryTotalRevenue";
             this.txtSummaryTotalRevenue.ReadOnly = true;
-            this.txtSummaryTotalRevenue.Size = new System.Drawing.Size(210, 23);
+            this.txtSummaryTotalRevenue.Size = new System.Drawing.Size(210, 20);
             this.txtSummaryTotalRevenue.TabIndex = 2;
             this.txtSummaryTotalRevenue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -806,7 +806,7 @@ namespace CarWashManagement.UI
             this.lblSummaryTotalRevenue.Location = new System.Drawing.Point(15, 27);
             this.lblSummaryTotalRevenue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSummaryTotalRevenue.Name = "lblSummaryTotalRevenue";
-            this.lblSummaryTotalRevenue.Size = new System.Drawing.Size(125, 20);
+            this.lblSummaryTotalRevenue.Size = new System.Drawing.Size(97, 15);
             this.lblSummaryTotalRevenue.TabIndex = 1;
             this.lblSummaryTotalRevenue.Text = "Tổng doanh thu:";
             // 
@@ -818,7 +818,7 @@ namespace CarWashManagement.UI
             this.lblDailySummary.Location = new System.Drawing.Point(955, 60);
             this.lblDailySummary.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDailySummary.Name = "lblDailySummary";
-            this.lblDailySummary.Size = new System.Drawing.Size(218, 25);
+            this.lblDailySummary.Size = new System.Drawing.Size(170, 20);
             this.lblDailySummary.TabIndex = 0;
             this.lblDailySummary.Text = "Doanh Thu trong Ngày";
             // 
@@ -839,7 +839,7 @@ namespace CarWashManagement.UI
             this.cmbVehicleToSearch.Location = new System.Drawing.Point(542, 73);
             this.cmbVehicleToSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbVehicleToSearch.Name = "cmbVehicleToSearch";
-            this.cmbVehicleToSearch.Size = new System.Drawing.Size(123, 28);
+            this.cmbVehicleToSearch.Size = new System.Drawing.Size(123, 23);
             this.cmbVehicleToSearch.TabIndex = 24;
             // 
             // label1
@@ -848,7 +848,7 @@ namespace CarWashManagement.UI
             this.label1.Location = new System.Drawing.Point(375, 52);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 20);
+            this.label1.Size = new System.Drawing.Size(83, 15);
             this.label1.TabIndex = 24;
             this.label1.Text = "Tên nhân viên:";
             // 
@@ -858,7 +858,7 @@ namespace CarWashManagement.UI
             this.label2.Location = new System.Drawing.Point(540, 52);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(125, 20);
+            this.label2.Size = new System.Drawing.Size(100, 15);
             this.label2.TabIndex = 24;
             this.label2.Text = "Loại phương tiện:";
             // 
@@ -869,7 +869,7 @@ namespace CarWashManagement.UI
             this.txtMinPriceToSearch.Location = new System.Drawing.Point(374, 127);
             this.txtMinPriceToSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtMinPriceToSearch.Name = "txtMinPriceToSearch";
-            this.txtMinPriceToSearch.Size = new System.Drawing.Size(103, 27);
+            this.txtMinPriceToSearch.Size = new System.Drawing.Size(103, 23);
             this.txtMinPriceToSearch.TabIndex = 24;
             // 
             // txtMaxPriceToSearch
@@ -879,7 +879,7 @@ namespace CarWashManagement.UI
             this.txtMaxPriceToSearch.Location = new System.Drawing.Point(497, 128);
             this.txtMaxPriceToSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtMaxPriceToSearch.Name = "txtMaxPriceToSearch";
-            this.txtMaxPriceToSearch.Size = new System.Drawing.Size(115, 27);
+            this.txtMaxPriceToSearch.Size = new System.Drawing.Size(115, 23);
             this.txtMaxPriceToSearch.TabIndex = 25;
             // 
             // cmbPaidStatus
@@ -894,7 +894,7 @@ namespace CarWashManagement.UI
             this.cmbPaidStatus.Location = new System.Drawing.Point(620, 127);
             this.cmbPaidStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbPaidStatus.Name = "cmbPaidStatus";
-            this.cmbPaidStatus.Size = new System.Drawing.Size(69, 28);
+            this.cmbPaidStatus.Size = new System.Drawing.Size(69, 23);
             this.cmbPaidStatus.TabIndex = 24;
             // 
             // cmbWashStatus
@@ -909,14 +909,14 @@ namespace CarWashManagement.UI
             this.cmbWashStatus.Location = new System.Drawing.Point(697, 127);
             this.cmbWashStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbWashStatus.Name = "cmbWashStatus";
-            this.cmbWashStatus.Size = new System.Drawing.Size(69, 28);
+            this.cmbWashStatus.Size = new System.Drawing.Size(69, 23);
             this.cmbWashStatus.TabIndex = 26;
             // 
             // dateToSearch
             // 
             this.dateToSearch.Location = new System.Drawing.Point(697, 74);
             this.dateToSearch.Name = "dateToSearch";
-            this.dateToSearch.Size = new System.Drawing.Size(221, 27);
+            this.dateToSearch.Size = new System.Drawing.Size(221, 23);
             this.dateToSearch.TabIndex = 27;
             // 
             // btnFilter
@@ -940,7 +940,7 @@ namespace CarWashManagement.UI
             this.label3.Location = new System.Drawing.Point(693, 51);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 20);
+            this.label3.Size = new System.Drawing.Size(59, 15);
             this.label3.TabIndex = 28;
             this.label3.Text = "Thời gian:";
             // 
@@ -950,7 +950,7 @@ namespace CarWashManagement.UI
             this.label4.Location = new System.Drawing.Point(372, 104);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 20);
+            this.label4.Size = new System.Drawing.Size(53, 15);
             this.label4.TabIndex = 29;
             this.label4.Text = "Giá MIN:";
             // 
@@ -960,7 +960,7 @@ namespace CarWashManagement.UI
             this.label5.Location = new System.Drawing.Point(493, 104);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 20);
+            this.label5.Size = new System.Drawing.Size(56, 15);
             this.label5.TabIndex = 30;
             this.label5.Text = "Giá MAX:";
             // 
@@ -985,7 +985,7 @@ namespace CarWashManagement.UI
             this.label6.Location = new System.Drawing.Point(616, 103);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 20);
+            this.label6.Size = new System.Drawing.Size(43, 15);
             this.label6.TabIndex = 32;
             this.label6.Text = "Đã trả?";
             // 
@@ -995,7 +995,7 @@ namespace CarWashManagement.UI
             this.label7.Location = new System.Drawing.Point(692, 103);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 20);
+            this.label7.Size = new System.Drawing.Size(46, 15);
             this.label7.TabIndex = 33;
             this.label7.Text = "Đã rửa?";
             // 
@@ -1015,7 +1015,7 @@ namespace CarWashManagement.UI
             this.label8.Location = new System.Drawing.Point(955, 284);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(303, 25);
+            this.label8.Size = new System.Drawing.Size(241, 20);
             this.label8.TabIndex = 36;
             this.label8.Text = "Live data: Most common vehicles";
             // 
