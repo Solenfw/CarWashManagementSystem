@@ -9,6 +9,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Text;
+using Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace CarWashManagement.UI
 {
@@ -298,7 +300,7 @@ namespace CarWashManagement.UI
                     return;
                 }
 
-                ExportMonthlyReportToCsv();
+                ExportMonthlyReportToExcel();
             }
             else
             {
@@ -308,116 +310,164 @@ namespace CarWashManagement.UI
                     return;
                 }
 
-                ExportYearlyReportToCsv();
+                ExportYearlyReportToExcel();
             }
         }
-
-        private void ExportMonthlyReportToCsv()
+        private void ExportMonthlyReportToExcel()
         {
-            using (SaveFileDialog dialog = new SaveFileDialog
+            Excel.Application exApp = new Excel.Application();
+            Excel.Workbook exBook = exApp.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
+            Excel.Worksheet exSheet = (Excel.Worksheet)exBook.Worksheets[1];
+            Excel.Range head = (Excel.Range)exSheet.Cells[1, 1];
+
+            // ===== TITLE =====
+            head.Range["B2"].Font.Size = 24;
+            head.Range["B2"].Font.Name = "Times New Roman";
+            head.Range["B2"].Font.Bold = true;
+            head.Range["B2"].Font.Color = Color.Blue;
+            head.Range["B2"].Value2 = $"BÁO CÁO THÁNG {lastMonthlyMonth}/{lastMonthlyYear}";
+
+            // ===== SUMMARY HEADER =====
+            head.Range["A4:B4"].Font.Size = 13;
+            head.Range["A4:B4"].Font.Bold = true;
+
+            exSheet.Cells[4, 1] = "Tóm tắt";
+            exSheet.Cells[4, 2] = "Giá trị";
+
+            int row = 5;
+
+            exSheet.Cells[row, 1] = "Tổng doanh thu:"; exSheet.Cells[row++, 2] = txtReportTotalRevenue.Text;
+            exSheet.Cells[row, 1] = "Công ty nhận:"; exSheet.Cells[row++, 2] = txtReportOwnerShare.Text;
+            exSheet.Cells[row, 1] = "Nhân viên nhận:"; exSheet.Cells[row++, 2] = txtReportEmpShare.Text;
+            exSheet.Cells[row, 1] = "Tổng lượt rửa:"; exSheet.Cells[row++, 2] = txtReportTotalWashes.Text;
+            exSheet.Cells[row, 1] = "Xe phổ biến nhất:"; exSheet.Cells[row++, 2] = txtReportMostWashed.Text;
+            exSheet.Cells[row, 1] = "Dịch vụ phổ biến nhất:"; exSheet.Cells[row++, 2] = txtReportMostService.Text;
+            exSheet.Cells[row, 1] = lblReportHighestDay.Text; exSheet.Cells[row++, 2] = txtReportHighestDay.Text;
+            exSheet.Cells[row, 1] = "Tổng chi phí:"; exSheet.Cells[row++, 2] = txtReportTotalExpenses.Text;
+            exSheet.Cells[row, 1] = "Lợi nhuận ròng:"; exSheet.Cells[row++, 2] = txtReportNetProfit.Text;
+
+            row += 2;
+
+            // ===== LISTVIEW HEADER =====
+            exSheet.Cells[row, 1] = "Time";
+            exSheet.Cells[row, 2] = "Vehicle";
+            exSheet.Cells[row, 3] = "Employee";
+            exSheet.Cells[row, 4] = "Owner Share";
+            exSheet.Cells[row, 5] = "Employee Share";
+            exSheet.Cells[row, 6] = "Paid";
+            row++;
+
+            // ===== EXPORT LISTVIEW ROWS =====
+            foreach (ListViewItem item in lsvMonthlyEntries.Items)
             {
-                Filter = "Excel Files (*.csv)|*.csv",
-                FileName = $"MonthlyReport_{lastMonthlyYear}_{lastMonthlyMonth:00}.csv"
-            })
-            {
-                if (dialog.ShowDialog() != DialogResult.OK)
+                for (int col = 0; col < item.SubItems.Count; col++)
                 {
-                    return;
+                    exSheet.Cells[row, col + 1] = item.SubItems[col].Text;
                 }
-
-                try
-                {
-                    StringBuilder builder = new StringBuilder();
-                    builder.AppendLine("Tóm tắt,Giá trị");
-                    AppendKeyValueRow(builder, "Tổng doanh thu", txtReportTotalRevenue.Text);
-                    AppendKeyValueRow(builder, "Công ty thực nhận", txtReportOwnerShare.Text);
-                    AppendKeyValueRow(builder, "Nhân viên thực nhận", txtReportEmpShare.Text);
-                    AppendKeyValueRow(builder, "Tổng lượt rửa", txtReportTotalWashes.Text);
-                    AppendKeyValueRow(builder, "Phương tiện phổ biến nhất", txtReportMostWashed.Text);
-                    AppendKeyValueRow(builder, "Dịch vụ phổ biến nhất", txtReportMostService.Text);
-                    AppendKeyValueRow(builder, lblReportHighestDay.Text, txtReportHighestDay.Text);
-                    AppendKeyValueRow(builder, "Tổng chi phí", txtReportTotalExpenses.Text);
-                    AppendKeyValueRow(builder, "Lợi nhuận ròng", txtReportNetProfit.Text);
-
-                    builder.AppendLine();
-                    builder.AppendLine("Phiếu hóa đơn");
-                    AppendListViewToCsv(lsvMonthlyEntries, builder);
-
-                    File.WriteAllText(dialog.FileName, builder.ToString(), Encoding.UTF8);
-                    MessageBox.Show("Đã xuất báo cáo theo tháng.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Không thể xuất file: {ex.Message}", "Lỗi xuất file", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                row++;
             }
+
+            exSheet.Columns.AutoFit();
+            exSheet.Name = "MonthlyReport";
+
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "Excel File (*.xlsx)|*.xlsx";
+            dlg.FileName = $"MonthlyReport_{lastMonthlyYear}_{lastMonthlyMonth}.xlsx";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                exBook.SaveAs(dlg.FileName);
+                MessageBox.Show("Đã xuất báo cáo tháng thành công!",
+       "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            exApp.Quit();
         }
 
-        private void ExportYearlyReportToCsv()
+     
+        private void ExportYearlyReportToExcel()
         {
-            using (SaveFileDialog dialog = new SaveFileDialog
+            Excel.Application exApp = new Excel.Application();
+            Excel.Workbook exBook = exApp.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
+            Excel.Worksheet exSheet = (Excel.Worksheet)exBook.Worksheets[1];
+            Excel.Range head = (Excel.Range)exSheet.Cells[1, 1];
+
+            // ===== TITLE =====
+            head.Range["B2"].Font.Size = 24;
+            head.Range["B2"].Font.Name = "Times New Roman";
+            head.Range["B2"].Font.Bold = true;
+            head.Range["B2"].Font.Color = Color.Blue;
+            head.Range["B2"].Value2 = $"BÁO CÁO NĂM {lastYearlyYear}";
+
+            head.Range["A4:B4"].Font.Size = 13;
+            head.Range["A4:B4"].Font.Bold = true;
+
+            exSheet.Cells[4, 1] = "Tóm tắt";
+            exSheet.Cells[4, 2] = "Giá trị";
+
+            int row = 5;
+
+            exSheet.Cells[row, 1] = "Tổng doanh thu:"; exSheet.Cells[row++, 2] = txtReportTotalRevenue.Text;
+            exSheet.Cells[row, 1] = "Công ty nhận:"; exSheet.Cells[row++, 2] = txtReportOwnerShare.Text;
+            exSheet.Cells[row, 1] = "Nhân viên nhận:"; exSheet.Cells[row++, 2] = txtReportEmpShare.Text;
+            exSheet.Cells[row, 1] = "Tổng lượt rửa:"; exSheet.Cells[row++, 2] = txtReportTotalWashes.Text;
+            exSheet.Cells[row, 1] = "Xe phổ biến nhất:"; exSheet.Cells[row++, 2] = txtReportMostWashed.Text;
+            exSheet.Cells[row, 1] = "Dịch vụ phổ biến nhất:"; exSheet.Cells[row++, 2] = txtReportMostService.Text;
+            exSheet.Cells[row, 1] = lblReportHighestDay.Text; exSheet.Cells[row++, 2] = txtReportHighestDay.Text;
+            exSheet.Cells[row, 1] = "Tổng chi phí:"; exSheet.Cells[row++, 2] = txtReportTotalExpenses.Text;
+            exSheet.Cells[row, 1] = "Lợi nhuận ròng:"; exSheet.Cells[row++, 2] = txtReportNetProfit.Text;
+
+            row += 2;
+
+            // ===== MONTH BREAKDOWN HEADER =====
+            exSheet.Cells[row, 1] = "Month";
+            exSheet.Cells[row, 2] = "Revenue";
+            exSheet.Cells[row, 3] = "Owner Share";
+            exSheet.Cells[row, 4] = "Employee Share";
+            exSheet.Cells[row, 5] = "Washes";
+            row++;
+
+            var breakdown = lastYearlyTransactions
+                .GroupBy(txn => txn.Timestamp.Month)
+                .OrderBy(g => g.Key)
+                .Select(g => new
+                {
+                    Month = g.Key,
+                    Rev = g.Sum(txn => txn.TotalAmount),
+                    Own = g.Sum(txn => txn.OwnerShare),
+                    Emp = g.Sum(txn => txn.EmployeeShare),
+                    Wash = g.Count()
+                });
+
+            foreach (var m in breakdown)
             {
-                Filter = "Excel Files (*.csv)|*.csv",
-                FileName = $"YearlyReport_{lastYearlyYear}.csv"
-            })
-            {
-                if (dialog.ShowDialog() != DialogResult.OK)
-                {
-                    return;
-                }
+                string monthName = new DateTime(lastYearlyYear, m.Month, 1).ToString("MMMM");
 
-                try
-                {
-                    StringBuilder builder = new StringBuilder();
-                    builder.AppendLine("Tóm tắt,Giá trị");
-                    AppendKeyValueRow(builder, "Tổng doanh thu", txtReportTotalRevenue.Text);
-                    AppendKeyValueRow(builder, "Công ty thực nhận", txtReportOwnerShare.Text);
-                    AppendKeyValueRow(builder, "Nhân viên thực nhận", txtReportEmpShare.Text);
-                    AppendKeyValueRow(builder, "Tổng lượt rửa", txtReportTotalWashes.Text);
-                    AppendKeyValueRow(builder, "Phương tiện phổ biến nhất", txtReportMostWashed.Text);
-                    AppendKeyValueRow(builder, "Dịch vụ phổ biến nhất", txtReportMostService.Text);
-                    AppendKeyValueRow(builder, lblReportHighestDay.Text, txtReportHighestDay.Text);
-                    AppendKeyValueRow(builder, "Tổng chi phí", txtReportTotalExpenses.Text);
-                    AppendKeyValueRow(builder, "Lợi nhuận ròng", txtReportNetProfit.Text);
-
-                    builder.AppendLine();
-                    builder.AppendLine("Tháng,Doanh thu,Công ty,Nhân viên,Số lần rửa");
-
-                    var monthlyBreakdown = lastYearlyTransactions
-                        .GroupBy(txn => txn.Timestamp.Month)
-                        .OrderBy(g => g.Key)
-                        .Select(g => new
-                        {
-                            Month = g.Key,
-                            Revenue = g.Sum(txn => txn.TotalAmount),
-                            OwnerShare = g.Sum(txn => txn.OwnerShare),
-                            EmployeeShare = g.Sum(txn => txn.EmployeeShare),
-                            Washes = g.Count()
-                        })
-                        .ToList();
-
-                    foreach (var monthData in monthlyBreakdown)
-                    {
-                        string monthName = new DateTime(lastYearlyYear, monthData.Month, 1).ToString("MMMM");
-                        builder.AppendLine(string.Join(",", new[]
-                        {
-                            EscapeCsv(monthName),
-                            EscapeCsv(monthData.Revenue.ToString("N2")),
-                            EscapeCsv(monthData.OwnerShare.ToString("N2")),
-                            EscapeCsv(monthData.EmployeeShare.ToString("N2")),
-                            EscapeCsv(monthData.Washes.ToString())
-                        }));
-                    }
-
-                    File.WriteAllText(dialog.FileName, builder.ToString(), Encoding.UTF8);
-                    MessageBox.Show("Đã xuất báo cáo theo năm.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Không thể xuất file: {ex.Message}", "Lỗi xuất file", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                exSheet.Cells[row, 1] = monthName;
+                exSheet.Cells[row, 2] = m.Rev.ToString("N2");
+                exSheet.Cells[row, 3] = m.Own.ToString("N2");
+                exSheet.Cells[row, 4] = m.Emp.ToString("N2");
+                exSheet.Cells[row, 5] = m.Wash.ToString();
+                row++;
             }
+
+            exSheet.Columns.AutoFit();
+            exSheet.Name = "YearlyReport";
+
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "Excel File (*.xlsx)|*.xlsx";
+            dlg.FileName = $"YearlyReport_{lastYearlyYear}.xlsx";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                exBook.SaveAs(dlg.FileName);
+                MessageBox.Show("Đã xuất báo cáo năm thành công!",
+       "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            exApp.Quit();
         }
+
 
         private void AppendListViewToCsv(ListView listView, StringBuilder builder)
         {

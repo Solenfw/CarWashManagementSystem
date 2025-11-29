@@ -74,7 +74,7 @@ namespace CarWashManagement.UI
             this.lblSelectMonth.Location = new System.Drawing.Point(37, 27);
             this.lblSelectMonth.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblSelectMonth.Name = "lblSelectMonth";
-            this.lblSelectMonth.Size = new System.Drawing.Size(88, 20);
+            this.lblSelectMonth.Size = new System.Drawing.Size(73, 15);
             this.lblSelectMonth.TabIndex = 0;
             this.lblSelectMonth.Text = "Chọn tháng:";
             // 
@@ -85,7 +85,7 @@ namespace CarWashManagement.UI
             this.dtpReportDate.Location = new System.Drawing.Point(146, 19);
             this.dtpReportDate.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dtpReportDate.Name = "dtpReportDate";
-            this.dtpReportDate.Size = new System.Drawing.Size(198, 27);
+            this.dtpReportDate.Size = new System.Drawing.Size(198, 23);
             this.dtpReportDate.TabIndex = 1;
             // 
             // btnGenerateReport
@@ -169,7 +169,7 @@ namespace CarWashManagement.UI
             this.lblReportNetProfit.Location = new System.Drawing.Point(400, 377);
             this.lblReportNetProfit.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportNetProfit.Name = "lblReportNetProfit";
-            this.lblReportNetProfit.Size = new System.Drawing.Size(212, 17);
+            this.lblReportNetProfit.Size = new System.Drawing.Size(167, 13);
             this.lblReportNetProfit.TabIndex = 17;
             this.lblReportNetProfit.Text = "Lợi nhuận ròng của công ty:";
             // 
@@ -182,7 +182,7 @@ namespace CarWashManagement.UI
             this.txtReportNetProfit.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportNetProfit.Name = "txtReportNetProfit";
             this.txtReportNetProfit.ReadOnly = true;
-            this.txtReportNetProfit.Size = new System.Drawing.Size(240, 23);
+            this.txtReportNetProfit.Size = new System.Drawing.Size(240, 20);
             this.txtReportNetProfit.TabIndex = 16;
             this.txtReportNetProfit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -193,7 +193,7 @@ namespace CarWashManagement.UI
             this.lblReportTotalExpenses.Location = new System.Drawing.Point(21, 377);
             this.lblReportTotalExpenses.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportTotalExpenses.Name = "lblReportTotalExpenses";
-            this.lblReportTotalExpenses.Size = new System.Drawing.Size(94, 20);
+            this.lblReportTotalExpenses.Size = new System.Drawing.Size(77, 15);
             this.lblReportTotalExpenses.TabIndex = 15;
             this.lblReportTotalExpenses.Text = "Tổng chi phí:";
             // 
@@ -205,7 +205,7 @@ namespace CarWashManagement.UI
             this.txtReportTotalExpenses.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportTotalExpenses.Name = "txtReportTotalExpenses";
             this.txtReportTotalExpenses.ReadOnly = true;
-            this.txtReportTotalExpenses.Size = new System.Drawing.Size(240, 27);
+            this.txtReportTotalExpenses.Size = new System.Drawing.Size(240, 23);
             this.txtReportTotalExpenses.TabIndex = 14;
             this.txtReportTotalExpenses.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -216,7 +216,7 @@ namespace CarWashManagement.UI
             this.lblReportHighestDay.Location = new System.Drawing.Point(21, 292);
             this.lblReportHighestDay.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportHighestDay.Name = "lblReportHighestDay";
-            this.lblReportHighestDay.Size = new System.Drawing.Size(146, 20);
+            this.lblReportHighestDay.Size = new System.Drawing.Size(117, 15);
             this.lblReportHighestDay.TabIndex = 13;
             this.lblReportHighestDay.Text = "Ngày cao điểm nhất:";
             // 
@@ -228,7 +228,7 @@ namespace CarWashManagement.UI
             this.txtReportHighestDay.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportHighestDay.Name = "txtReportHighestDay";
             this.txtReportHighestDay.ReadOnly = true;
-            this.txtReportHighestDay.Size = new System.Drawing.Size(240, 27);
+            this.txtReportHighestDay.Size = new System.Drawing.Size(240, 23);
             this.txtReportHighestDay.TabIndex = 12;
             this.txtReportHighestDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -239,7 +239,7 @@ namespace CarWashManagement.UI
             this.lblReportMostService.Location = new System.Drawing.Point(400, 208);
             this.lblReportMostService.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportMostService.Name = "lblReportMostService";
-            this.lblReportMostService.Size = new System.Drawing.Size(233, 20);
+            this.lblReportMostService.Size = new System.Drawing.Size(189, 15);
             this.lblReportMostService.TabIndex = 11;
             this.lblReportMostService.Text = "Dịch vụ được lựa chọn nhiều nhất:";
             // 
@@ -251,7 +251,7 @@ namespace CarWashManagement.UI
             this.txtReportMostService.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportMostService.Name = "txtReportMostService";
             this.txtReportMostService.ReadOnly = true;
-            this.txtReportMostService.Size = new System.Drawing.Size(240, 27);
+            this.txtReportMostService.Size = new System.Drawing.Size(240, 23);
             this.txtReportMostService.TabIndex = 10;
             this.txtReportMostService.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -262,7 +262,7 @@ namespace CarWashManagement.UI
             this.lblReportMostWashed.Location = new System.Drawing.Point(21, 208);
             this.lblReportMostWashed.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportMostWashed.Name = "lblReportMostWashed";
-            this.lblReportMostWashed.Size = new System.Drawing.Size(188, 20);
+            this.lblReportMostWashed.Size = new System.Drawing.Size(152, 15);
             this.lblReportMostWashed.TabIndex = 9;
             this.lblReportMostWashed.Text = "Phương tiện phổ biến nhất:";
             // 
@@ -274,7 +274,7 @@ namespace CarWashManagement.UI
             this.txtReportMostWashed.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportMostWashed.Name = "txtReportMostWashed";
             this.txtReportMostWashed.ReadOnly = true;
-            this.txtReportMostWashed.Size = new System.Drawing.Size(240, 27);
+            this.txtReportMostWashed.Size = new System.Drawing.Size(240, 23);
             this.txtReportMostWashed.TabIndex = 8;
             this.txtReportMostWashed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -285,7 +285,7 @@ namespace CarWashManagement.UI
             this.lblReportEmpShare.Location = new System.Drawing.Point(400, 123);
             this.lblReportEmpShare.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportEmpShare.Name = "lblReportEmpShare";
-            this.lblReportEmpShare.Size = new System.Drawing.Size(149, 20);
+            this.lblReportEmpShare.Size = new System.Drawing.Size(122, 15);
             this.lblReportEmpShare.TabIndex = 7;
             this.lblReportEmpShare.Text = "Nhân Viên thực nhận:";
             // 
@@ -297,7 +297,7 @@ namespace CarWashManagement.UI
             this.txtReportEmpShare.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportEmpShare.Name = "txtReportEmpShare";
             this.txtReportEmpShare.ReadOnly = true;
-            this.txtReportEmpShare.Size = new System.Drawing.Size(240, 27);
+            this.txtReportEmpShare.Size = new System.Drawing.Size(240, 23);
             this.txtReportEmpShare.TabIndex = 6;
             this.txtReportEmpShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -308,7 +308,7 @@ namespace CarWashManagement.UI
             this.lblReportOwnerShare.Location = new System.Drawing.Point(21, 123);
             this.lblReportOwnerShare.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportOwnerShare.Name = "lblReportOwnerShare";
-            this.lblReportOwnerShare.Size = new System.Drawing.Size(132, 20);
+            this.lblReportOwnerShare.Size = new System.Drawing.Size(109, 15);
             this.lblReportOwnerShare.TabIndex = 5;
             this.lblReportOwnerShare.Text = "Công ty thực nhận:";
             // 
@@ -320,7 +320,7 @@ namespace CarWashManagement.UI
             this.txtReportOwnerShare.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportOwnerShare.Name = "txtReportOwnerShare";
             this.txtReportOwnerShare.ReadOnly = true;
-            this.txtReportOwnerShare.Size = new System.Drawing.Size(240, 27);
+            this.txtReportOwnerShare.Size = new System.Drawing.Size(240, 23);
             this.txtReportOwnerShare.TabIndex = 4;
             this.txtReportOwnerShare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -331,7 +331,7 @@ namespace CarWashManagement.UI
             this.lblReportTotalWashes.Location = new System.Drawing.Point(400, 39);
             this.lblReportTotalWashes.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportTotalWashes.Name = "lblReportTotalWashes";
-            this.lblReportTotalWashes.Size = new System.Drawing.Size(115, 20);
+            this.lblReportTotalWashes.Size = new System.Drawing.Size(92, 15);
             this.lblReportTotalWashes.TabIndex = 3;
             this.lblReportTotalWashes.Text = "Tổng lượng rửa:";
             // 
@@ -343,7 +343,7 @@ namespace CarWashManagement.UI
             this.txtReportTotalWashes.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportTotalWashes.Name = "txtReportTotalWashes";
             this.txtReportTotalWashes.ReadOnly = true;
-            this.txtReportTotalWashes.Size = new System.Drawing.Size(240, 27);
+            this.txtReportTotalWashes.Size = new System.Drawing.Size(240, 23);
             this.txtReportTotalWashes.TabIndex = 2;
             this.txtReportTotalWashes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -354,7 +354,7 @@ namespace CarWashManagement.UI
             this.lblReportTotalRevenue.Location = new System.Drawing.Point(21, 39);
             this.lblReportTotalRevenue.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportTotalRevenue.Name = "lblReportTotalRevenue";
-            this.lblReportTotalRevenue.Size = new System.Drawing.Size(117, 20);
+            this.lblReportTotalRevenue.Size = new System.Drawing.Size(96, 15);
             this.lblReportTotalRevenue.TabIndex = 1;
             this.lblReportTotalRevenue.Text = "Tổng doanh thu:";
             // 
@@ -367,7 +367,7 @@ namespace CarWashManagement.UI
             this.txtReportTotalRevenue.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReportTotalRevenue.Name = "txtReportTotalRevenue";
             this.txtReportTotalRevenue.ReadOnly = true;
-            this.txtReportTotalRevenue.Size = new System.Drawing.Size(240, 23);
+            this.txtReportTotalRevenue.Size = new System.Drawing.Size(240, 20);
             this.txtReportTotalRevenue.TabIndex = 0;
             this.txtReportTotalRevenue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -379,7 +379,7 @@ namespace CarWashManagement.UI
             this.lblEntries.Location = new System.Drawing.Point(14, 572);
             this.lblEntries.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblEntries.Name = "lblEntries";
-            this.lblEntries.Size = new System.Drawing.Size(141, 25);
+            this.lblEntries.Size = new System.Drawing.Size(109, 20);
             this.lblEntries.TabIndex = 6;
             this.lblEntries.Text = "Phiếu hóa đơn";
             // 
@@ -450,7 +450,8 @@ namespace CarWashManagement.UI
             // ReportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(824, 1045);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(824, 749);
             this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.lsvMonthlyEntries);
             this.Controls.Add(this.lblEntries);

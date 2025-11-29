@@ -152,7 +152,7 @@ namespace CarWashManagement.UI
             this.logoutButton.BackColor = System.Drawing.Color.White;
             this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.logoutButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.logoutButton.Location = new System.Drawing.Point(1347, 6);
+            this.logoutButton.Location = new System.Drawing.Point(1259, 3);
             this.logoutButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logoutButton.Name = "logoutButton";
             this.logoutButton.Size = new System.Drawing.Size(95, 35);
@@ -240,7 +240,7 @@ namespace CarWashManagement.UI
             this.btnChangePassword.BackColor = System.Drawing.Color.White;
             this.btnChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.btnChangePassword.Location = new System.Drawing.Point(1223, 6);
+            this.btnChangePassword.Location = new System.Drawing.Point(1135, 3);
             this.btnChangePassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(116, 35);
@@ -563,7 +563,7 @@ namespace CarWashManagement.UI
             this.lblEmployee.Location = new System.Drawing.Point(18, 17);
             this.lblEmployee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployee.Name = "lblEmployee";
-            this.lblEmployee.Size = new System.Drawing.Size(83, 15);
+            this.lblEmployee.Size = new System.Drawing.Size(84, 15);
             this.lblEmployee.TabIndex = 0;
             this.lblEmployee.Text = "Tên nhân viên:";
             // 
@@ -572,7 +572,7 @@ namespace CarWashManagement.UI
             this.btnExportToday.BackColor = System.Drawing.Color.White;
             this.btnExportToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.btnExportToday.Location = new System.Drawing.Point(321, 10);
+            this.btnExportToday.Location = new System.Drawing.Point(241, 1);
             this.btnExportToday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnExportToday.Name = "btnExportToday";
             this.btnExportToday.Size = new System.Drawing.Size(157, 29);
@@ -652,19 +652,19 @@ namespace CarWashManagement.UI
             this.togglePaidStatusToolStripMenuItem,
             this.toggleWashStatusToolStripMenuItem});
             this.lsvContextMenu.Name = "lsvContextMenu";
-            this.lsvContextMenu.Size = new System.Drawing.Size(214, 48);
+            this.lsvContextMenu.Size = new System.Drawing.Size(198, 48);
             // 
             // togglePaidStatusToolStripMenuItem
             // 
             this.togglePaidStatusToolStripMenuItem.Name = "togglePaidStatusToolStripMenuItem";
-            this.togglePaidStatusToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.togglePaidStatusToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.togglePaidStatusToolStripMenuItem.Text = "Thay đổi trạng thái Trả";
             this.togglePaidStatusToolStripMenuItem.Click += new System.EventHandler(this.TogglePaidStatus_Click);
             // 
             // toggleWashStatusToolStripMenuItem
             // 
             this.toggleWashStatusToolStripMenuItem.Name = "toggleWashStatusToolStripMenuItem";
-            this.toggleWashStatusToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.toggleWashStatusToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.toggleWashStatusToolStripMenuItem.Text = "Thay đổi trạng thái Rửa";
             this.toggleWashStatusToolStripMenuItem.Click += new System.EventHandler(this.ToggleWashStatus_Click);
             // 
@@ -848,7 +848,7 @@ namespace CarWashManagement.UI
             this.label1.Location = new System.Drawing.Point(375, 52);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 15);
+            this.label1.Size = new System.Drawing.Size(84, 15);
             this.label1.TabIndex = 24;
             this.label1.Text = "Tên nhân viên:";
             // 
@@ -940,7 +940,7 @@ namespace CarWashManagement.UI
             this.label3.Location = new System.Drawing.Point(693, 51);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 15);
+            this.label3.Size = new System.Drawing.Size(60, 15);
             this.label3.TabIndex = 28;
             this.label3.Text = "Thời gian:";
             // 
@@ -1001,7 +1001,7 @@ namespace CarWashManagement.UI
             // 
             // pchVehicles
             // 
-            this.pchVehicles.Location = new System.Drawing.Point(1018, 340);
+            this.pchVehicles.Location = new System.Drawing.Point(959, 322);
             this.pchVehicles.Name = "pchVehicles";
             this.pchVehicles.Size = new System.Drawing.Size(385, 419);
             this.pchVehicles.TabIndex = 35;
@@ -1022,7 +1022,8 @@ namespace CarWashManagement.UI
             // DashboardForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1455, 762);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.pchVehicles);
             this.Controls.Add(this.label7);

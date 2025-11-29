@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace CarWashManagement.UI
 {
@@ -718,52 +720,73 @@ namespace CarWashManagement.UI
                 return;
             }
 
-            using (SaveFileDialog dialog = new SaveFileDialog
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Excel File (*.xlsx)|*.xlsx";
+            dialog.FileName = $"DailyTransactions_{DateTime.Today:yyyyMMdd}.xlsx";
+
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            Excel.Application exApp = new Excel.Application();
+            exApp.Visible = false;
+            exApp.DisplayAlerts = false;
+
+            Excel.Workbook exBook = exApp.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
+            Excel.Worksheet exSheet = (Excel.Worksheet)exBook.Worksheets[1];
+            Excel.Range cell = (Excel.Range)exSheet.Cells[1, 1];
+
+            // ======= TIÊU ĐỀ =======
+            cell.Range["B2"].Font.Size = 20;
+            cell.Range["B2"].Font.Bold = true;
+            cell.Range["B2"].Font.Name = "Times New Roman";
+            cell.Range["B2"].Font.Color = Color.Red;
+            cell.Range["B2"].Value2 = "DAILY TRANSACTIONS REPORT";
+
+            // ======= HEADER =======
+            cell.Range["A4:F4"].Font.Bold = true;
+            cell.Range["A4:F4"].Font.Size = 12;
+            cell.Range["A4:F4"].Font.Name = "Times New Roman";
+
+            exSheet.Cells[4, 1] = "Time";
+            exSheet.Cells[4, 2] = "Vehicle";
+            exSheet.Cells[4, 3] = "Employee";
+            exSheet.Cells[4, 4] = "Total";
+            exSheet.Cells[4, 5] = "Paid";
+            exSheet.Cells[4, 6] = "Wash Status";
+
+            // ======= ĐỔ DỮ LIỆU =======
+            int row = 5;
+
+            foreach (ListViewItem item in lsvTodayEntries.Items)
             {
-                Filter = "Excel Files (*.csv)|*.csv",
-                FileName = $"DailyTransactions_{DateTime.Today:yyyyMMdd}.csv"
-            })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        ExportListViewToCsv(lsvTodayEntries, dialog.FileName);
-                        MessageBox.Show("Đã xuất danh sách theo ngày thành công.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Không thể xuất file: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                exSheet.Cells[row, 1] = item.SubItems[0].Text;
+                exSheet.Cells[row, 2] = item.SubItems[1].Text;
+                exSheet.Cells[row, 3] = item.SubItems[2].Text;
+                exSheet.Cells[row, 4] = item.SubItems[3].Text;
+                exSheet.Cells[row, 5] = item.SubItems[4].Text;
+                exSheet.Cells[row, 6] = item.SubItems[5].Text;
+
+                row++;
             }
+
+            // Auto fit
+            exSheet.Columns.AutoFit();
+            exSheet.Name = "TodayReport";
+
+            try
+            {
+                exBook.SaveAs(dialog.FileName, Excel.XlFileFormat.xlWorkbookDefault);
+                MessageBox.Show("Xuất Excel thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lưu file: " + ex.Message);
+            }
+
+            exBook.Close();
+            exApp.Quit();
         }
 
-        private void ExportListViewToCsv(ListView listView, string filePath)
-        {
-            StringBuilder builder = new StringBuilder();
-
-            var headers = listView.Columns.Cast<ColumnHeader>()
-                .Select(col => EscapeCsv(col.Text));
-            builder.AppendLine(string.Join(",", headers));
-
-            foreach (ListViewItem item in listView.Items)
-            {
-                List<string> cells = new List<string>
-                {
-                    EscapeCsv(item.Text)
-                };
-
-                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems.Cast<ListViewItem.ListViewSubItem>().Skip(1))
-                {
-                    cells.Add(EscapeCsv(subItem.Text));
-                }
-
-                builder.AppendLine(string.Join(",", cells));
-            }
-
-            File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
-        }
 
         private string EscapeCsv(string input)
         {
